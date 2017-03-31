@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:id="@+id/linearLayout1">
+<!--CENTER IMAGE-->
+    <ImageView
+        android:src="@drawable/icon"
+        android:layout_height="75dp"
+        android:layout_width="75dp"
+        android:id="@+id/ImgLogo"
+        android:layout_centerHorizontal="true" />
+<!--CANDADO-->
+    <ImageButton
+        android:id="@+id/imgBtnCandado"
+        android:src="@drawable/candado"
+        android:scaleType="centerInside"
+        android:layout_height="40dip"
+        android:layout_width="40dip"
+        android:layout_alignParentRight="true" />
+<!--TUERCA-->
+    <ImageButton
+        android:id="@+id/imgBtnTuerca"
+        android:src="@drawable/tuerca"
+        android:scaleType="centerInside"
+        android:layout_height="40dip"
+        android:layout_width="40dip"
+        android:layout_marginBottom="10.0dp"
+        android:layout_below="@id/imgBtnCandado"
+        android:layout_alignParentRight="true"
+        android:clickable="true" />
+<!--TITULO SELECT-->
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="277.0dp"
+        android:text="@string/categorias"
+        android:id="@+id/spinnerLabel"
+        android:layout_below="@id/ImgLogo" />
+<!--CATEGORIAS-->
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:prompt="@string/categorias"
+        android:layout_below="@id/spinnerLabel" />
+<!--LISTVIEW-->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_below="@id/spinner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+</RelativeLayout>

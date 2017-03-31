@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="categorias">CATEGORIAS</string>
+  <string-array name="planets_array">
+    <item>TODOS</item>
+    <item>Vodka</item>
+    <item>Whisky</item>
+    <item>Basico</item>
+    <item>Vinos</item>
+    <item>Cocktails</item>
+    <item>Cerveza</item>
+  </string-array>
+</resources>
