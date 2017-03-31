@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.OS;
 using System;
 using Android.Views;
+using Android.Content;
 
 namespace AppDrinkAndroid
 {
@@ -11,6 +12,7 @@ namespace AppDrinkAndroid
     {
         ImageButton btnTuerca;
         ImageButton btnCandado;
+        ImageButton btnAgregarTrago;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,6 +28,15 @@ namespace AppDrinkAndroid
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
+
+            //BTN AGREGAR TRAGO
+            btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
+            btnAgregarTrago.Click += (e, o) =>
+            {
+                Intent i = new Intent(this, typeof(DrinkEdit));
+                StartActivity(i);
+            };
+
 
             //BTN TUERCA
             btnTuerca = FindViewById<ImageButton>(Resource.Id.imgBtnTuerca);
