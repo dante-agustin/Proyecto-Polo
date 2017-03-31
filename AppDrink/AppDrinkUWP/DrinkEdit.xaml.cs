@@ -52,7 +52,7 @@ namespace AppDrinkUWP
             hubTitle.Header = "Agregar trago";
 
             //Si no existe imagen para ese trago, cargar imagen por defecto
-            BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drink-default.jpg"));
+            BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
             drinkImageCapture.Source = drinkImageDefault;
         }
 

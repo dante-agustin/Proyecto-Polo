@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <EditText
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etNombre"
-        android:hint="Ingrese el nombre" />
+        android:hint="@string/ingreserNombre" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,20 +21,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etIngredientes"
-        android:hint="Ingrese los ingredientes" />
+        android:hint="@string/ingreserIngredientes" />
     <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
+        android:src="@drawable/drinkdefault"
+        android:layout_width="match_parent"
+        android:layout_height="256.0dp"
+        android:id="@+id/imgViewDrinkCapture"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="0.0dp" />
+    <ImageButton
+        android:src="@drawable/agregarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBtnAgregarFoto"
+        android:clickable="true" />
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageViewDrinkCapture" />
-    <Button
-        android:text="Guardar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btGuardar" />
-    <Button
-        android:text="Cancelar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btCancelar" />
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout1">
+        <Button
+            android:text="@string/btnGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:id="@+id/btGuardar" />
+        <Button
+            android:text="@string/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="100dp"
+            android:id="@+id/btCancelar" />
+    </LinearLayout>
 </LinearLayout>

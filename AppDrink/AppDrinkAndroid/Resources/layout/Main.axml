@@ -8,7 +8,7 @@
         android:src="@drawable/icon"
         android:layout_height="75dp"
         android:layout_width="75dp"
-        android:id="@+id/ImgLogo"
+        android:id="@+id/imgLogo"
         android:layout_centerHorizontal="true" />
 <!--CANDADO-->
     <ImageButton
@@ -31,21 +31,22 @@
         android:clickable="true" />
 <!--AGREGAR TRAGO-->
     <ImageButton
-        android:id="@id/imgBtnAgregarTrago"
         android:src="@drawable/agregarTrago"
         android:scaleType="centerCrop"
         android:layout_alignParentRight="false"
         android:clickable="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/imgBtnAgregarTrago"
+        android:padding="0dp"
         android:layout_height="50dp"
-        android:layout_width="40dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_width="50dp" />
 <!--TITULO SELECT-->
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="277.0dp"
         android:text="@string/categorias"
         android:id="@+id/spinnerLabel"
-        android:layout_below="@id/ImgLogo" />
+        android:layout_below="@id/imgLogo" />
 <!--CATEGORIAS-->
     <Spinner
         android:id="@+id/spinner"

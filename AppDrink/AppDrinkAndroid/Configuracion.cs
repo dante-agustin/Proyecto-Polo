@@ -20,8 +20,6 @@ namespace AppDrinkAndroid
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Configuracion);
-
-            // Create your application here
         }
     }
 }
