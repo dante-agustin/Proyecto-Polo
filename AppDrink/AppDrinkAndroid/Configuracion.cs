@@ -26,13 +26,14 @@ namespace AppDrinkAndroid
             SetContentView(Resource.Layout.Configuracion);
 
             checkboxPrecio = FindViewById<CheckBox>(Resource.Id.checkBoxPrecio);
-            checkboxIngred = FindViewById<CheckBox>(Resource.Id.checkBoxIngredientes);
+            checkboxIngred = FindViewById<CheckBox>(Resource.Id.checkBoxIngrendientes);
             btnGuardar = FindViewById<Button>(Resource.Id.btGuardar);
             btnCancelar = FindViewById<Button>(Resource.Id.btCancelar);
 
+            /*
             if ( btnGuardar.onClick() ) //si das click en guardar, va mirando los checkbox y hace los cambios
             {
-                if (checkboxPrecio.isChecked())
+                if (checkboxPrecio.Checked)
                 {
                     //si esta chequeado, el TextViewPrecio tiene que estar en show
                 }
@@ -41,7 +42,7 @@ namespace AppDrinkAndroid
                     //sino, tiene que estar en hide
                 }
 
-                if (checkboxIngred.isChecked())
+                if (checkboxIngred.Checked)
                 {
                     //si esta chequeado, el TextViewIngred tiene que estar en show
                 }
@@ -51,12 +52,13 @@ namespace AppDrinkAndroid
                 }
                 StartActivity(typeof(MainActivity));
             }
-            
-            if ( btnCancelar.onClick() ) //si das click en cancelar no hace nada
+            */
+            /*
+            if ( btnCancelar.onClick() ) //va al Main pero no pasa con poderes de mod
             {
-                StartActivity(typeof(MainActivity));
+               //return to main activity
             }
-
+            */
 
         }
     }

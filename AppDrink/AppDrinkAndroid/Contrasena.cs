@@ -43,10 +43,12 @@ namespace AppDrinkAndroid
                 }
             }
            */
-            if ( btnCancelar.onClick() ) //va al Main pero no pasa con poderes de mod
-            {
-                StartActivity(typeof(MainActivity));
-            }
+            /*
+             if ( btnCancelar.onClick() ) //va al Main pero no pasa con poderes de mod
+             {
+            StartActivity(typeof(MainActivity));
+             }
+             */
         }
     }
 }

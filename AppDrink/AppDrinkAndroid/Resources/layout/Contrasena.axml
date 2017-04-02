@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/txtTitulo"
-        android:textSize="25"
+        android:textSize="25dp"
         android:layout_marginTop="10dp"
         android:gravity="center" />
     <TextView
@@ -19,7 +19,7 @@
         android:layout_height="30dp"
         android:layout_marginLeft="30dp"
         android:id="@+id/txtTitulo2"
-        android:textSize="18"
+        android:textSize="18dp"
         android:layout_marginTop="100dp"
         android:layout_below="@id/txtTitulo" />
     <EditText
@@ -33,7 +33,7 @@
         android:layout_height="35dp"
         android:id="@+id/txtIncorrecta"
         android:visibility="invisible"
-        android:textSize="12"
+        android:textSize="12dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light" />
