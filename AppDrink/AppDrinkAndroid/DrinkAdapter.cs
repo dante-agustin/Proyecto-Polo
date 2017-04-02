@@ -39,10 +39,7 @@ namespace AppDrinkAndroid
         {
             get { return drinks.Count; }
         }
-
-        //DANTE GATO
-
-
+        
 
         public override Android.Views.View GetView(int position, Android.Views.View convertView, Android.Views.ViewGroup parent)
         {
@@ -56,13 +53,14 @@ namespace AppDrinkAndroid
                     context.LayoutInflater.Inflate(
                     Resource.Layout.DrinkListItem,
                     parent,
-                    false)) as LinearLayout;
+                    false)) as RelativeLayout;
 
 
             // Find references to each subview in the list item's view
             TextView tvNombre = view.FindViewById<TextView>(Resource.Id.tvNombre);
             TextView tvIngredientes = view.FindViewById<TextView>(Resource.Id.tvIngredientes);
             TextView tvCategoria = view.FindViewById<TextView>(Resource.Id.tvCategoria);
+            TextView tvPrecio = view.FindViewById<TextView>(Resource.Id.tvPrecio);
             // ImageView imgViewDrinkImage = view.FindViewById<ImageView>(Resource.Id.imgViewDrinkImage);
 
             UserConfig uc = UserConfig.Instance();
@@ -70,16 +68,18 @@ namespace AppDrinkAndroid
                 tvIngredientes.Visibility  = ViewStates.Visible;
             else
                 tvIngredientes.Visibility = ViewStates.Invisible;
-            /*
-            if (MainActivity.uc.showPrecio)
-                tvPrecio = ViewStates.Visible;
-            */
+
+            if (uc.showPrecio)
+                tvPrecio.Visibility = ViewStates.Visible;
+            else
+                tvPrecio.Visibility = ViewStates.Invisible;
 
 
             //Assign item's values to the various subviews
             tvNombre.SetText(item.nombre, TextView.BufferType.Normal);
             tvIngredientes.SetText(item.ingredientes, TextView.BufferType.Normal);
             tvCategoria.SetText(item.categoria, TextView.BufferType.Normal);
+            tvPrecio.SetText(item.precio, TextView.BufferType.Normal);
             //Sacar despues el android:src="@drawable/drinkdefault" de DrinkListItem
 
 

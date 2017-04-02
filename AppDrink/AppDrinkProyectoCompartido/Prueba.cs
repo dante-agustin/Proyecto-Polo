@@ -11,7 +11,7 @@ namespace AppDrinkProyectoCompartido
         static Prueba()
         {
             lista = new List<Drink>();
-            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka");
+            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka", "200");
             lista.Add(trago);
                      
         }
