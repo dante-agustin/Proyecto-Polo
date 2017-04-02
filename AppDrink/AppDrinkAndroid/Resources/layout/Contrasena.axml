@@ -2,6 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="CONTRASEÑA"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/txtTitulo"
+        android:textSize="25"
+        android:layout_marginTop="10dp"
+        android:gravity="center" />
+    <TextView
+        android:text="INGRESE SU CONTRASEÑA"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/txtTitulo2"
+        android:textSize="18"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/txtTitulo" />
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPassword" />
+    <TextView
+        android:text="CONTRASEÑA INCORRECTA, INTENTE NUEVAMENTE"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/txtIncorrecta"
+        android:visibility="invisible"
+        android:textSize="12"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light" />
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout1">
+        <Button
+            android:text="INGRESAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:id="@+id/btIngresar" />
+        <Button
+            android:text="@string/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="80dp"
+            android:id="@+id/btCancelar" />
+    </LinearLayout>
 </LinearLayout>
