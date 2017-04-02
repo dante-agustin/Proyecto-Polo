@@ -39,8 +39,7 @@ namespace AppDrinkAndroid
         {
             get { return drinks.Count; }
         }
-
-        //DANTE GATO
+        
 
 
 
