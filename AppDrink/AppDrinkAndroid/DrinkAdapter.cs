@@ -65,6 +65,15 @@ namespace AppDrinkAndroid
             TextView tvCategoria = view.FindViewById<TextView>(Resource.Id.tvCategoria);
             // ImageView imgViewDrinkImage = view.FindViewById<ImageView>(Resource.Id.imgViewDrinkImage);
 
+            UserConfig uc = UserConfig.Instance();
+            if (uc.showIngredientes)
+                tvIngredientes.Visibility  = ViewStates.Visible;
+            else
+                tvIngredientes.Visibility = ViewStates.Invisible;
+            /*
+            if (MainActivity.uc.showPrecio)
+                tvPrecio = ViewStates.Visible;
+            */
 
 
             //Assign item's values to the various subviews

@@ -45,7 +45,7 @@ namespace AppDrinkAndroid
 
             btnCancelar.Click += (e, o) =>
             {
-                StartActivity(typeof(MainActivity));
+                base.OnBackPressed();
             };
         }
     }

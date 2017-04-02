@@ -30,23 +30,32 @@ namespace AppDrinkAndroid
             btnGuardar = FindViewById<Button>(Resource.Id.btGuardar);
             btnCancelar = FindViewById<Button>(Resource.Id.btCancelar);
 
+            UserConfig uc = UserConfig.Instance();
+
+            //LOAD PREVIOUS CONFIG
+            checkboxPrecio.Checked = uc.showPrecio;
+            checkboxIngred.Checked = uc.showIngredientes;
+
+            //ON CLICK METHODS
             btnGuardar.Click += (e, o) =>
             {
                 if (checkboxPrecio.Checked)
                 {
-                    //si esta chequeado, el TextViewPrecio tiene que estar en show
+                    uc.showPrecio = true;
                 }
                 else
                 {
-                    //sino, tiene que estar en hide
+                    uc.showPrecio = false;
                 }
 
                 if (checkboxIngred.Checked)
                 {
+                    uc.showIngredientes = true;
                     //si esta chequeado, el TextViewIngred tiene que estar en show
                 }
                 else
                 {
+                    uc.showIngredientes = false;
                     //sino, tiene que estar en hide
                 }
                 StartActivity(typeof(MainActivity));
@@ -54,7 +63,7 @@ namespace AppDrinkAndroid
 
             btnCancelar.Click += (e, o) =>
             {
-                StartActivity(typeof(MainActivity));
+                base.OnBackPressed();
             };
         }
     }

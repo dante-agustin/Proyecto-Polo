@@ -20,7 +20,8 @@ namespace AppDrinkAndroid
         ImageButton btnAgregarTrago;
         ListView lvDrinks;
         DrinkAdapter drinkAdapter;
-        
+
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
