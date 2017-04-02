@@ -40,6 +40,8 @@ namespace AppDrinkAndroid
             get { return drinks.Count; }
         }
 
+        //DANTE GATO
+
 
 
         public override Android.Views.View GetView(int position, Android.Views.View convertView, Android.Views.ViewGroup parent)
