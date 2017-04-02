@@ -106,38 +106,50 @@ namespace AppDrinkAndroid
 			// aapt resource value: 0x7f060005
 			public const int imgBtnAgregarFoto = 2131099653;
 			
-			// aapt resource value: 0x7f06000c
-			public const int imgBtnAgregarTrago = 2131099660;
+			// aapt resource value: 0x7f060010
+			public const int imgBtnAgregarTrago = 2131099664;
 			
-			// aapt resource value: 0x7f06000a
-			public const int imgBtnCandado = 2131099658;
+			// aapt resource value: 0x7f06000e
+			public const int imgBtnCandado = 2131099662;
 			
-			// aapt resource value: 0x7f06000b
-			public const int imgBtnTuerca = 2131099659;
+			// aapt resource value: 0x7f06000f
+			public const int imgBtnTuerca = 2131099663;
 			
-			// aapt resource value: 0x7f060009
-			public const int imgLogo = 2131099657;
+			// aapt resource value: 0x7f06000d
+			public const int imgLogo = 2131099661;
 			
 			// aapt resource value: 0x7f060004
 			public const int imgViewDrinkCapture = 2131099652;
 			
+			// aapt resource value: 0x7f060009
+			public const int imgViewDrinkImage = 2131099657;
+			
 			// aapt resource value: 0x7f060006
 			public const int linearLayout1 = 2131099654;
 			
-			// aapt resource value: 0x7f06000f
-			public const int listView = 2131099663;
+			// aapt resource value: 0x7f060013
+			public const int listViewDrinks = 2131099667;
 			
-			// aapt resource value: 0x7f06000e
-			public const int spinner = 2131099662;
+			// aapt resource value: 0x7f060012
+			public const int spinner = 2131099666;
 			
 			// aapt resource value: 0x7f060002
 			public const int spinnerCategoria = 2131099650;
 			
-			// aapt resource value: 0x7f06000d
-			public const int spinnerLabel = 2131099661;
+			// aapt resource value: 0x7f060011
+			public const int spinnerLabel = 2131099665;
 			
 			// aapt resource value: 0x7f060000
 			public const int textView1 = 2131099648;
+			
+			// aapt resource value: 0x7f06000b
+			public const int tvCategoria = 2131099659;
+			
+			// aapt resource value: 0x7f06000c
+			public const int tvIngredientes = 2131099660;
+			
+			// aapt resource value: 0x7f06000a
+			public const int tvNombre = 2131099658;
 			
 			static Id()
 			{
@@ -162,7 +174,10 @@ namespace AppDrinkAndroid
 			public const int DrinkEdit = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int Main = 2130903043;
+			public const int DrinkListItem = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int Main = 2130903044;
 			
 			static Layout()
 			{

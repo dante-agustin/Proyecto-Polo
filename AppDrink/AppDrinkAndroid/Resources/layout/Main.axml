@@ -56,7 +56,7 @@
         android:layout_below="@id/spinnerLabel" />
 <!--LISTVIEW-->
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/listViewDrinks"
         android:layout_below="@id/spinner"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />

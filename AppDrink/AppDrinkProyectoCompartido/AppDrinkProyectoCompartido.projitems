@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Drink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Prueba.cs" />
   </ItemGroup>
 </Project>

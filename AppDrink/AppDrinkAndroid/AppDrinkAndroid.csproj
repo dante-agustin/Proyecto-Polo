@@ -54,6 +54,7 @@
     <Compile Include="Configuracion.cs" />
     <Compile Include="Contrasena.cs" />
     <Compile Include="CustomAdapter.cs" />
+    <Compile Include="DrinkAdapter.cs" />
     <Compile Include="DrinkEdit.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -73,6 +74,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DrinkListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

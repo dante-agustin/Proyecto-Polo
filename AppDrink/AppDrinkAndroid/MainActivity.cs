@@ -18,6 +18,8 @@ namespace AppDrinkAndroid
         ImageButton btnTuerca;
         ImageButton btnCandado;
         ImageButton btnAgregarTrago;
+        ListView lvDrinks;
+        DrinkAdapter drinkAdapter;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,8 +28,7 @@ namespace AppDrinkAndroid
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
-            
-            
+                        
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.drinksCategories_array, Android.Resource.Layout.SimpleSpinnerItem);
@@ -59,6 +60,10 @@ namespace AppDrinkAndroid
                 StartActivity(typeof(Contrasena));
             };
 
+            //List view drinks
+            lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.Prueba.getDrinks());
+            lvDrinks.Adapter = drinkAdapter;
 
         }
 
