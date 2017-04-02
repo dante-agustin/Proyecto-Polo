@@ -30,8 +30,7 @@ namespace AppDrinkAndroid
             btnGuardar = FindViewById<Button>(Resource.Id.btGuardar);
             btnCancelar = FindViewById<Button>(Resource.Id.btCancelar);
 
-            /*
-            if ( btnGuardar.onClick() ) //si das click en guardar, va mirando los checkbox y hace los cambios
+            btnGuardar.Click += (e, o) =>
             {
                 if (checkboxPrecio.Checked)
                 {
@@ -51,15 +50,12 @@ namespace AppDrinkAndroid
                     //sino, tiene que estar en hide
                 }
                 StartActivity(typeof(MainActivity));
-            }
-            */
-            /*
-            if ( btnCancelar.onClick() ) //va al Main pero no pasa con poderes de mod
-            {
-               //return to main activity
-            }
-            */
+            };
 
+            btnCancelar.Click += (e, o) =>
+            {
+                StartActivity(typeof(MainActivity));
+            };
         }
     }
 }

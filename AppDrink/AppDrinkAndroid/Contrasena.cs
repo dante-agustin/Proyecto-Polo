@@ -30,25 +30,23 @@ namespace AppDrinkAndroid
             btnCancelar = FindViewById<Button>(Resource.Id.btCancelar);
             txtIncorrecta = FindViewById<TextView>(Resource.Id.txtIncorrecta);
 
-            /*
-            if ( btnIngresar.onClick() )
+            btnIngresar.Click += (e, o) =>
             {
-                //if ( txtPass.getText() == SQL SELECT password FROM usuario ) 
+                if ( true) //txtPass.getText() == SQL SELECT password FROM usuario ) 
                 {
                     StartActivity(typeof(MainActivity)); //   si esta todo bien, pasa a Main pero con poderes de mod
                 }
                 else
                 {
-                    txtIncorrecta.visibility = "visible"; //en el axml por defecto tiene "invisible"
+                    txtIncorrecta.Visibility = ViewStates.Visible; 
+                    //en el axml por defecto tiene "invisible"
                 }
-            }
-           */
-            /*
-             if ( btnCancelar.onClick() ) //va al Main pero no pasa con poderes de mod
-             {
-            StartActivity(typeof(MainActivity));
-             }
-             */
+            };
+
+            btnCancelar.Click += (e, o) =>
+            {
+                StartActivity(typeof(MainActivity));
+            };
         }
     }
 }
