@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace AppDrinkProyectoCompartido
@@ -10,13 +11,15 @@ namespace AppDrinkProyectoCompartido
         public string nombre { set; get; }
         public string ingredientes { set; get; }
         public string categoria { set; get; }
-        //public virtual string imageURL { get; set; }
+        public string imagePath { get; set; }
+        
 
-        public Drink(string nom, string ingred, string cate)
+        public Drink(string nom, string ingred, string cate, string imgPath)
         {
             this.nombre = nom;
             this.ingredientes = ingred;
             this.categoria = cate;
+            this.imagePath = imgPath;
         }
     }
 }

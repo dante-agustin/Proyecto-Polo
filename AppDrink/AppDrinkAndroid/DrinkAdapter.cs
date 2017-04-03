@@ -9,6 +9,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AppDrinkProyectoCompartido;
+using Android.Graphics;
+using Android.Content.Res;
 
 namespace AppDrinkAndroid
 {
@@ -63,7 +65,7 @@ namespace AppDrinkAndroid
             TextView tvNombre = view.FindViewById<TextView>(Resource.Id.tvNombre);
             TextView tvIngredientes = view.FindViewById<TextView>(Resource.Id.tvIngredientes);
             TextView tvCategoria = view.FindViewById<TextView>(Resource.Id.tvCategoria);
-            // ImageView imgViewDrinkImage = view.FindViewById<ImageView>(Resource.Id.imgViewDrinkImage);
+            ImageView imgViewDrinkImage = view.FindViewById<ImageView>(Resource.Id.imgViewDrinkImage);
 
             UserConfig uc = UserConfig.Instance();
             if (uc.showIngredientes)
@@ -78,9 +80,30 @@ namespace AppDrinkAndroid
 
             //Assign item's values to the various subviews
             tvNombre.SetText(item.nombre, TextView.BufferType.Normal);
-            tvIngredientes.SetText(item.ingredientes, TextView.BufferType.Normal);
             tvCategoria.SetText(item.categoria, TextView.BufferType.Normal);
-            //Sacar despues el android:src="@drawable/drinkdefault" de DrinkListItem
+            tvIngredientes.SetText(item.ingredientes, TextView.BufferType.Normal);
+
+            //cargar la imagen del obj drink en imageview
+            if ( item.imagePath!="default")
+            {
+                //error de memoria en tiempo de ejecucion
+                //imgViewDrinkImage.SetImageBitmap(BitmapFactory.DecodeFile(item.imagePath));
+                
+                Bitmap bitmap = item.imagePath.LoadAndResizeBitmap(100, 100);
+
+                if(bitmap != null)
+                {
+                    imgViewDrinkImage.SetImageBitmap(bitmap);
+                    bitmap = null;
+                }
+
+                // Dispose of the Java side bitmap.
+                GC.Collect();
+            }
+            else{
+              
+                imgViewDrinkImage.SetImageResource(Resource.Drawable.drinkDefault);
+            }
 
 
             //Finally return the view

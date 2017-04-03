@@ -19,8 +19,8 @@ namespace AppDrinkAndroid
 {
     public static class App
     {
-        public static File _file;
-        public static File _dir;
+        public static File file;
+        public static File dir;
         public static Bitmap bitmap;
     }
 
@@ -29,6 +29,14 @@ namespace AppDrinkAndroid
     {
         ImageButton imgBtnAgregarFoto;
         ImageView imgViewDrinkCapture;
+
+        EditText etNombre;
+        Spinner spinnerCategoria;
+        EditText etIngredientes;
+        String drinkPhotoPath="default";
+
+
+        Button btGuardar, btCancelar;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -39,7 +47,15 @@ namespace AppDrinkAndroid
 
             //Cambiar si es un edit
             this.Title = "Agregar trago";
-           
+
+            etNombre = FindViewById<EditText>(Resource.Id.etNombre);
+            etIngredientes = FindViewById<EditText>(Resource.Id.etIngredientes);
+            btGuardar = FindViewById<Button>(Resource.Id.btGuardar);
+            btCancelar = FindViewById<Button>(Resource.Id.btCancelar);
+            spinnerCategoria = FindViewById<Spinner>(Resource.Id.spinnerCategoria);
+            btGuardar.Click += BtGuardar_Click;
+            btCancelar.Click += BtCancelar_Click;
+
             if (IsThereAnAppToTakePictures())
             {
                 CreateDirectoryForPictures();
@@ -48,8 +64,6 @@ namespace AppDrinkAndroid
                 imgViewDrinkCapture = FindViewById<ImageView>(Resource.Id.imgViewDrinkCapture);
 
             }
-
-            Spinner spinnerCategoria = FindViewById<Spinner>(Resource.Id.spinnerCategoria);
 
             var list = new List<String>();
             list.Add("Vodka");
@@ -66,30 +80,78 @@ namespace AppDrinkAndroid
             dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinnerCategoria.Adapter = dataAdapter;
             spinnerCategoria.SetSelection(listsize);
+            
 
+        }
+
+        private void BtCancelar_Click(object sender, EventArgs e)
+        {
+            //base.OnBackPressed();
+            Finish();
+        }
+
+        private void BtGuardar_Click(object sender, EventArgs e)
+        {
+            
+
+            if (string.IsNullOrEmpty(etNombre.Text) || string.IsNullOrEmpty(etIngredientes.Text) ||
+                spinnerCategoria.SelectedItem.ToString()=="Seleccionar la categoria" )
+            {
+                Toast.MakeText(this, "Por favor, complete todos los datos. Ningún campo puede quedar vacío.", ToastLength.Long).Show();
+            }
+            else
+            {
+                /*
+                if (posicion > -1)   //es un edit, no debe crearse un nuevo objeto participante
+                {
+                    SharedProject2.Class1.getParticipantes()[posicion].nombre = etNombre.Text;
+                    SharedProject2.Class1.getParticipantes()[posicion].apellido = etApellido.Text;
+                    SharedProject2.Class1.getParticipantes()[posicion].email = etMail.Text;
+                    SharedProject2.Class1.getParticipantes()[posicion].fechaNac = Convert.ToDateTime(etFechaNac.Text);
+
+                }*/
+
+                string nombre = etNombre.Text;
+                string categoria = spinnerCategoria.SelectedItem.ToString();
+                string ingredientes = etIngredientes.Text;
+
+
+                //drinkPhotoPath queda "default" cuando no se toma una foto
+                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, categoria, ingredientes, drinkPhotoPath);
+                AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
+                Finish();
+            }
         }
 
         private void ImgBtnAgregarFoto_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(MediaStore.ActionImageCapture);
-            App._file = new File(App._dir, String.Format("myPhoto_{0}.jpg", Guid.NewGuid()));
-            intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App._file)); 
-            StartActivityForResult(intent, 0);  
-                 
+            Intent intent = new Intent(Android.Provider.MediaStore.ActionImageCapture);
+            if( string.IsNullOrEmpty(etNombre.Text))
+            {
+                Toast.MakeText(this,"Debe escribir el nombre del trago antes de tomar una foto del mismo.", ToastLength.Short).Show();
+            }else
+            {
+                string nombreFoto = etNombre.Text;
+                App.file = new File(App.dir, String.Format(nombreFoto, Guid.NewGuid()));
+                drinkPhotoPath = App.file.AbsolutePath;
+                //App.file = new File(App.dir, String.Format("myPhoto_{0}", Guid.NewGuid()));
+
+                intent.PutExtra(MediaStore.ExtraOutput, Android.Net.Uri.FromFile(App.file));
+                StartActivityForResult(intent, 0);
+            }
+                            
         }
 
         private void CreateDirectoryForPictures()
         {
-            App._dir = new File(
+            App.dir = new File(
                 Android.OS.Environment.GetExternalStoragePublicDirectory(
                     Android.OS.Environment.DirectoryPictures), "AppDrink Images");
-            if (!App._dir.Exists())
+            if (!App.dir.Exists())
             {
-                App._dir.Mkdirs();
+                App.dir.Mkdirs();
             }
-        }
-
-      
+        }    
 
         private bool IsThereAnAppToTakePictures()
         {
@@ -99,9 +161,6 @@ namespace AppDrinkAndroid
             return availableActivities != null && availableActivities.Count > 0;
         }
 
-
-
-
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -109,7 +168,7 @@ namespace AppDrinkAndroid
             // Make it available in the gallery
 
             Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-            Android.Net.Uri contentUri = Android.Net.Uri.FromFile(App._file);
+            Android.Net.Uri contentUri = Android.Net.Uri.FromFile(App.file);
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
 
@@ -119,7 +178,8 @@ namespace AppDrinkAndroid
 
             int height = Resources.DisplayMetrics.HeightPixels;
             int width = imgViewDrinkCapture.Height;
-            App.bitmap = App._file.Path.LoadAndResizeBitmap(width, height);
+            App.bitmap = App.file.Path.LoadAndResizeBitmap(width, height);
+            
             if (App.bitmap != null)
             {
                 imgViewDrinkCapture.SetImageBitmap(App.bitmap);
@@ -131,33 +191,5 @@ namespace AppDrinkAndroid
         }
     }
 
-    public static class BitmapHelpers
-    {
-        public static Bitmap LoadAndResizeBitmap(this string fileName, int width, int height)
-        {
-            // First we get the the dimensions of the file on disk
-            BitmapFactory.Options options = new BitmapFactory.Options { InJustDecodeBounds = true };
-            BitmapFactory.DecodeFile(fileName, options);
-
-            // Next we calculate the ratio that we need to resize the image by
-            // in order to fit the requested dimensions.
-            int outHeight = options.OutHeight;
-            int outWidth = options.OutWidth;
-            int inSampleSize = 1;
-
-            if (outHeight > height || outWidth > width)
-            {
-                inSampleSize = outWidth > outHeight
-                                   ? outHeight / height
-                                   : outWidth / width;
-            }
-
-            // Now we will load the image and have BitmapFactory resize it for us.
-            options.InSampleSize = inSampleSize;
-            options.InJustDecodeBounds = false;
-            Bitmap resizedBitmap = BitmapFactory.DecodeFile(fileName, options);
-
-            return resizedBitmap;
-        }
-    }
+    
 }

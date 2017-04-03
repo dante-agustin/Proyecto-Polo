@@ -6,8 +6,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/imgViewDrinkImage"
-        android:src="@drawable/drinkdefault" />
+        android:id="@+id/imgViewDrinkImage" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"

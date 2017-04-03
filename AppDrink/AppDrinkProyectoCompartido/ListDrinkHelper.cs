@@ -4,14 +4,14 @@ using System.Text;
 
 namespace AppDrinkProyectoCompartido
 {
-    class Prueba
+    class ListDrinkHelper
     {
         static List<Drink> lista;
 
-        static Prueba()
+        static ListDrinkHelper()
         {
             lista = new List<Drink>();
-            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka");
+            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka","default");
             lista.Add(trago);
                      
         }

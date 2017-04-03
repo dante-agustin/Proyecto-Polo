@@ -29,13 +29,13 @@ namespace AppDrinkAndroid
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
-                        
+                        /*
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.drinksCategories_array, Android.Resource.Layout.SimpleSpinnerItem);
 
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinner.Adapter = adapter;
+            spinner.Adapter = adapter;*/
 
             //BTN AGREGAR TRAGO
            
@@ -61,9 +61,9 @@ namespace AppDrinkAndroid
                 StartActivity(typeof(Contrasena));
             };
 
-            //List view drinks
+            //LIST VIEW DRINKS
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.Prueba.getDrinks());
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
 
         }
@@ -75,6 +75,16 @@ namespace AppDrinkAndroid
 
             //string toast = string.Format("The planet is {0}", spinner.GetItemAtPosition(e.Position));
             //Toast.MakeText(this, toast, ToastLength.Long).Show();
+        }
+
+        //Cuando vuelve desde DrinkEdit refresca el listview
+        protected override void OnResume()
+        {
+            base.OnResume();
+            //create our adapter
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
+            //Hook up our adapter to our ListView
+            lvDrinks.Adapter = drinkAdapter;
         }
     }
 }
