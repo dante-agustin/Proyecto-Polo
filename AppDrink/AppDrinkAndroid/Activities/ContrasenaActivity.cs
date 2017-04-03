@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.IO;
 
 namespace AppDrinkAndroid
 {
@@ -30,14 +31,29 @@ namespace AppDrinkAndroid
             btnCancelar = FindViewById<Button>(Resource.Id.btCancelar);
             txtIncorrecta = FindViewById<TextView>(Resource.Id.txtIncorrecta);
 
+            //TO CHECK FIRST LOGIN
+            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            string filename = Path.Combine(path, "Password.txt");
+            string content = "";
+
+            using (var streamReader = new StreamReader(filename))
+            {
+                content = streamReader.ReadToEnd();
+            }
+            
             btnIngresar.Click += (e, o) =>
             {
-                if ( true) //txtPass.getText() == SQL SELECT password FROM usuario ) 
+                if (txtPass.Text.ToString().Equals(content)) 
                 {
                     StartActivity(typeof(MainActivity)); //   si esta todo bien, pasa a Main pero con poderes de mod
+                    this.Finish();
                 }
                 else
                 {
+                    if (txtPass.Text.ToString().Length < 1)
+                        txtIncorrecta.Text = "Por favor, ingrese una contraseña";
+                    else
+                        txtIncorrecta.Text = "Contraseña incorrecta";
                     txtIncorrecta.Visibility = ViewStates.Visible; 
                     //en el axml por defecto tiene "invisible"
                 }
@@ -45,7 +61,7 @@ namespace AppDrinkAndroid
 
             btnCancelar.Click += (e, o) =>
             {
-                base.OnBackPressed();
+                this.Finish();
             };
         }
     }

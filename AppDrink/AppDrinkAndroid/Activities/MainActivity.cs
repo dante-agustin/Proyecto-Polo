@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "AppDrinkAndroid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "AppDrinkAndroid", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         ImageButton btnTuerca;
@@ -28,8 +28,8 @@ namespace AppDrinkAndroid
             SetContentView(Resource.Layout.Main);
 
             //SPINNER CATEGORIAS
-            //Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
-                        /*
+            Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
+            /*
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
                     this, Resource.Array.drinksCategories_array, Android.Resource.Layout.SimpleSpinnerItem);
@@ -38,7 +38,7 @@ namespace AppDrinkAndroid
             spinner.Adapter = adapter;*/
 
             //BTN AGREGAR TRAGO
-           
+
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
             btnAgregarTrago.Click += (e, o) =>
             {
@@ -65,7 +65,6 @@ namespace AppDrinkAndroid
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
-
         }
 
 

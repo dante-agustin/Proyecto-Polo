@@ -4,5 +4,9 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:label="AppDrinkAndroid"></application>
+  <activity android:name=".ActivityName"
+          android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    >
+    <application android:label="AppDrinkAndroid" 
+                 android:theme="@android:style/Theme.NoTitleBar" ></application>
 </manifest>
