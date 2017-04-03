@@ -30,9 +30,8 @@ namespace AppDrinkAndroid
         ImageButton imgBtnAgregarFoto;
         ImageView imgViewDrinkCapture;
 
-        EditText etNombre;
+        EditText etNombre, etIngredientes, etPrecio;
         Spinner spinnerCategoria;
-        EditText etIngredientes;
         String drinkPhotoPath="default";
 
 
@@ -50,6 +49,7 @@ namespace AppDrinkAndroid
 
             etNombre = FindViewById<EditText>(Resource.Id.etNombre);
             etIngredientes = FindViewById<EditText>(Resource.Id.etIngredientes);
+            etPrecio = FindViewById<EditText>(Resource.Id.etPrecio);
             btGuardar = FindViewById<Button>(Resource.Id.btGuardar);
             btCancelar = FindViewById<Button>(Resource.Id.btCancelar);
             spinnerCategoria = FindViewById<Spinner>(Resource.Id.spinnerCategoria);
@@ -114,10 +114,11 @@ namespace AppDrinkAndroid
                 string nombre = etNombre.Text;
                 string categoria = spinnerCategoria.SelectedItem.ToString();
                 string ingredientes = etIngredientes.Text;
+                string precio = etPrecio.Text;
 
 
                 //drinkPhotoPath queda "default" cuando no se toma una foto
-                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, categoria, ingredientes, drinkPhotoPath);
+                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, categoria, ingredientes, drinkPhotoPath, precio);
                 AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
                 Finish();
             }

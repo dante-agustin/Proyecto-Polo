@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etNombre"
-        android:hint="@string/ingreserNombre" />
+        android:hint="@string/ingreseNombre" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,11 +21,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etIngredientes"
-        android:hint="@string/ingreserIngredientes" />
+        android:hint="@string/ingreseIngredientes" />
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/etPrecio"
+      android:hint="@string/ingresePrecio"
+      android:inputType="numberDecimal" />
     <ImageView
         android:src="@drawable/drinkdefault"
         android:layout_width="match_parent"
-        android:layout_height="256.0dp"
+        android:layout_height="200dp"
         android:id="@+id/imgViewDrinkCapture"
         android:adjustViewBounds="true"
         android:layout_marginBottom="0.0dp" />
