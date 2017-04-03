@@ -115,17 +115,17 @@ namespace AppDrinkAndroid
 			// aapt resource value: 0x7f06000f
 			public const int imgBtnAgregarFoto = 2131099663;
 			
-			// aapt resource value: 0x7f060017
-			public const int imgBtnAgregarTrago = 2131099671;
-			
-			// aapt resource value: 0x7f060015
-			public const int imgBtnCandado = 2131099669;
+			// aapt resource value: 0x7f060018
+			public const int imgBtnAgregarTrago = 2131099672;
 			
 			// aapt resource value: 0x7f060016
-			public const int imgBtnTuerca = 2131099670;
+			public const int imgBtnCandado = 2131099670;
 			
-			// aapt resource value: 0x7f060014
-			public const int imgLogo = 2131099668;
+			// aapt resource value: 0x7f060017
+			public const int imgBtnTuerca = 2131099671;
+			
+			// aapt resource value: 0x7f060015
+			public const int imgLogo = 2131099669;
 			
 			// aapt resource value: 0x7f06000e
 			public const int imgViewDrinkCapture = 2131099662;
@@ -136,17 +136,17 @@ namespace AppDrinkAndroid
 			// aapt resource value: 0x7f060004
 			public const int linearLayout1 = 2131099652;
 			
-			// aapt resource value: 0x7f06001a
-			public const int listViewDrinks = 2131099674;
+			// aapt resource value: 0x7f06001b
+			public const int listViewDrinks = 2131099675;
 			
-			// aapt resource value: 0x7f060019
-			public const int spinner = 2131099673;
+			// aapt resource value: 0x7f06001a
+			public const int spinner = 2131099674;
 			
 			// aapt resource value: 0x7f06000c
 			public const int spinnerCategoria = 2131099660;
 			
-			// aapt resource value: 0x7f060018
-			public const int spinnerLabel = 2131099672;
+			// aapt resource value: 0x7f060019
+			public const int spinnerLabel = 2131099673;
 			
 			// aapt resource value: 0x7f060012
 			public const int tvCategoria = 2131099666;
@@ -156,6 +156,9 @@ namespace AppDrinkAndroid
 			
 			// aapt resource value: 0x7f060011
 			public const int tvNombre = 2131099665;
+			
+			// aapt resource value: 0x7f060014
+			public const int tvPrecio = 2131099668;
 			
 			// aapt resource value: 0x7f060009
 			public const int txtIncorrecta = 2131099657;

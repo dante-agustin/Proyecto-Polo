@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imgViewDrinkImage" />
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/imgViewDrinkImage"
         android:layout_height="wrap_content">
         <TextView
-            android:text="Text"
+            android:text="Nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvNombre" />
         <TextView
-            android:text="Text"
+            android:text="Categoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNombre"
             android:id="@+id/tvCategoria" />
         <TextView
-            android:text="Text"
+            android:text="Ingredientes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCategoria"
             android:id="@+id/tvIngredientes" />
-    </LinearLayout>
-</LinearLayout>
+        <TextView
+            android:text="Precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvNombre"
+            android:id="@+id/tvPrecio" />
+    </RelativeLayout>
+</RelativeLayout>
