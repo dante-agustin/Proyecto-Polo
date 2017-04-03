@@ -28,7 +28,7 @@ namespace AppDrinkAndroid
             SetContentView(Resource.Layout.Main);
 
             //SPINNER CATEGORIAS
-            Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
+            //Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
                         /*
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(

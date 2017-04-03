@@ -106,14 +106,14 @@ namespace AppDrinkAndroid
 			// aapt resource value: 0x7f060002
 			public const int checkBoxPrecio = 2131099650;
 			
-			// aapt resource value: 0x7f06000d
-			public const int etIngredientes = 2131099661;
+			// aapt resource value: 0x7f06000c
+			public const int etIngredientes = 2131099660;
 			
 			// aapt resource value: 0x7f06000b
 			public const int etNombre = 2131099659;
 			
-			// aapt resource value: 0x7f06000e
-			public const int etPrecio = 2131099662;
+			// aapt resource value: 0x7f06000d
+			public const int etPrecio = 2131099661;
 			
 			// aapt resource value: 0x7f060010
 			public const int imgBtnAgregarFoto = 2131099664;
@@ -145,8 +145,8 @@ namespace AppDrinkAndroid
 			// aapt resource value: 0x7f06001b
 			public const int spinner = 2131099675;
 			
-			// aapt resource value: 0x7f06000c
-			public const int spinnerCategoria = 2131099660;
+			// aapt resource value: 0x7f06000e
+			public const int spinnerCategoria = 2131099662;
 			
 			// aapt resource value: 0x7f06001a
 			public const int spinnerLabel = 2131099674;

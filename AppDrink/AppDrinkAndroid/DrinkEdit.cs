@@ -72,7 +72,7 @@ namespace AppDrinkAndroid
             list.Add("Vinos");
             list.Add("Cocktails");
             list.Add("Cerveza");
-            list.Add("Seleccionar la categoria");
+            list.Add("Seleccionar categoria");
 
             int listsize = list.Count - 1;
 
@@ -95,7 +95,7 @@ namespace AppDrinkAndroid
             
 
             if (string.IsNullOrEmpty(etNombre.Text) || string.IsNullOrEmpty(etIngredientes.Text) ||
-                spinnerCategoria.SelectedItem.ToString()=="Seleccionar la categoria" )
+                spinnerCategoria.SelectedItem.ToString()=="Seleccionar categoria" || string.IsNullOrEmpty(etPrecio.Text) )
             {
                 Toast.MakeText(this, "Por favor, complete todos los datos. Ningún campo puede quedar vacío.", ToastLength.Long).Show();
             }

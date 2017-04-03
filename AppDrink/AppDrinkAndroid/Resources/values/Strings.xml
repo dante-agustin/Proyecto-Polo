@@ -6,7 +6,7 @@
     <string name="categorias">CATEGORIAS</string>
     <string name="ingreseNombre">Ingrese el nombre</string>
     <string name="ingreseIngredientes">Ingrese los ingredientes</string>
-    <string name="ingresePrecio">Ingrese el precio</string>
+    <string name="ingresePrecio">Ingrese precio</string>
     <string name="btnGuardar">Guardar</string>
     <string name="btnCancelar">Cancelar</string>
   
