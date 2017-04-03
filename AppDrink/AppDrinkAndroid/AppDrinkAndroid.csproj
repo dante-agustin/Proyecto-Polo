@@ -51,22 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapHelpers.cs" />
-    <Compile Include="Configuracion.cs" />
-    <Compile Include="Contrasena.cs" />
-    <Compile Include="CustomAdapter.cs" />
-    <Compile Include="DrinkAdapter.cs" />
-    <Compile Include="DrinkEdit.cs" />
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="Classes\BitmapHelpers.cs" />
+    <Compile Include="Activities\ConfiguracionActivity.cs" />
+    <Compile Include="Activities\ContrasenaActivity.cs" />
+    <Compile Include="Adapters\CustomAdapter.cs" />
+    <Compile Include="Adapters\DrinkAdapter.cs" />
+    <Compile Include="Classes\DrinkEdit.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserConfig.cs" />
-    <Compile Include="Welcome.cs" />
+    <Compile Include="Packages\SQLite.cs" />
+    <Compile Include="Packages\SQLiteAsync.cs" />
+    <Compile Include="DTO\TragoDTO.cs" />
+    <Compile Include="Classes\UserConfig.cs" />
+    <Compile Include="Activities\WelcomeActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\DrinkEdit.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

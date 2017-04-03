@@ -26,6 +26,7 @@ namespace AppDrinkAndroid
 
             try
             {
+                //IT IS NOT FIRST LOGIN
                 using (var streamReader = new StreamReader(filename))
                 {
                     string content = streamReader.ReadToEnd();
@@ -35,6 +36,7 @@ namespace AppDrinkAndroid
             }
             catch
             {
+                //IT IS FIRST LOGIN!
                 SetContentView(Resource.Layout.Welcome);
 
                 Button btnDone = FindViewById<Button>(Resource.Id.btnDone);
@@ -47,8 +49,16 @@ namespace AppDrinkAndroid
                     {
                         streamWriter.Write(password);
                     }
-                    //Create file
+
+                    /*
+                    using (var conn = new SQLite.SQLiteConnection(path))
+                    {
+                        conn.CreateTable<TragoDTO>();
+                    }
+                    */                
+
                     StartActivity(typeof(MainActivity));
+                    this.Finish();
                 };
             }
         }

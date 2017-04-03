@@ -12,7 +12,6 @@ namespace AppDrinkProyectoCompartido
         public string ingredientes { set; get; }
         public string categoria { set; get; }
         public string precio { set; get; }
-
         public string imagePath { get; set; }
         
 
