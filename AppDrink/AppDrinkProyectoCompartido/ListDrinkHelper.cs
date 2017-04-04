@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Widget;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,29 @@ namespace AppDrinkProyectoCompartido
         public static List<Drink>getDrinks()
         {
             return lista;
+        }
+
+        public static List<Drink> getDrinksByCategory(string category)
+        {
+            List<Drink> listaCategorizada= new List<Drink>();
+            string categoryDefault = "Todas";
+
+            if(category != categoryDefault)
+            {
+                foreach (Drink obj in lista)
+                {
+                    if (obj.categoria == category)
+                    {
+                        listaCategorizada.Add(obj);
+                    }
+                }
+
+                return listaCategorizada;
+            }
+            else{
+                return lista; //Si seleccion "Todas" las categoria, devuelve la lista original completa
+            }
+            
         }
 
         public static void agregarDrink(Drink newDrink)

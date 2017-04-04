@@ -47,12 +47,15 @@ namespace AppDrinkAndroid
             //Cambiar si es un edit
             this.Title = "Agregar trago";
 
+            
             etNombre = FindViewById<EditText>(Resource.Id.etNombre);
             etIngredientes = FindViewById<EditText>(Resource.Id.etIngredientes);
             etPrecio = FindViewById<EditText>(Resource.Id.etPrecio);
             btGuardar = FindViewById<Button>(Resource.Id.btGuardar);
             btCancelar = FindViewById<Button>(Resource.Id.btCancelar);
             spinnerCategoria = FindViewById<Spinner>(Resource.Id.spinnerCategoria);
+            SetDrinksOnSpinner(this,spinnerCategoria);
+
             btGuardar.Click += BtGuardar_Click;
             btCancelar.Click += BtCancelar_Click;
 
@@ -64,23 +67,34 @@ namespace AppDrinkAndroid
                 imgViewDrinkCapture = FindViewById<ImageView>(Resource.Id.imgViewDrinkCapture);
 
             }
+           
 
+    }
+
+        public static  void SetDrinksOnSpinner(Context contexto, Spinner spnCategoria)
+        {
+            
             var list = new List<String>();
+            
             list.Add("Vodka");
             list.Add("Whisky");
             list.Add("Basico");
             list.Add("Vinos");
             list.Add("Cocktails");
             list.Add("Cerveza");
+            if (contexto is MainActivity)
+            {
+                list.Add("Todas");
+            }
             list.Add("Seleccionar categoria");
+            
 
             int listsize = list.Count - 1;
 
-            var dataAdapter = new CustomAdapter(this, Android.Resource.Layout.SimpleSpinnerItem, list, listsize);
+            var dataAdapter = new CustomAdapter(contexto, Android.Resource.Layout.SimpleSpinnerItem, list, listsize);
             dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinnerCategoria.Adapter = dataAdapter;
-            spinnerCategoria.SetSelection(listsize);
-            
+            spnCategoria.Adapter = dataAdapter;
+            spnCategoria.SetSelection(listsize);
 
         }
 
@@ -118,7 +132,8 @@ namespace AppDrinkAndroid
 
 
                 //drinkPhotoPath queda "default" cuando no se toma una foto
-                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, categoria, ingredientes, drinkPhotoPath, precio);
+                
+                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, ingredientes, categoria, drinkPhotoPath, precio);
                 AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
                 Finish();
             }

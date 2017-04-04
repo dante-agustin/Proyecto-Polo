@@ -9,10 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using SQLite;
+//using SQLite;
 
 namespace AppDrinkAndroid
 {
+    /*
     public class TragoDTO
     {
         [PrimaryKey, AutoIncrement]
@@ -24,4 +25,5 @@ namespace AppDrinkAndroid
         public string precio { set; get; }
         public string imagen { get; set; }
     }
+    */
 }

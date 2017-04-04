@@ -106,10 +106,6 @@ namespace AppDrinkAndroid
                 imgViewDrinkImage.SetImageResource(Resource.Drawable.drinkDefault);
             }
        
-            
-            
-
-
             //Finally return the view
             return view;
         }

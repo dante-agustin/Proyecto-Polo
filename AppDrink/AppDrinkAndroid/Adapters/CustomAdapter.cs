@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "CustomAdapter")]
+
     public class CustomAdapter : ArrayAdapter<String>
     {      
 

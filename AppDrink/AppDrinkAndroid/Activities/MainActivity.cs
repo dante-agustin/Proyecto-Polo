@@ -29,6 +29,8 @@ namespace AppDrinkAndroid
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
+            DrinkEdit.SetDrinksOnSpinner(this, spinner);
+            spinner.ItemSelected += Spinner_ItemSelected;
             /*
             spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(
@@ -67,14 +69,16 @@ namespace AppDrinkAndroid
             lvDrinks.Adapter = drinkAdapter;
         }
 
-
-        private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-
-            //string toast = string.Format("The planet is {0}", spinner.GetItemAtPosition(e.Position));
-            //Toast.MakeText(this, toast, ToastLength.Long).Show();
+            string categoria=spinner.SelectedItem.ToString();
+            //create our adapter
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
+            //Hook up our adapter to our ListView
+            lvDrinks.Adapter = drinkAdapter;
         }
+
 
         //Cuando vuelve desde DrinkEdit refresca el listview
         protected override void OnResume()
@@ -85,5 +89,7 @@ namespace AppDrinkAndroid
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }
+
+        
     }
 }
