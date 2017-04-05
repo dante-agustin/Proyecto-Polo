@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -60,6 +59,52 @@ namespace AppDrinkAndroid
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
+
+            //Context menu
+            RegisterForContextMenu(lvDrinks);
+        }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            if (v.Id == Resource.Id.listViewDrinks)
+            {
+                var info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+                //necesito acceder al nombre del trago
+                Object trago=lvDrinks.GetItemAtPosition(info.Position);
+                AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
+                if (drink != null)
+                {
+                    menu.SetHeaderTitle(drink.nombre);
+                }
+              
+                var menuItems = Resources.GetStringArray(Resource.Array.menu);
+
+                for (var i = 0; i < menuItems.Length; i++)
+                    menu.Add(Menu.None, i, i, menuItems[i]);
+            }
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            var menuItemIndex = item.ItemId;
+            var menuItems = Resources.GetStringArray(Resource.Array.menu);
+            var menuItemName = menuItems[menuItemIndex];
+           
+            var listItemName = "";
+            Java.Lang.Object trago = lvDrinks.GetItemAtPosition(info.Position);
+            //En trago Instance tengo todo...
+
+            /*
+            AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
+            if (drink != null)
+            {
+                listItemName = drink.nombre;
+            }
+            */
+
+            Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+            return true;
         }
 
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
