@@ -20,7 +20,7 @@ namespace AppDrinkAndroid
         ImageButton btnAgregarTrago;
         ListView lvDrinks;
         DrinkAdapter drinkAdapter;
-
+        string categoria;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -29,22 +29,15 @@ namespace AppDrinkAndroid
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
-            DrinkEdit.SetDrinksOnSpinner(this, spinner);
-            spinner.ItemSelected += Spinner_ItemSelected;
-            /*
-            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
-            var adapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.drinksCategories_array, Android.Resource.Layout.SimpleSpinnerItem);
-
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinner.Adapter = adapter;*/
+            DrinkEditActivity.SetDrinksOnSpinner(this, spinner);
+            spinner.ItemSelected += Spinner_ItemSelected;        
 
             //BTN AGREGAR TRAGO
 
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
             btnAgregarTrago.Click += (e, o) =>
             {
-                Intent i = new Intent(this, typeof(DrinkEdit));
+                Intent i = new Intent(this, typeof(DrinkEditActivity));
                 StartActivity(i);
             };
 
@@ -72,7 +65,7 @@ namespace AppDrinkAndroid
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            string categoria=spinner.SelectedItem.ToString();
+            categoria=spinner.SelectedItem.ToString();
             //create our adapter
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
@@ -85,7 +78,7 @@ namespace AppDrinkAndroid
         {
             base.OnResume();
             //create our adapter
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }

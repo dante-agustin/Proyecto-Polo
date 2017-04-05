@@ -12,7 +12,7 @@ namespace AppDrinkProyectoCompartido
         static ListDrinkHelper()
         {
             lista = new List<Drink>();
-            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka","default","125");
+            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka","default","$ 125");
             lista.Add(trago);
                      
         }

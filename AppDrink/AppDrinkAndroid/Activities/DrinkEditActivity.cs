@@ -25,7 +25,7 @@ namespace AppDrinkAndroid
     }
 
     [Activity(Label = "DrinkEdit")]
-    public class DrinkEdit : Activity
+    public class DrinkEditActivity : Activity
     {
         ImageButton imgBtnAgregarFoto;
         ImageView imgViewDrinkCapture;
@@ -128,7 +128,7 @@ namespace AppDrinkAndroid
                 string nombre = etNombre.Text;
                 string categoria = spinnerCategoria.SelectedItem.ToString();
                 string ingredientes = etIngredientes.Text;
-                string precio = etPrecio.Text;
+                string precio = "$ " + etPrecio.Text;
 
 
                 //drinkPhotoPath queda "default" cuando no se toma una foto
