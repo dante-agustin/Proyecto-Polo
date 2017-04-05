@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Reflection;
 
 namespace AppDrinkAndroid
 {
@@ -92,7 +93,12 @@ namespace AppDrinkAndroid
             var menuItemName = menuItems[menuItemIndex];
            
             var listItemName = "";
-            Java.Lang.Object trago = lvDrinks.GetItemAtPosition(info.Position);
+
+            Object trago = lvDrinks.GetItemAtPosition(info.Position);
+           
+
+            //AppDrinkProyectoCompartido.Drink drink = (AppDrinkProyectoCompartido.Drink)lvDrinks.GetItemAtPosition(info.Position);
+
             //En trago Instance tengo todo...
 
             /*
