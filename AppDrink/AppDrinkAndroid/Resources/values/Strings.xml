@@ -9,14 +9,10 @@
     <string name="ingresePrecio">Ingrese precio</string>
     <string name="btnGuardar">Guardar</string>
     <string name="btnCancelar">Cancelar</string>
+
+    <string-array name="menu">
+      <item>Modificar</item>
+      <item>Eliminar</item>
+    </string-array>
   
-    <string-array name="drinksCategories_array">
-        <item>TODOS</item>
-        <item>Vodka</item>
-        <item>Whisky</item>
-        <item>Basico</item>
-        <item>Vinos</item>
-        <item>Cocktails</item>
-        <item>Cerveza</item>
-      </string-array>
 </resources>

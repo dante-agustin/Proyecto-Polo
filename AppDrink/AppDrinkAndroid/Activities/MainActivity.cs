@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -20,7 +19,7 @@ namespace AppDrinkAndroid
         ImageButton btnAgregarTrago;
         ListView lvDrinks;
         DrinkAdapter drinkAdapter;
-
+        string categoria;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -29,22 +28,15 @@ namespace AppDrinkAndroid
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
-            DrinkEdit.SetDrinksOnSpinner(this, spinner);
-            spinner.ItemSelected += Spinner_ItemSelected;
-            /*
-            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
-            var adapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.drinksCategories_array, Android.Resource.Layout.SimpleSpinnerItem);
-
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinner.Adapter = adapter;*/
+            DrinkEditActivity.SetDrinksOnSpinner(this, spinner);
+            spinner.ItemSelected += Spinner_ItemSelected;        
 
             //BTN AGREGAR TRAGO
 
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
             btnAgregarTrago.Click += (e, o) =>
             {
-                Intent i = new Intent(this, typeof(DrinkEdit));
+                Intent i = new Intent(this, typeof(DrinkEditActivity));
                 StartActivity(i);
             };
 
@@ -67,12 +59,58 @@ namespace AppDrinkAndroid
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
+
+            //Context menu
+            RegisterForContextMenu(lvDrinks);
+        }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            if (v.Id == Resource.Id.listViewDrinks)
+            {
+                var info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+                //necesito acceder al nombre del trago
+                Object trago=lvDrinks.GetItemAtPosition(info.Position);
+                AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
+                if (drink != null)
+                {
+                    menu.SetHeaderTitle(drink.nombre);
+                }
+              
+                var menuItems = Resources.GetStringArray(Resource.Array.menu);
+
+                for (var i = 0; i < menuItems.Length; i++)
+                    menu.Add(Menu.None, i, i, menuItems[i]);
+            }
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            var menuItemIndex = item.ItemId;
+            var menuItems = Resources.GetStringArray(Resource.Array.menu);
+            var menuItemName = menuItems[menuItemIndex];
+           
+            var listItemName = "";
+            Java.Lang.Object trago = lvDrinks.GetItemAtPosition(info.Position);
+            //En trago Instance tengo todo...
+
+            /*
+            AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
+            if (drink != null)
+            {
+                listItemName = drink.nombre;
+            }
+            */
+
+            Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+            return true;
         }
 
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            string categoria=spinner.SelectedItem.ToString();
+            categoria=spinner.SelectedItem.ToString();
             //create our adapter
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
@@ -85,7 +123,7 @@ namespace AppDrinkAndroid
         {
             base.OnResume();
             //create our adapter
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }

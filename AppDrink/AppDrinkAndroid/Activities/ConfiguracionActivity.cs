@@ -58,12 +58,13 @@ namespace AppDrinkAndroid
                     uc.showIngredientes = false;
                     //sino, tiene que estar en hide
                 }
-                StartActivity(typeof(MainActivity));
+                Finish();
             };
 
             btnCancelar.Click += (e, o) =>
             {
-                base.OnBackPressed();
+                //base.OnBackPressed();
+                Finish();
             };
         }
     }

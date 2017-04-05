@@ -32,7 +32,7 @@ namespace AppDrinkAndroid
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int drinksCategories_array = 2131034112;
+			public const int menu = 2131034112;
 			
 			static Array()
 			{

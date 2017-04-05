@@ -45,8 +45,8 @@ namespace AppDrinkAndroid
             {
                 if (txtPass.Text.ToString().Equals(content)) 
                 {
-                    StartActivity(typeof(MainActivity)); //   si esta todo bien, pasa a Main pero con poderes de mod
-                    this.Finish();
+                    //   si esta todo bien, pasa a Main pero con poderes de mod
+                    Finish();
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace AppDrinkAndroid
 
             btnCancelar.Click += (e, o) =>
             {
-                this.Finish();
+                Finish();
             };
         }
     }
