@@ -71,12 +71,14 @@ namespace AppDrinkAndroid
             {
                 var info = (AdapterView.AdapterContextMenuInfo)menuInfo;
                 //necesito acceder al nombre del trago
-                Object trago=lvDrinks.GetItemAtPosition(info.Position);
-                AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
-                if (drink != null)
+                Object obj = lvDrinks.GetItemAtPosition(info.Position);
+                var propertyInfo = obj.GetType().GetProperty("Instance");
+                AppDrinkProyectoCompartido.Drink trago = propertyInfo.GetValue(obj, null) as AppDrinkProyectoCompartido.Drink;
+
+                if (trago != null)
                 {
-                    menu.SetHeaderTitle(drink.nombre);
-                }
+                    menu.SetHeaderTitle("Trago - " + trago.nombre);
+                }               
               
                 var menuItems = Resources.GetStringArray(Resource.Array.menu);
 
@@ -91,26 +93,74 @@ namespace AppDrinkAndroid
             var menuItemIndex = item.ItemId;
             var menuItems = Resources.GetStringArray(Resource.Array.menu);
             var menuItemName = menuItems[menuItemIndex];
+            int esModificacion = 0;
            
-            var listItemName = "";
+            //var listItemName = "";
+            Object obj = lvDrinks.GetItemAtPosition(info.Position);
+            var propertyInfo = obj.GetType().GetProperty("Instance");
+            AppDrinkProyectoCompartido.Drink trago = propertyInfo.GetValue(obj, null) as AppDrinkProyectoCompartido.Drink;
 
-            Object trago = lvDrinks.GetItemAtPosition(info.Position);
-           
-
-            //AppDrinkProyectoCompartido.Drink drink = (AppDrinkProyectoCompartido.Drink)lvDrinks.GetItemAtPosition(info.Position);
-
-            //En trago Instance tengo todo...
-
-            /*
-            AppDrinkProyectoCompartido.Drink drink = trago as AppDrinkProyectoCompartido.Drink;
-            if (drink != null)
+            if (trago != null)
             {
-                listItemName = drink.nombre;
-            }
-            */
+                //listItemName = trago.nombre;
 
-            Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+                if (item.ItemId == esModificacion) //Se va a modificar el trago del list view
+                {
+                    ModificarTrago(info.Position);
+                }
+                else //Se va a eliminar el trago del list view
+                {
+                    EliminarTrago(info.Position);
+                }
+            }            
+
+           
             return true;
+        }
+
+        private void ModificarTrago(int positionInListView)
+        {
+            Intent i = new Intent(this, typeof(DrinkEditActivity));
+            i.PutExtra("posicion", positionInListView);
+            i.PutExtra("categoria", categoria);
+            StartActivity(i);
+        }
+
+        private void EliminarTrago(int positionInListView)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog msjConfirmDelete = builder.Create();
+            msjConfirmDelete.SetTitle("Confirmar");
+            msjConfirmDelete.SetMessage("¿Realmente deseas eliminar este trago de la lista?");
+            msjConfirmDelete.SetIcon(Resource.Drawable.Icon);
+
+            msjConfirmDelete.SetButton("Sí", (s, ev) =>
+            {
+                AppDrinkProyectoCompartido.Drink drinkAEliminar = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[positionInListView];
+                AppDrinkProyectoCompartido.ListDrinkHelper.eliminarDrink(drinkAEliminar);
+                refresh();
+
+                Toast.MakeText(this, "Trago eliminado", ToastLength.Short).Show();
+
+                //ACA FALTARIA AGREGAR ELIMINARLO DE LA BASE DE DATOS
+                /////////////////
+                /////////////
+            });
+
+            msjConfirmDelete.SetButton2("No", (s, ev) =>
+            {
+                msjConfirmDelete.Cancel();
+            });
+
+            msjConfirmDelete.Show();
+        }
+
+        private void refresh()
+        {
+            //create our adapter
+            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
+            //Hook up our adapter to our ListView
+            lvDrinks.Adapter = drinkAdapter;
         }
 
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

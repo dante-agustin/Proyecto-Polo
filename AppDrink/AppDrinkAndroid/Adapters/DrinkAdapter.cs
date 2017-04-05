@@ -84,7 +84,7 @@ namespace AppDrinkAndroid
             tvIngredientes.SetText(item.ingredientes, TextView.BufferType.Normal);
             tvPrecio.SetText(item.precio, TextView.BufferType.Normal);
 
-            //cargar la imagen del obj drink en imageview
+            //cargar la imagen del obj drink en imageview    
             if ( item.imagePath!="default")
             {
                 //error de memoria en tiempo de ejecucion
@@ -105,9 +105,11 @@ namespace AppDrinkAndroid
               
                 imgViewDrinkImage.SetImageResource(Resource.Drawable.drinkDefault);
             }
-       
+
             //Finally return the view
             return view;
         }
+
+        
     }
 }

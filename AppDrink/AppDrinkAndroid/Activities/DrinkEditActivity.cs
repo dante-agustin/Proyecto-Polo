@@ -29,13 +29,13 @@ namespace AppDrinkAndroid
     {
         ImageButton imgBtnAgregarFoto;
         ImageView imgViewDrinkCapture;
-
         EditText etNombre, etIngredientes, etPrecio;
-        Spinner spinnerCategoria;
-        String drinkPhotoPath="default";
-
-
         Button btGuardar, btCancelar;
+        Spinner spinnerCategoria;
+        string drinkPhotoPath="default";
+        int posicion;
+        string categoria;
+        static CustomAdapter dataAdapter;      
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -44,10 +44,6 @@ namespace AppDrinkAndroid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.DrinkEdit);
 
-            //Cambiar si es un edit
-            this.Title = "Agregar trago";
-
-            
             etNombre = FindViewById<EditText>(Resource.Id.etNombre);
             etIngredientes = FindViewById<EditText>(Resource.Id.etIngredientes);
             etPrecio = FindViewById<EditText>(Resource.Id.etPrecio);
@@ -65,11 +61,56 @@ namespace AppDrinkAndroid
                 imgBtnAgregarFoto = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarFoto);
                 imgBtnAgregarFoto.Click += ImgBtnAgregarFoto_Click;
                 imgViewDrinkCapture = FindViewById<ImageView>(Resource.Id.imgViewDrinkCapture);
+            }
+
+            //Si vino desde el botón "Agregar", posicion=-1
+            posicion = Intent.GetIntExtra("posicion", -1);
+            categoria = Intent.GetStringExtra("categoria");
+
+            if (posicion > -1)   //Es un edit
+            {
+                this.Title = "Modificar trago";
+                AppDrinkProyectoCompartido.Drink drinkAModificar=AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion];
+                etNombre.Text = drinkAModificar.nombre;
+                etIngredientes.Text = drinkAModificar.ingredientes;
+                etPrecio.Text = drinkAModificar.precio;
+                int spinnerPosition = dataAdapter.GetPosition(drinkAModificar.categoria);
+                spinnerCategoria.SetSelection(spinnerPosition);
+                categoria = drinkAModificar.categoria;
+                drinkPhotoPath = drinkAModificar.imagePath;
+                LoadImageDrinkOnListView(imgViewDrinkCapture, drinkAModificar.imagePath);
 
             }
-           
+            else
+            {//Es un alta de trago
+                this.Title = "Agregar trago";
+            }
+        }
 
-    }
+        private static void LoadImageDrinkOnListView(ImageView imgViewDrinkImage ,string imageDrinkPath)
+        {
+            if (imageDrinkPath != "default")
+            {
+                //error de memoria en tiempo de ejecucion
+                //imgViewDrinkImage.SetImageBitmap(BitmapFactory.DecodeFile(item.imagePath));
+
+                Bitmap bitmap = imageDrinkPath.LoadAndResizeBitmap(100, 100);
+
+                if (bitmap != null)
+                {
+                    imgViewDrinkImage.SetImageBitmap(bitmap);
+                    bitmap = null;
+                }
+
+                // Dispose of the Java side bitmap.
+                GC.Collect();
+            }
+            else
+            {
+
+                imgViewDrinkImage.SetImageResource(Resource.Drawable.drinkDefault);
+            }
+        }
 
         public static  void SetDrinksOnSpinner(Context contexto, Spinner spnCategoria)
         {
@@ -91,7 +132,7 @@ namespace AppDrinkAndroid
 
             int listsize = list.Count - 1;
 
-            var dataAdapter = new CustomAdapter(contexto, Android.Resource.Layout.SimpleSpinnerItem, list, listsize);
+            dataAdapter = new CustomAdapter(contexto, Android.Resource.Layout.SimpleSpinnerItem, list, listsize);
             dataAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spnCategoria.Adapter = dataAdapter;
             spnCategoria.SetSelection(listsize);
@@ -115,26 +156,27 @@ namespace AppDrinkAndroid
             }
             else
             {
-                /*
+
                 if (posicion > -1)   //es un edit, no debe crearse un nuevo objeto participante
+                {                   
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].nombre = etNombre.Text;
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].ingredientes = etIngredientes.Text;
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].precio = etPrecio.Text;
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].categoria= spinnerCategoria.SelectedItem.ToString();
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].imagePath = drinkPhotoPath;
+
+                }
+                else
                 {
-                    SharedProject2.Class1.getParticipantes()[posicion].nombre = etNombre.Text;
-                    SharedProject2.Class1.getParticipantes()[posicion].apellido = etApellido.Text;
-                    SharedProject2.Class1.getParticipantes()[posicion].email = etMail.Text;
-                    SharedProject2.Class1.getParticipantes()[posicion].fechaNac = Convert.ToDateTime(etFechaNac.Text);
-
-                }*/
-
-                string nombre = etNombre.Text;
-                string categoria = spinnerCategoria.SelectedItem.ToString();
-                string ingredientes = etIngredientes.Text;
-                string precio = "$ " + etPrecio.Text;
-
-
-                //drinkPhotoPath queda "default" cuando no se toma una foto
+                    string nombre = etNombre.Text;
+                    string categoria = spinnerCategoria.SelectedItem.ToString();
+                    string ingredientes = etIngredientes.Text;
+                    string precio = "$ " + etPrecio.Text;
+                    //drinkPhotoPath queda "default" cuando no se toma una foto
+                    AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, ingredientes, categoria, drinkPhotoPath, precio);
+                    AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
+                }
                 
-                AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, ingredientes, categoria, drinkPhotoPath, precio);
-                AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
                 Finish();
             }
         }
