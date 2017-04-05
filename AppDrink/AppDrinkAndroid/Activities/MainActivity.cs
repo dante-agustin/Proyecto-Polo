@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Reflection;
+using AppDrinkProyectoCompartido;
 
 namespace AppDrinkAndroid
 {
@@ -94,10 +95,9 @@ namespace AppDrinkAndroid
            
             var listItemName = "";
 
-            Object trago = lvDrinks.GetItemAtPosition(info.Position);
-           
-
-            //AppDrinkProyectoCompartido.Drink drink = (AppDrinkProyectoCompartido.Drink)lvDrinks.GetItemAtPosition(info.Position);
+            Object obj = lvDrinks.GetItemAtPosition(info.Position);
+            var propertyInfo = obj.GetType().GetProperty("Instance");
+            Drink trago = propertyInfo.GetValue(obj, null) as Drink;
 
             //En trago Instance tengo todo...
 
@@ -133,7 +133,7 @@ namespace AppDrinkAndroid
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }
-
         
+
     }
 }
