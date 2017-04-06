@@ -14,6 +14,9 @@ using Android.Graphics;
 using Android.Media;
 using JavaUri = Java.Net;
 using Android.Content.PM;
+using AppDrinkProyectoCompartido;
+using AppDrinkAndroid.DataHelper;
+using Android.Util;
 
 namespace AppDrinkAndroid
 {
@@ -35,7 +38,8 @@ namespace AppDrinkAndroid
         string drinkPhotoPath="default";
         int posicion;
         string categoria;
-        static CustomAdapter dataAdapter;      
+        static CustomAdapter dataAdapter;
+        DataBase db; 
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -43,6 +47,7 @@ namespace AppDrinkAndroid
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.DrinkEdit);
+            CreateDB();
 
             etNombre = FindViewById<EditText>(Resource.Id.etNombre);
             etIngredientes = FindViewById<EditText>(Resource.Id.etIngredientes);
@@ -70,13 +75,13 @@ namespace AppDrinkAndroid
             if (posicion > -1)   //Es un edit
             {
                 this.Title = "Modificar trago";
-                AppDrinkProyectoCompartido.Drink drinkAModificar=AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion];
+                Drink drinkAModificar = ListDrinkHelper.getDrinksByCategory(categoria)[posicion];
                 etNombre.Text = drinkAModificar.nombre;
                 etIngredientes.Text = drinkAModificar.ingredientes;
                 etPrecio.Text = drinkAModificar.precio;
                 int spinnerPosition = dataAdapter.GetPosition(drinkAModificar.categoria);
                 spinnerCategoria.SetSelection(spinnerPosition);
-                categoria = drinkAModificar.categoria;
+
                 drinkPhotoPath = drinkAModificar.imagePath;
                 LoadImageDrinkOnListView(imgViewDrinkCapture, drinkAModificar.imagePath);
 
@@ -158,27 +163,50 @@ namespace AppDrinkAndroid
             {
 
                 if (posicion > -1)   //es un edit, no debe crearse un nuevo objeto participante
-                {                   
+                {
+                    /*                
                     AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].nombre = etNombre.Text;
                     AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].ingredientes = etIngredientes.Text;
                     AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].precio = etPrecio.Text;
                     AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].categoria= spinnerCategoria.SelectedItem.ToString();
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].imagePath = drinkPhotoPath;
+                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].imagePath = drinkPhotoPath;*/
+
+                    Drink drinkAEditar=ListDrinkHelper.getDrinksByCategory(categoria)[posicion];
+                    drinkAEditar.nombre = etNombre.Text;
+                    drinkAEditar.ingredientes = etIngredientes.Text;
+                    drinkAEditar.precio = etPrecio.Text;
+                    drinkAEditar.categoria= spinnerCategoria.SelectedItem.ToString();
+                    drinkAEditar.imagePath = drinkPhotoPath;
+                    db.updateTableDrink(drinkAEditar);
 
                 }
                 else
                 {
-                    string nombre = etNombre.Text;
-                    string categoria = spinnerCategoria.SelectedItem.ToString();
-                    string ingredientes = etIngredientes.Text;
-                    string precio = "$ " + etPrecio.Text;
+
                     //drinkPhotoPath queda "default" cuando no se toma una foto
-                    AppDrinkProyectoCompartido.Drink newDrink = new AppDrinkProyectoCompartido.Drink(nombre, ingredientes, categoria, drinkPhotoPath, precio);
-                    AppDrinkProyectoCompartido.ListDrinkHelper.agregarDrink(newDrink);
+
+                    Drink newDrink = new Drink()
+                    {
+                        nombre = etNombre.Text,
+                        categoria = spinnerCategoria.SelectedItem.ToString(),
+                        ingredientes = etIngredientes.Text,
+                        precio = etPrecio.Text,
+                        imagePath= drinkPhotoPath
+                    };
+                    db.insertIntoTableDrink(newDrink);                  
                 }
                 
                 Finish();
             }
+        }
+
+        public void CreateDB()
+        {
+            //Create DataBase
+            db = new DataBase();
+            db.createDataBase();
+            string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            Log.Info("DB_PATH", folder);
         }
 
         private void ImgBtnAgregarFoto_Click(object sender, EventArgs e)

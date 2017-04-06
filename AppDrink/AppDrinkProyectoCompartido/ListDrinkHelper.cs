@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Android.Util;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,13 +12,29 @@ namespace AppDrinkProyectoCompartido
         static ListDrinkHelper()
         {
             lista = new List<Drink>();
-            Drink trago = new Drink("ASJ", "ASJAJSJAJSJA", "Vodka","default","$ 125");
-            lista.Add(trago);
+            
+            /*
+            Drink trago = new Drink()
+            {
+                nombre="ABC",
+                ingredientes="EFGH",
+                categoria="Vodka",
+                imagePath="default",
+                precio="$ 125"
+            };
+            lista.Add(trago);*/
                      
+        }
+
+        public static void SetList(List<Drink> list)
+        {
+            lista = null;
+            lista = list;
         }
 
         public static List<Drink>getDrinks()
         {
+            
             return lista;
         }
 

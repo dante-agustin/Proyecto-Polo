@@ -82,7 +82,7 @@ namespace AppDrinkAndroid
             tvNombre.SetText(item.nombre, TextView.BufferType.Normal);
             tvCategoria.SetText(item.categoria, TextView.BufferType.Normal);
             tvIngredientes.SetText(item.ingredientes, TextView.BufferType.Normal);
-            tvPrecio.SetText(item.precio, TextView.BufferType.Normal);
+            tvPrecio.SetText("$ " + item.precio, TextView.BufferType.Normal);
 
             //cargar la imagen del obj drink en imageview    
             if ( item.imagePath!="default")

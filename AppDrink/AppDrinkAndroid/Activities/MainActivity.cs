@@ -9,6 +9,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Reflection;
+using AppDrinkProyectoCompartido;
+using AppDrinkAndroid.DataHelper;
+using Android.Util;
 
 namespace AppDrinkAndroid
 {
@@ -19,13 +22,18 @@ namespace AppDrinkAndroid
         ImageButton btnCandado;
         ImageButton btnAgregarTrago;
         ListView lvDrinks;
+        List<Drink> lstSource;
         DrinkAdapter drinkAdapter;
-        string categoria;
+        string categoria="Todas";
+        DataBase db;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+
+            //Crea la base de datos
+            CreateDB();
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
@@ -58,11 +66,23 @@ namespace AppDrinkAndroid
 
             //LIST VIEW DRINKS
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
-            lvDrinks.Adapter = drinkAdapter;
+            
+            LoadAndRefreshListView(); //Carga y actualiza el contenido del list view
+
+            //drinkAdapter = new DrinkAdapter(this, ListDrinkHelper.getDrinks());
+            //lvDrinks.Adapter = drinkAdapter;
 
             //Context menu
             RegisterForContextMenu(lvDrinks);
+        }
+
+        public void CreateDB()
+        {
+            //Create DataBase
+            db = new DataBase();
+            db.createDataBase();
+            string folder = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            Log.Info("DB_PATH", folder);
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
@@ -104,11 +124,11 @@ namespace AppDrinkAndroid
             {
                 //listItemName = trago.nombre;
 
-                if (item.ItemId == esModificacion) //Se va a modificar el trago del list view
+                if (item.ItemId == esModificacion) //Se va a modificar el trago 
                 {
                     ModificarTrago(info.Position);
                 }
-                else //Se va a eliminar el trago del list view
+                else //Se va a eliminar el trago 
                 {
                     EliminarTrago(info.Position);
                 }
@@ -130,21 +150,22 @@ namespace AppDrinkAndroid
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             AlertDialog msjConfirmDelete = builder.Create();
-            msjConfirmDelete.SetTitle("Confirmar");
+            msjConfirmDelete.SetTitle("Confirmar eliminación");
             msjConfirmDelete.SetMessage("¿Realmente deseas eliminar este trago de la lista?");
             msjConfirmDelete.SetIcon(Resource.Drawable.Icon);
 
             msjConfirmDelete.SetButton("Sí", (s, ev) =>
             {
-                AppDrinkProyectoCompartido.Drink drinkAEliminar = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[positionInListView];
-                AppDrinkProyectoCompartido.ListDrinkHelper.eliminarDrink(drinkAEliminar);
-                refresh();
+                Drink drinkAEliminar = ListDrinkHelper.getDrinksByCategory(categoria)[positionInListView];
+                //ListDrinkHelper.eliminarDrink(drinkAEliminar);
+
+                db.deleteTableDrink(drinkAEliminar);                
+
+                LoadAndRefreshListView();
 
                 Toast.MakeText(this, "Trago eliminado", ToastLength.Short).Show();
 
-                //ACA FALTARIA AGREGAR ELIMINARLO DE LA BASE DE DATOS
-                /////////////////
-                /////////////
+                
             });
 
             msjConfirmDelete.SetButton2("No", (s, ev) =>
@@ -155,10 +176,13 @@ namespace AppDrinkAndroid
             msjConfirmDelete.Show();
         }
 
-        private void refresh()
+        private void LoadAndRefreshListView()
         {
+            lstSource = db.selectTableDrink();
+            ListDrinkHelper.SetList(lstSource);
+            
             //create our adapter
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
+            drinkAdapter = new DrinkAdapter(this, ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }
@@ -168,7 +192,7 @@ namespace AppDrinkAndroid
             Spinner spinner = (Spinner)sender;
             categoria=spinner.SelectedItem.ToString();
             //create our adapter
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
+            drinkAdapter = new DrinkAdapter(this, ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }
@@ -178,8 +202,11 @@ namespace AppDrinkAndroid
         protected override void OnResume()
         {
             base.OnResume();
+
+            lstSource = db.selectTableDrink();
+            ListDrinkHelper.SetList(lstSource);
             //create our adapter
-            drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria));
+            drinkAdapter = new DrinkAdapter(this, ListDrinkHelper.getDrinksByCategory(categoria));
             //Hook up our adapter to our ListView
             lvDrinks.Adapter = drinkAdapter;
         }
