@@ -73,10 +73,14 @@ namespace AppDrinkAndroid
             btnCandado.Click += (e, o) =>
             {
                 if(uc.isAdmin == false)
+                {
                     StartActivity(typeof(Contrasena));
+                    btnCandado.SetImageResource(Resource.Drawable.candado);
+                }
                 if (uc.isAdmin == true)
                 {
                     uc.isAdmin = false;
+                    btnCandado.SetImageResource(Resource.Drawable.candadoAbierto);
                     StartActivity(typeof(MainActivity));
                 }
             };
