@@ -56,7 +56,7 @@ namespace AppDrinkAndroid.Activities
             precio.Text = drinkAMostrar.precio;
             categoria.Text = drinkAMostrar.categoria;
             drinkPhotoPath = drinkAMostrar.imagePath;
-            //LoadImageDrinkOnListView(imgViewDrinkCapture, drinkAMostrar.imagePath);
+            LoadImageDrinkOnListView(imgViewDrinkCapture, drinkAMostrar.imagePath);
         }
         
         private static void LoadImageDrinkOnListView(ImageView imgViewDrinkImage, string imageDrinkPath)
