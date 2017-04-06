@@ -42,18 +42,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="80dp"
         android:id="@+id/linearLayout1">
         <Button
             android:text="INGRESAR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:id="@+id/btIngresar" />
         <Button
             android:text="@string/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
             android:id="@+id/btCancelar" />
     </LinearLayout>
 </LinearLayout>

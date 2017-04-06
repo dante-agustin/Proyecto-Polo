@@ -9,10 +9,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Reflection;
+using Android.Content.PM;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "AppDrinkAndroid", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "AppDrinkAndroid", MainLauncher = false, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Locked)]
     public class MainActivity : Activity
     {
         ImageButton btnTuerca;
@@ -26,24 +27,33 @@ namespace AppDrinkAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+            UserConfig uc = UserConfig.Instance();
 
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
             DrinkEditActivity.SetDrinksOnSpinner(this, spinner);
-            spinner.ItemSelected += Spinner_ItemSelected;        
+            spinner.ItemSelected += Spinner_ItemSelected;
+            spinner.SetSelection(0);    //Para que por default sea Todos
+                    
 
             //BTN AGREGAR TRAGO
-
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
+            if (uc.isAdmin == false)
+                btnAgregarTrago.Visibility = ViewStates.Invisible;
+            if (uc.isAdmin == true)
+                btnAgregarTrago.Visibility = ViewStates.Visible;
             btnAgregarTrago.Click += (e, o) =>
             {
                 Intent i = new Intent(this, typeof(DrinkEditActivity));
                 StartActivity(i);
             };
-
-
+            
             //BTN TUERCA
             btnTuerca = FindViewById<ImageButton>(Resource.Id.imgBtnTuerca);
+            if (uc.isAdmin == false)
+                btnTuerca.Visibility = ViewStates.Invisible;
+            if (uc.isAdmin == true)
+                btnTuerca.Visibility = ViewStates.Visible;
             btnTuerca.Click += (e, o) =>
             {
                 StartActivity(typeof(Configuracion));
@@ -53,7 +63,13 @@ namespace AppDrinkAndroid
             btnCandado = FindViewById<ImageButton>(Resource.Id.imgBtnCandado);
             btnCandado.Click += (e, o) =>
             {
-                StartActivity(typeof(Contrasena));
+                if(uc.isAdmin == false)
+                    StartActivity(typeof(Contrasena));
+                if (uc.isAdmin == true)
+                {
+                    uc.isAdmin = false;
+                    StartActivity(typeof(MainActivity));
+                }
             };
 
             //LIST VIEW DRINKS
@@ -62,7 +78,8 @@ namespace AppDrinkAndroid
             lvDrinks.Adapter = drinkAdapter;
 
             //Context menu
-            RegisterForContextMenu(lvDrinks);
+            if (uc.isAdmin == true)
+                RegisterForContextMenu(lvDrinks);
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)

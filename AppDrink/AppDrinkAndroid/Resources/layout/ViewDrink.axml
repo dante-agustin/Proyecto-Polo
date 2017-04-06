@@ -10,36 +10,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <EditText
-                android:inputType="text"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etNombre"
-                android:hint="@string/ingreseNombre" />
-            <EditText
-                android:inputType="textMultiLine"
+                android:id="@+id/tvNombre" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/etIngredientes"
-                android:hint="@string/ingreseIngredientes" />
+                android:id="@+id/tvIngredientes" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <EditText
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/etPrecio"
-                    android:hint="@string/ingresePrecio"
-                    android:inputType="numberDecimal" />
-                <Spinner
-                    android:layout_width="220dp"
+                    android:id="@+id/tvPrecio" />
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinnerCategoria"
-                    android:visibility="visible"
-                    android:scrollbars="vertical"
-                    android:clickable="true"
-                    android:layout_marginLeft="10dp" />
+                    android:id="@+id/tvCategoria" />
             </LinearLayout>
             <ImageView
                 android:src="@drawable/drinkdefault"
@@ -59,17 +49,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
                 android:id="@+id/linearLayout1">
                 <Button
                     android:text="@string/btnGuardar"
+                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btGuardar" />
-                <Button
-                    android:text="@string/btnCancelar"
-                    android:id="@+id/btCancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

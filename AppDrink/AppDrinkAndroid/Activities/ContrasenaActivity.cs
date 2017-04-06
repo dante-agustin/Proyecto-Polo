@@ -45,7 +45,9 @@ namespace AppDrinkAndroid
             {
                 if (txtPass.Text.ToString().Equals(content)) 
                 {
-                    //   si esta todo bien, pasa a Main pero con poderes de mod
+                    UserConfig uc = UserConfig.Instance();
+                    uc.isAdmin = true;
+                    StartActivity(typeof(MainActivity));
                     Finish();
                 }
                 else

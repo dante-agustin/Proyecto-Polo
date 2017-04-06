@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.IO;
+using Android.Content.PM;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "DrinkDroid", MainLauncher = true)]
+    [Activity(Label = "DrinkDroid", MainLauncher = true, ScreenOrientation = ScreenOrientation.Locked)]
     public class Welcome : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -49,14 +50,7 @@ namespace AppDrinkAndroid
                     {
                         streamWriter.Write(password);
                     }
-
-                    /*
-                    using (var conn = new SQLite.SQLiteConnection(path))
-                    {
-                        conn.CreateTable<TragoDTO>();
-                    }
-                    */                
-
+                    
                     StartActivity(typeof(MainActivity));
                     this.Finish();
                 };

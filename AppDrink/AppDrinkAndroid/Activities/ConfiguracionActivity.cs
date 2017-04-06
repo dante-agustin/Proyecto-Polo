@@ -9,10 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "Configuracion")]
+    [Activity(Label = "Configuracion", ScreenOrientation = ScreenOrientation.Locked)]
     public class Configuracion : Activity
     {
         CheckBox checkboxPrecio;

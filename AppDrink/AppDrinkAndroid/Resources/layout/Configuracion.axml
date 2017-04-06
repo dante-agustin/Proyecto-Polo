@@ -41,18 +41,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="80dp"
         android:id="@+id/linearLayout1">
         <Button
             android:text="@string/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
             android:id="@+id/btGuardar" />
         <Button
             android:text="@string/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="100dp"
             android:id="@+id/btCancelar" />
     </LinearLayout>
 </LinearLayout>
