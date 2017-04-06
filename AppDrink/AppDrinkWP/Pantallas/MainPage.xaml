@@ -1,0 +1,29 @@
+﻿<Page Margin="0,40,0,0"
+    x:Class="AppDrinkWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AppDrinkWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    
+
+    <Grid Background="Black">
+
+        <Button x:Name="btnNuevoTrago" Click="btnNuevoTrago_Click" Height="80" Width="80" Padding="0" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Image Source="../Assets/agregarTrago.png"  Stretch="UniformToFill" />
+        </Button>
+
+        <Image Source="../Assets/icon.png"  Height="100" Width="100" VerticalAlignment="Top"/>
+        
+        <RelativePanel VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button x:Name="btnCandado" Click="btnCandado_Click" Height="50" Width="50" Padding="0" BorderThickness="0">
+                <Image Source="../Assets/candado.png"  Stretch="UniformToFill" />
+            </Button>
+            <Button x:Name="btnTuerca" Click="btnTuerca_Click" Height="50" Width="50" Padding="0" BorderThickness="0" RelativePanel.Below="btnCandado">
+                <Image Source="../Assets/tuerca.png"  Stretch="UniformToFill" />
+            </Button>
+        </RelativePanel>
+    </Grid>
+</Page>

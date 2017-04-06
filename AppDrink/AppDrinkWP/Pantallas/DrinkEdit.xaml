@@ -4,11 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppDrinkWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
 
     <Page.BottomAppBar >
-        <CommandBar IsSticky="True" IsOpen="True" Visibility="Visible">
+        <CommandBar IsSticky="True" IsOpen="True" Visibility="Visible" Background="#FF3A3A3A">
             <CommandBar.PrimaryCommands >
                 <AppBarButton x:Name="captureBtn" Label="Tomar foto del trago" Icon="Camera" Click="captureBtn_Click" ></AppBarButton>
                 <AppBarButton x:Name="saveBtn" Label="Guardar" Icon="Save" Click="saveBtn_Click" ></AppBarButton>
@@ -20,13 +19,17 @@
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Hub x:Name="hubTitle"  Foreground="#FF1A4B07" FontSize="12" FontFamily="Microsoft Himalaya" FontWeight="Bold" Margin="10,10,10,0" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="61*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Hub x:Name="hubTitle" Background="Black" />
 
         <TextBox x:Name="etNombre" PlaceholderText="Ingrese el nombre" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Text="{Binding nombre}"/>
         <ComboBox x:Name="comboBoxCategoria" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="340" PlaceholderText="Seleccionar categoría"/>
         <TextBox x:Name="etIngredientes" PlaceholderText="Ingrese los ingredientes" HorizontalAlignment="Left" Margin="10,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340"  Height="101" AcceptsReturn="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding ingredientes}"/>
-        <Image x:Name="drinkImageCapture" HorizontalAlignment="Left" Height="305" VerticalAlignment="Top" Width="340" Margin="10,240,0,0"/>
+        ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding ingredientes}" Background="#66D4D4D4"/>
+        <Image x:Name="drinkImageCapture" HorizontalAlignment="Left" Height="305" VerticalAlignment="Top" Width="340" Margin="10,240,0,0" />
 
     </Grid>
 </Page>

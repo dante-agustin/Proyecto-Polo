@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="AppDrinkWP.MainPage"
+    x:Class="AppDrinkWP.Configuracion"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppDrinkWP"
@@ -7,6 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+<<<<<<< HEAD:AppDrink/AppDrinkWP/Pantallas/Configuracion.xaml
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+=======
     <Page.BottomAppBar >
         <CommandBar IsSticky="True" IsOpen="True" Visibility="Visible">
             <CommandBar.PrimaryCommands >
@@ -25,6 +28,7 @@
                 <GradientStop Color="#FF913838" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+>>>>>>> origin/master:AppDrink/AppDrinkWP/MainPage.xaml
 
     </Grid>
 </Page>
