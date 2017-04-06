@@ -18,6 +18,7 @@ namespace AppDrinkAndroid
 
         public bool showPrecio { get; set; }
         public bool showIngredientes { get; set; }
+        public bool isAdmin { get; set; }
 
         static internal UserConfig Instance()
         {

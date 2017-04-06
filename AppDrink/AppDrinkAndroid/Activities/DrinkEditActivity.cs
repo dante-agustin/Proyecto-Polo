@@ -27,7 +27,7 @@ namespace AppDrinkAndroid
         public static Bitmap bitmap;
     }
 
-    [Activity(Label = "DrinkEdit")]
+    [Activity(Label = "DrinkEdit", ScreenOrientation = ScreenOrientation.Locked)]
     public class DrinkEditActivity : Activity
     {
         ImageButton imgBtnAgregarFoto;
@@ -121,17 +121,17 @@ namespace AppDrinkAndroid
         {
             
             var list = new List<String>();
-            
+            if (contexto is MainActivity)
+            {
+                list.Add("Todas");
+            }
             list.Add("Vodka");
             list.Add("Whisky");
             list.Add("Basico");
             list.Add("Vinos");
             list.Add("Cocktails");
             list.Add("Cerveza");
-            if (contexto is MainActivity)
-            {
-                list.Add("Todas");
-            }
+            
             list.Add("Seleccionar categoria");
             
 

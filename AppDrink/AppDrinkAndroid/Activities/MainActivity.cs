@@ -12,10 +12,12 @@ using System.Reflection;
 using AppDrinkProyectoCompartido;
 using AppDrinkAndroid.DataHelper;
 using Android.Util;
+using Android.Content.PM;
+using AppDrinkAndroid.Activities;
 
 namespace AppDrinkAndroid
 {
-    [Activity(Label = "AppDrinkAndroid", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "AppDrinkAndroid", MainLauncher = false, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Locked)]
     public class MainActivity : Activity
     {
         ImageButton btnTuerca;
@@ -31,6 +33,7 @@ namespace AppDrinkAndroid
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
+            UserConfig uc = UserConfig.Instance();
 
             //Crea la base de datos
             CreateDB();
@@ -38,20 +41,28 @@ namespace AppDrinkAndroid
             //SPINNER CATEGORIAS
             Spinner spinner = FindViewById<Spinner>(Resource.Id.spinner);
             DrinkEditActivity.SetDrinksOnSpinner(this, spinner);
-            spinner.ItemSelected += Spinner_ItemSelected;        
+            spinner.ItemSelected += Spinner_ItemSelected;
+            spinner.SetSelection(0);    //Para que por default sea Todos
+                    
 
             //BTN AGREGAR TRAGO
-
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
+            if (uc.isAdmin == false)
+                btnAgregarTrago.Visibility = ViewStates.Invisible;
+            if (uc.isAdmin == true)
+                btnAgregarTrago.Visibility = ViewStates.Visible;
             btnAgregarTrago.Click += (e, o) =>
             {
                 Intent i = new Intent(this, typeof(DrinkEditActivity));
                 StartActivity(i);
             };
-
-
+            
             //BTN TUERCA
             btnTuerca = FindViewById<ImageButton>(Resource.Id.imgBtnTuerca);
+            if (uc.isAdmin == false)
+                btnTuerca.Visibility = ViewStates.Invisible;
+            if (uc.isAdmin == true)
+                btnTuerca.Visibility = ViewStates.Visible;
             btnTuerca.Click += (e, o) =>
             {
                 StartActivity(typeof(Configuracion));
@@ -61,19 +72,24 @@ namespace AppDrinkAndroid
             btnCandado = FindViewById<ImageButton>(Resource.Id.imgBtnCandado);
             btnCandado.Click += (e, o) =>
             {
-                StartActivity(typeof(Contrasena));
+                if(uc.isAdmin == false)
+                    StartActivity(typeof(Contrasena));
+                if (uc.isAdmin == true)
+                {
+                    uc.isAdmin = false;
+                    StartActivity(typeof(MainActivity));
+                }
             };
 
-            //LIST VIEW DRINKS
-            lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
-            
-            LoadAndRefreshListView(); //Carga y actualiza el contenido del list view
 
-            //drinkAdapter = new DrinkAdapter(this, ListDrinkHelper.getDrinks());
-            //lvDrinks.Adapter = drinkAdapter;
+            //LIST VIEW DRINKS
+            lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);            
+            LoadAndRefreshListView(); //Carga y actualiza el contenido del list view         
+            lvDrinks.ItemClick += lvDrinks_ItemClick;
 
             //Context menu
-            RegisterForContextMenu(lvDrinks);
+            if (uc.isAdmin == true)
+                RegisterForContextMenu(lvDrinks);
         }
 
         public void CreateDB()
@@ -137,6 +153,16 @@ namespace AppDrinkAndroid
            
             return true;
         }
+
+        
+        private void lvDrinks_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Intent i = new Intent(this, typeof(ViewDrinkActivity));
+            i.PutExtra("posicion", e.Position);
+            i.PutExtra("categoria", categoria);
+            StartActivity(i);
+        }
+
 
         private void ModificarTrago(int positionInListView)
         {
