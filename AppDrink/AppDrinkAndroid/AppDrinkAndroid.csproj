@@ -128,6 +128,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\agregarFoto.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\candadoAbierto.png" />
+  </ItemGroup>
   <Import Project="..\AppDrinkProyectoCompartido\AppDrinkProyectoCompartido.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

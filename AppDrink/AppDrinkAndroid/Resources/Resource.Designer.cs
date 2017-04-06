@@ -70,13 +70,16 @@ namespace AppDrinkAndroid
 			public const int candado = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int drinkDefault = 2130837507;
+			public const int candadoAbierto = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Icon = 2130837508;
+			public const int drinkDefault = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int tuerca = 2130837509;
+			public const int Icon = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int tuerca = 2130837510;
 			
 			static Drawable()
 			{

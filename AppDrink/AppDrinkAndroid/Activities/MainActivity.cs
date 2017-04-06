@@ -39,10 +39,6 @@ namespace AppDrinkAndroid
 
             //BTN AGREGAR TRAGO
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
-            if (uc.isAdmin == false)
-                btnAgregarTrago.Visibility = ViewStates.Invisible;
-            if (uc.isAdmin == true)
-                btnAgregarTrago.Visibility = ViewStates.Visible;
             btnAgregarTrago.Click += (e, o) =>
             {
                 Intent i = new Intent(this, typeof(DrinkEditActivity));
@@ -51,15 +47,11 @@ namespace AppDrinkAndroid
             
             //BTN TUERCA
             btnTuerca = FindViewById<ImageButton>(Resource.Id.imgBtnTuerca);
-            if (uc.isAdmin == false)
-                btnTuerca.Visibility = ViewStates.Invisible;
-            if (uc.isAdmin == true)
-                btnTuerca.Visibility = ViewStates.Visible;
             btnTuerca.Click += (e, o) =>
             {
                 StartActivity(typeof(Configuracion));
             };
-
+            
             //BTN CANDADO
             btnCandado = FindViewById<ImageButton>(Resource.Id.imgBtnCandado);
             btnCandado.Click += (e, o) =>
@@ -73,16 +65,26 @@ namespace AppDrinkAndroid
                 }
             };
 
-
             //LIST VIEW DRINKS
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
             lvDrinks.ItemClick += lvDrinks_ItemClick;
 
-            //Context menu
+            //ADMIN OR NOT
+            if (uc.isAdmin == false)
+            {
+                btnTuerca.Visibility = ViewStates.Invisible;
+                btnAgregarTrago.Visibility = ViewStates.Invisible;
+                btnCandado.SetImageResource(Resource.Drawable.candado);
+            }
             if (uc.isAdmin == true)
+            {
+                btnTuerca.Visibility = ViewStates.Visible;
+                btnAgregarTrago.Visibility = ViewStates.Visible;
+                btnCandado.SetImageResource(Resource.Drawable.candadoAbierto);
                 RegisterForContextMenu(lvDrinks);
+            }
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
