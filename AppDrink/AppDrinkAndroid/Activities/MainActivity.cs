@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using System.Reflection;
 using Android.Content.PM;
+using AppDrinkAndroid.Activities;
 
 namespace AppDrinkAndroid
 {
@@ -72,10 +73,12 @@ namespace AppDrinkAndroid
                 }
             };
 
+
             //LIST VIEW DRINKS
             lvDrinks = FindViewById<ListView>(Resource.Id.listViewDrinks);
             drinkAdapter = new DrinkAdapter(this, AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks());
             lvDrinks.Adapter = drinkAdapter;
+            lvDrinks.ItemClick += lvDrinks_ItemClick;
 
             //Context menu
             if (uc.isAdmin == true)
@@ -134,6 +137,16 @@ namespace AppDrinkAndroid
            
             return true;
         }
+
+        
+        private void lvDrinks_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Intent i = new Intent(this, typeof(ViewDrinkActivity));
+            i.PutExtra("posicion", e.Position);
+            i.PutExtra("categoria", categoria);
+            StartActivity(i);
+        }
+
 
         private void ModificarTrago(int positionInListView)
         {

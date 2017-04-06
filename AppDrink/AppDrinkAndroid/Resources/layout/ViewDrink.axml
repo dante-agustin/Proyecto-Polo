@@ -6,29 +6,74 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    <!--LLO-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNombre" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvIngredientes" />
+        <!--TV-->
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvPrecio" />
+                    android:id="@+id/lblNombre:"
+                    android:textColor="#FFFF"
+                    android:text="Nombre:" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tvNombre" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblIngredientes"
+                    android:textColor="#FFFF"
+                    android:text="Ingredientes:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tvIngredientes" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblPrecio"
+                    android:textColor="#FFFF"
+                    android:text="Precio:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tvPrecio" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblCategoria"
+                    android:textColor="#FFFF"
+                    android:text="Categoría:" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:id="@+id/tvCategoria" />
             </LinearLayout>
             <ImageView
@@ -38,26 +83,13 @@
                 android:id="@+id/imgViewDrinkCapture"
                 android:adjustViewBounds="true"
                 android:layout_marginBottom="0dp" />
-            <ImageButton
-                android:src="@drawable/agregarFoto"
+            <Button
+                android:text="Listo"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imgBtnAgregarFoto"
-                android:clickable="true" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:id="@+id/linearLayout1">
-                <Button
-                    android:text="@string/btnGuardar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btGuardar" />
-            </LinearLayout>
+                android:id="@+id/btGuardar" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
