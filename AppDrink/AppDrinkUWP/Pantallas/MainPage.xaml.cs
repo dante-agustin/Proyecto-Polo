@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDrinkUWP.Pantallas;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,21 +16,19 @@ using Windows.UI.Xaml.Navigation;
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace AppDrinkWP
+namespace AppDrinkUWP
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
     /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
-
-            
-
         }
-        
+
+
         private void btnNuevoTrago_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(DrinkEdit));
