@@ -4,13 +4,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using SQLite;
+//using SQLite.Net.Attributes;
 
 namespace AppDrinkProyectoCompartido
 {
     public class Drink
     {
-        [PrimaryKey, AutoIncrement]
-        public int id { set; get; }
+
+        #if __ANDROID__
+                        [PrimaryKey, AutoIncrement]
+                        public int id { set; get; }
+         
+        #else
+                        //UWP
+                        [SQLite.Net.Attributes.PrimaryKey, SQLite.Net.Attributes.AutoIncrement]
+                        public int id { set; get; }
+        #endif
+
+
         public string nombre { set; get; }
         public string ingredientes { set; get; }
         public string categoria { set; get; }

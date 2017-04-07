@@ -7,13 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-<<<<<<< HEAD:AppDrink/AppDrinkWP/Pantallas/Configuracion.xaml
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-=======
     <Page.BottomAppBar >
         <CommandBar IsSticky="True" IsOpen="True" Visibility="Visible">
             <CommandBar.PrimaryCommands >
-                <AppBarButton x:Name="agregarTragoBtn" Label="Agregar un trago" Icon="Add" Click="agregarTragoBtn_Click" ></AppBarButton>
+                
+                <!--<AppBarButton x:Name="agregarTragoBtn" Label="Agregar un trago" Icon="Add" Click="agregarTragoBtn_Click" ></AppBarButton> -->
 
             </CommandBar.PrimaryCommands>
 
@@ -28,7 +26,8 @@
                 <GradientStop Color="#FF913838" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
->>>>>>> origin/master:AppDrink/AppDrinkWP/MainPage.xaml
+
 
     </Grid>
 </Page>
+   

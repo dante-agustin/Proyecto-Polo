@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -25,7 +24,7 @@ namespace AppDrinkAndroid.Activities
         string drinkPhotoPath = "default";
         int posicion;
         string category;
-        static CustomAdapter dataAdapter;
+        //static CustomAdapter dataAdapter;
         ImageView imgViewDrinkCapture;
 
         protected override void OnCreate(Bundle savedInstanceState)
