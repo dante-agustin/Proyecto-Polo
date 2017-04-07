@@ -1,4 +1,6 @@
-﻿using AppDrinkUWP.Pantallas;
+﻿
+using AppDrinkUWP.DataHelper;
+using AppDrinkUWP.Pantallas;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +25,20 @@ namespace AppDrinkUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        DataBase db;
         public MainPage()
         {
             this.InitializeComponent();
+            //crea la base de datos
+            CreateDB();
+        }
+
+        public void CreateDB()
+        {
+            //Create DataBase
+            db = new DataBase();
+            db.CreateDatabase();
+            
         }
 
 
