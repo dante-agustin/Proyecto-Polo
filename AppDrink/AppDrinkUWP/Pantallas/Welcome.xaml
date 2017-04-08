@@ -7,7 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
+        
+        <TextBlock x:Name="txtbWelcome" HorizontalAlignment="Center" Margin="20,140,20,0" TextWrapping="Wrap" 
+                   Text="Bienvenido a DrinkDroid, con esta Aplicación podras manejar tu bar y mostrar la carta de tragos de una forma interactiva y moderna!" 
+                   VerticalAlignment="Top" Height="124"  Foreground="White" FontSize="19"/>
+
+        <RelativePanel VerticalAlignment="Center">
+            <TextBlock x:Name="txtbWelcome2" HorizontalAlignment="Center" Margin="10,0,10,0" TextWrapping="Wrap" 
+                   Text="Por favor, escriba su contraseña" 
+                   VerticalAlignment="Top" Height="60"  Foreground="White" FontSize="23"/>
+
+             <TextBox x:Name="txtContrasena"  Height="40" Text="Contraseña" RelativePanel.Below="txtbWelcome2"
+                     FontSize="23" Background="Gray" HorizontalAlignment="Stretch" Margin="10,0,10,0" GotFocus="TextBox_GotFocus" />
+
+            <Button x:Name="btnAceptar" Click="btnAceptar_Click" Width="300" HorizontalAlignment="Center" Height="40" Content="ACEPTAR" RelativePanel.Below="txtContrasena" Margin="10,50,10,10" Background="#FF838383"/>
+
+        </RelativePanel>
+        
 
     </Grid>
 </Page>

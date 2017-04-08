@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp">
     <TextView
-        android:text="Welcome to DrinkDroid, with this App you can manage you bar and offer your drinks to your customers on a very fashioned way!"
+        android:text="Bienvenido a DrinkDroid, con esta Aplicación podras manejar tu bar y mostrar la carta de tragos de una forma interactiva y moderna!"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lblWelcome"
         android:gravity="center_horizontal" />
     <TextView
-        android:text="Please, write your password bellow"
+        android:text="Por favor, escriba su contraseña debajo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtPass"
-        android:hint="Password" />
+        android:hint="Contraseña" />
     <Button
-        android:text="Done"
+        android:text="Aceptar"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
