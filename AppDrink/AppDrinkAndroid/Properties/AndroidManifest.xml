@@ -6,4 +6,4 @@
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<activity android:name=".ActivityName" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     &gt;
-    <application android:label="AppDrinkAndroid" android:theme="@android:style/Theme.NoTitleBar"></application></manifest>
+    <application android:label="AppDrinkAndroid" android:theme="@android:style/Theme.NoTitleBar" android:icon="@drawable/Icon"></application></manifest>

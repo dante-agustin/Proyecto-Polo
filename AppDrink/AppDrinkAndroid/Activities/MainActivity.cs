@@ -28,12 +28,13 @@ namespace AppDrinkAndroid
         DrinkAdapter drinkAdapter;
         string categoria="Todas";
         DataBase db;
+        UserConfig uc;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-            UserConfig uc = UserConfig.Instance();
+            uc = UserConfig.Instance();
 
             //Crea la base de datos
             CreateDB();
@@ -47,10 +48,13 @@ namespace AppDrinkAndroid
 
             //BTN AGREGAR TRAGO
             btnAgregarTrago = FindViewById<ImageButton>(Resource.Id.imgBtnAgregarTrago);
+            
+            
             if (uc.isAdmin == false)
                 btnAgregarTrago.Visibility = ViewStates.Invisible;
             if (uc.isAdmin == true)
                 btnAgregarTrago.Visibility = ViewStates.Visible;
+                
             btnAgregarTrago.Click += (e, o) =>
             {
                 Intent i = new Intent(this, typeof(DrinkEditActivity));
@@ -59,10 +63,13 @@ namespace AppDrinkAndroid
             
             //BTN TUERCA
             btnTuerca = FindViewById<ImageButton>(Resource.Id.imgBtnTuerca);
+          
+            
             if (uc.isAdmin == false)
                 btnTuerca.Visibility = ViewStates.Invisible;
             if (uc.isAdmin == true)
                 btnTuerca.Visibility = ViewStates.Visible;
+                
             btnTuerca.Click += (e, o) =>
             {
                 StartActivity(typeof(Configuracion));
@@ -70,18 +77,26 @@ namespace AppDrinkAndroid
 
             //BTN CANDADO
             btnCandado = FindViewById<ImageButton>(Resource.Id.imgBtnCandado);
+            if(uc.isAdmin==false)
+                btnCandado.SetImageResource(Resource.Drawable.candado);
+            else if(uc.isAdmin==true)
+                    btnCandado.SetImageResource(Resource.Drawable.candadoAbierto);
+
             btnCandado.Click += (e, o) =>
             {
                 if(uc.isAdmin == false)
-                {                    
-                    StartActivity(typeof(Contrasena));
+                {
+
+                    StartActivityForResult(typeof(Contrasena), 1);
                     
-                    btnCandado.SetImageResource(Resource.Drawable.candado);
                 }
                 if (uc.isAdmin == true)
                 {
+                    
                     uc.isAdmin = false;
-                    btnCandado.SetImageResource(Resource.Drawable.candadoAbierto);
+
+                    //Refrescar 
+                    Finish();
                     StartActivity(typeof(MainActivity));
                 }
             };
@@ -93,8 +108,12 @@ namespace AppDrinkAndroid
             lvDrinks.ItemClick += lvDrinks_ItemClick;
 
             //Context menu
+            
             if (uc.isAdmin == true)
                 RegisterForContextMenu(lvDrinks);
+            else if(uc.isAdmin==false)
+                    UnregisterForContextMenu(lvDrinks);
+
         }
 
         public void CreateDB()
@@ -114,7 +133,7 @@ namespace AppDrinkAndroid
                 //necesito acceder al nombre del trago
                 Object obj = lvDrinks.GetItemAtPosition(info.Position);
                 var propertyInfo = obj.GetType().GetProperty("Instance");
-                AppDrinkProyectoCompartido.Drink trago = propertyInfo.GetValue(obj, null) as AppDrinkProyectoCompartido.Drink;
+                Drink trago = propertyInfo.GetValue(obj, null) as Drink;
 
                 if (trago != null)
                 {
@@ -136,7 +155,6 @@ namespace AppDrinkAndroid
             var menuItemName = menuItems[menuItemIndex];
             int esModificacion = 0;
            
-            //var listItemName = "";
             Object obj = lvDrinks.GetItemAtPosition(info.Position);
             var propertyInfo = obj.GetType().GetProperty("Instance");
             AppDrinkProyectoCompartido.Drink trago = propertyInfo.GetValue(obj, null) as AppDrinkProyectoCompartido.Drink;
@@ -242,6 +260,28 @@ namespace AppDrinkAndroid
             lvDrinks.Adapter = drinkAdapter;
         }
 
-        
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            if (requestCode == 1)
+            {
+                
+                if (resultCode == Result.Ok)
+                {
+                    uc.isAdmin = true;
+                    
+                    //Refrescar 
+                    Finish();
+                    StartActivity(typeof(MainActivity));
+
+                }
+                else if (resultCode == Result.Canceled)
+                {
+                    uc.isAdmin = false;
+                }
+            }
+
+        }
+
+
     }
 }

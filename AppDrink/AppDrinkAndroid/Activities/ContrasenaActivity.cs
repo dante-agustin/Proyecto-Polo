@@ -20,6 +20,7 @@ namespace AppDrinkAndroid
         Button btnIngresar;
         Button btnCancelar;
         TextView txtIncorrecta;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -45,9 +46,14 @@ namespace AppDrinkAndroid
             {
                 if (txtPass.Text.ToString().Equals(content)) 
                 {
+                    /*
                     UserConfig uc = UserConfig.Instance();
                     uc.isAdmin = true;
                     StartActivity(typeof(MainActivity));
+                    Finish();
+                    */
+
+                    SetResult(Result.Ok);
                     Finish();
                 }
                 else
@@ -63,6 +69,7 @@ namespace AppDrinkAndroid
 
             btnCancelar.Click += (e, o) =>
             {
+                SetResult(Result.Canceled);
                 Finish();
             };
         }
