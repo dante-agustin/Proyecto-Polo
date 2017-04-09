@@ -25,6 +25,18 @@ namespace AppDrinkUWP.Pantallas
         public Configuracion()
         {
             this.InitializeComponent();
+
+        }
+
+
+        private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }
