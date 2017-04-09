@@ -50,7 +50,10 @@ namespace AppDrinkUWP
         public DrinkEdit()
         {
             this.InitializeComponent();
-
+            
+            Categories cat = new Categories();
+            comboBoxCategoria.ItemsSource = cat.categoryList;
+            
             //Si no es un edit
             hubTitle.Header = "Agregar trago";
 

@@ -125,13 +125,10 @@ namespace AppDrinkAndroid
             {
                 list.Add("Todas");
             }
-            list.Add("Vodka");
-            list.Add("Whisky");
-            list.Add("Basico");
-            list.Add("Vinos");
-            list.Add("Cocktails");
-            list.Add("Cerveza");
-            
+
+            Categories cat = new Categories();
+            list.AddRange(cat.categoryList);
+
             list.Add("Seleccionar categoria");
             
 

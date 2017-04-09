@@ -25,11 +25,7 @@
             </Button>
         </RelativePanel>
         <TextBlock x:Name="txtCategorias" Text="CATEGORIAS" HorizontalAlignment="Stretch" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="18" />
-        <ComboBox x:Name="cbCategorias" SelectionChanged="cbCategorias_Seleccion" HorizontalAlignment="Stretch" Margin="10,149,10,10" VerticalAlignment="Top">
-            <ComboBoxItem Name="cbi1">Todas</ComboBoxItem>
-            <ComboBoxItem Name="cbi2">Vodka</ComboBoxItem>
-            <ComboBoxItem Name="cbi3">Whisky</ComboBoxItem>
-        </ComboBox>
+        <ComboBox x:Name="cbCategorias" SelectionChanged="cbCategorias_Seleccion" HorizontalAlignment="Stretch" Margin="10,149,10,10" VerticalAlignment="Top" />
 
         <StackPanel  Margin="10,10,10,156" >
 

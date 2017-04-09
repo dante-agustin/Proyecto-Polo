@@ -9,6 +9,7 @@
     <Import_RootNamespace>AppDrinkProyectoCompartido</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Categories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Drink.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListDrinkHelper.cs" />
   </ItemGroup>

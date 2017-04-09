@@ -1,4 +1,5 @@
 ﻿
+using AppDrinkProyectoCompartido;
 using AppDrinkUWP.DataHelper;
 using AppDrinkUWP.Pantallas;
 using System;
@@ -35,6 +36,13 @@ namespace AppDrinkUWP
 
             //cuando apenas carga te muestra todo, y cuando elegis una categoria va al metodo cbCategorias_Seleccion
             lvTragos.ItemsSource = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks();
+
+            Categories cat = new Categories();
+            List<string> cl = new List<string>();
+            cl.Add("Todos");
+            cl.AddRange(cat.categoryList);
+            cbCategorias.ItemsSource = cl;
+            cbCategorias.SelectedIndex = 0;
         }
 
        
@@ -50,7 +58,7 @@ namespace AppDrinkUWP
         private void cbCategorias_Seleccion(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmb = sender as ComboBox;
-            string catSeleccionada = cmb.SelectionBoxItem.ToString();
+            string catSeleccionada = cmb.SelectedValue.ToString();
             lvTragos.ItemsSource = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(catSeleccionada);
         }
 
