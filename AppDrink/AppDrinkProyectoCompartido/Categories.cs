@@ -17,7 +17,6 @@ namespace AppDrinkProyectoCompartido
             categoryList.Add("Vinos");
             categoryList.Add("Cocktails");
             categoryList.Add("Cervezas");
-            categoryList.Add("loquesea");
         }
     }
 }

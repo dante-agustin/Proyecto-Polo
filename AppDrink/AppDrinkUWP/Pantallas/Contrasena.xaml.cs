@@ -27,12 +27,24 @@ namespace AppDrinkUWP.Pantallas
             this.InitializeComponent();
         }
 
-        private void btnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MainPage));
-        }
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+
+
+
+            /*
+            if( contra_correcta )
+            {
+                this.Frame.Navigate(typeof(MainPage));
+            }
+            else
+            {
+
+            }*/
+        }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
         }

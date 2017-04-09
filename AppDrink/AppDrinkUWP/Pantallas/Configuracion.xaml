@@ -7,7 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
 
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="30,10,0,0" TextWrapping="Wrap" Text="CONFIGURACION" VerticalAlignment="Top" Foreground="White" FontSize="24"/>
+
+        <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Left" Height="99" Margin="20,0">
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Center" Margin="30,10,0,0" TextWrapping="Wrap" Text="VER DE CADA CATEGORIA" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <CheckBox x:Name="cbPrecio" Content="Precio" Height="32" VerticalAlignment="Top" RelativePanel.Below="textBlock2" BorderBrush="AntiqueWhite" Foreground="White"/>
+            <CheckBox x:Name="cbIngr" Content="Ingredientes" Height="32" VerticalAlignment="Top" RelativePanel.Below="cbPrecio" BorderBrush="AntiqueWhite" Foreground="White"/>
+        </RelativePanel>
+
+        <RelativePanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="99" Margin="30,0">
+            <Button x:Name="btnAceptar" Click="btnAceptar_Click" Content="ACEPTAR" HorizontalAlignment="Center"  Width="150" Background="#FF4F4F4F" />
+            <Button x:Name="btnCancelar" Click="btnCancelar_Click" Content="CANCELAR" HorizontalAlignment="Center" RelativePanel.RightOf="btnAceptar"  Width="150" Background="#FF4F4F4F" />
+        </RelativePanel>
+       
     </Grid>
 </Page>
