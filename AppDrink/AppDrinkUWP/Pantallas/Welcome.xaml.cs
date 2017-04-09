@@ -29,13 +29,13 @@ namespace AppDrinkUWP.Pantallas
             this.InitializeComponent();
             
             //no anda bien, pasa que para buscarlo es asincronico sino, tengo que ver como solucionarlo
-            string rootPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            /*string rootPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
             string filePath = Path.Combine(rootPath, "contrasena.txt");
 
             if (System.IO.File.Exists(filePath))
             {
                 this.Frame.Navigate(typeof(MainPage));
-            }
+            }*/
             
         }
 
