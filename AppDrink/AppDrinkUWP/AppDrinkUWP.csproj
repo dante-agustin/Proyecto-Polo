@@ -124,6 +124,7 @@
   <ItemGroup>
     <Content Include="Assets\agregarTrago.png" />
     <Content Include="Assets\candado.png" />
+    <Content Include="Assets\candadoAbierto.png" />
     <Content Include="Assets\icon.png" />
     <Content Include="Assets\tuerca.png" />
     <Content Include="Properties\Default.rd.xml" />

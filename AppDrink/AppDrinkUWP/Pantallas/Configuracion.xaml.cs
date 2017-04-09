@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDrinkUWP.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace AppDrinkUWP.Pantallas
     /// </summary>
     public sealed partial class Configuracion : Page
     {
+
+        UserConfig uc;
+
         public Configuracion()
         {
             this.InitializeComponent();
@@ -31,6 +35,18 @@ namespace AppDrinkUWP.Pantallas
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
+            uc = UserConfig.Instance();
+
+            if (cbIngr.IsChecked == true)
+                uc.showIngredientes = true;
+            else
+                uc.showIngredientes = false;
+
+            if (cbPrecio.IsChecked == true)
+                uc.showPrecio = true;
+            else
+                uc.showPrecio = false;
+
             this.Frame.Navigate(typeof(MainPage));
         }
 
