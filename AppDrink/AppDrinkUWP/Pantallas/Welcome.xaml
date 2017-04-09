@@ -18,7 +18,7 @@
                    Text="Por favor, escriba su contraseña" 
                    VerticalAlignment="Top" Height="60"  Foreground="White" FontSize="23"/>
 
-             <TextBox x:Name="txtContrasena"  Height="40" Text="Contraseña" RelativePanel.Below="txtbWelcome2"
+             <TextBox x:Name="txtContrasena"  Height="40" Width="300" Text="Contraseña" RelativePanel.Below="txtbWelcome2"
                      FontSize="23" Background="Gray" HorizontalAlignment="Stretch" Margin="10,0,10,0" GotFocus="TextBox_GotFocus" />
 
             <Button x:Name="btnAceptar" Click="btnAceptar_Click" Width="300" HorizontalAlignment="Center" Height="40" Content="ACEPTAR" RelativePanel.Below="txtContrasena" Margin="10,50,10,10" Background="#FF838383"/>

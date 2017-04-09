@@ -9,11 +9,10 @@ using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Core;
+
 
 // La plantilla de elemento Página en blanco está documentada en http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,23 +23,18 @@ namespace AppDrinkUWP.Pantallas
     /// </summary>
     public sealed partial class Welcome : Page
     {
+        public Task InitTask { get; private set; }
+
         public Welcome()
         {
             this.InitializeComponent();
-            
-            //no anda bien, pasa que para buscarlo es asincronico sino, tengo que ver como solucionarlo
-            string rootPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-            string filePath = Path.Combine(rootPath, "contrasena.txt");
 
-            if (System.IO.File.Exists(filePath))
-            {
-                this.Frame.Navigate(typeof(MainPage));
-            }
+            Task InitTask = CheckIfFileExists();
             
         }
 
-        /* Esto se para hacer un Hiden Text que diga contraseña, igual acá como siempre arranca
-         * Seleccionando el TextBox no funciona */
+        // Esto se para hacer un Hiden Text que diga contraseña, igual acá como siempre arranca
+        // Seleccionando el TextBox no funciona 
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -48,25 +42,47 @@ namespace AppDrinkUWP.Pantallas
             tb.GotFocus -= TextBox_GotFocus;
         }
 
+
         private async void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(txtContrasena.Text))
+            //Create variables for file
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await storageFolder.CreateFileAsync("Password.txt", CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteTextAsync(file, txtContrasena.Text); //Store written password
+
+            var frame = (Frame)Window.Current.Content;
+            frame.Navigate(typeof(MainPage));
+        }
+
+
+
+        public async Task CheckIfFileExists()
+        {
+            try
             {
-                var dialog = new MessageDialog("ERROR");
-                dialog.Title = "Debe completar el campo Contraseña";
-                dialog.Commands.Add(new UICommand { Label = "Aceptar", Id = 0 });
-                var res = await dialog.ShowAsync();
+                //Create variables for file
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file = await storageFolder.GetFileAsync("Password.txt");
+                string text = await FileIO.ReadTextAsync(file); //try to read
+                //IT IS NOT FIRST LOGIN
+
+                GoToMain();
+
             }
-            else
+            catch
             {
-                Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                Windows.Storage.StorageFile contrasenaFile = await storageFolder.CreateFileAsync("contrasena.txt",
-                        Windows.Storage.CreationCollisionOption.ReplaceExisting);
-
-                await Windows.Storage.FileIO.WriteTextAsync(contrasenaFile, txtContrasena.Text);
-
-                this.Frame.Navigate(typeof(MainPage));
+                //IT IS FIRST LOGIN!
             }
         }
+
+        public async Task GoToMain()
+        {
+            var frame = (Frame)Window.Current.Content;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => frame.Navigate(typeof(MainPage)));
+        }
+
     }
 }
+
+
