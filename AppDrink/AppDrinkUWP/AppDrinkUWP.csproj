@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\UserConfig.cs" />
     <Compile Include="DataHelper\DataBase.cs" />
     <Compile Include="Pantallas\Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>

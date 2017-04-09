@@ -12,6 +12,7 @@
         <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBox x:Name="txtContrasena" HorizontalAlignment="Center" TextWrapping="Wrap"  RelativePanel.Below="txtIngreseContra" Height="24" Width="289" />
             <TextBlock x:Name="txtIngreseContra" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="INGRESE LA CONTRASEÑA" VerticalAlignment="Top" Height="24" Width="200" Foreground="#FF9C9C9C"/>
+            <TextBlock x:Name="lblError" HorizontalAlignment="Center" TextWrapping="Wrap"  RelativePanel.Below="txtContrasena" Height="24" Width="289" Foreground="#FF9C9C9C"  />
         </RelativePanel>
 
         <RelativePanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="99" Margin="30,0">
