@@ -25,10 +25,26 @@
             </Button>
         </RelativePanel>
         <TextBlock x:Name="txtCategorias" Text="CATEGORIAS" HorizontalAlignment="Stretch" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="18" />
-        <ComboBox x:Name="cbCategorias" HorizontalAlignment="Stretch" Margin="10,149,10,10" VerticalAlignment="Top">
-            <ComboBoxItem Name="cbi1">Todos</ComboBoxItem>
+        <ComboBox x:Name="cbCategorias" SelectionChanged="cbCategorias_Seleccion" HorizontalAlignment="Stretch" Margin="10,149,10,10" VerticalAlignment="Top">
+            <ComboBoxItem Name="cbi1">Todas</ComboBoxItem>
             <ComboBoxItem Name="cbi2">Vodka</ComboBoxItem>
             <ComboBoxItem Name="cbi3">Whisky</ComboBoxItem>
         </ComboBox>
+
+        <StackPanel  Margin="10,10,10,156" >
+
+            <ListView x:Name="lvTragos" Margin="10,180,10,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RelativePanel  >
+                            <!-- <Image Source="../Assets/icon.png"  Height="50" Width="50"/> -->
+                            <TextBlock x:Name="nombreTrago" Text="{Binding nombre}" Margin="10,0,0,0"/>
+                            <TextBlock x:Name="ingrTrago" Text="{Binding ingredientes}" RelativePanel.Below="nombreTrago"/>
+                            <TextBlock Text="{Binding precio}" RelativePanel.RightOf="ingrTrago"/>
+                        </RelativePanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>
