@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="Black">
+    <Grid Background="LightGray">
         
         <TextBlock x:Name="txtbWelcome" HorizontalAlignment="Center" Margin="20,140,20,0" TextWrapping="Wrap" 
                    Text="Bienvenido a DrinkDroid, con esta Aplicación podras manejar tu bar y mostrar la carta de tragos de una forma interactiva y moderna!" 

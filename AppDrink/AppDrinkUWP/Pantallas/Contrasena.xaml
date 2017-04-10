@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="Black">
+    <Grid Background="LightGray">
 
         <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBox x:Name="txtContrasena" HorizontalAlignment="Center" TextWrapping="Wrap"  RelativePanel.Below="txtIngreseContra" Height="24" Width="289" />

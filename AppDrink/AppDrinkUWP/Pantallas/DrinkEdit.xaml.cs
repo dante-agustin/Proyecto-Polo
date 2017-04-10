@@ -23,6 +23,8 @@ using Windows.UI.Xaml.Navigation;
 using AppDrinkProyectoCompartido;
 using AppDrinkUWP.Classes;
 using AppDrinkUWP.DataHelper;
+using Microsoft.VisualBasic;
+using System.Windows.Input;
 
 // Package.appxmanifest -> View Designer -> Capabilities -> WebCam y Pictures Library
 /*
@@ -49,6 +51,8 @@ namespace AppDrinkUWP
         private IRandomAccessStream stream;
         string drinkPhotoPath="default";
         DataBase db;
+        private bool esAlta;
+        private Drink trago;
 
         public DrinkEdit()
         {
@@ -56,14 +60,36 @@ namespace AppDrinkUWP
             CreateDB();
             Categories cat = new Categories();
             comboBoxCategoria.ItemsSource = cat.categoryList;
+            etPrecio.TextChanged += EtPrecio_TextChanged;
+            if (esAlta){
+                //Si no existe imagen para ese trago, cargar imagen por defecto
+                BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
+                drinkImageCapture.Source = drinkImageDefault;
+            }
             
-            //Si no es un edit
-            hubTitle.Header = "Agregar trago";
-
-            //Si no existe imagen para ese trago, cargar imagen por defecto
-            BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
-            drinkImageCapture.Source = drinkImageDefault;
         }
+
+        //Verificar que sea un numero sino mostrar en el laber un error, y no
+        //permitir guardar
+        
+        private void EtPrecio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            /*
+            char[] originalText = etPrecio.Text.ToCharArray();
+            foreach (char c in originalText)
+            {
+                if (!(Char.IsNumber(c)))
+                {
+                    etPrecio.Text = etPrecio.Text.Remove(etPrecio.Text.IndexOf(c));
+                    lblError.Visible = true;
+                }
+                else
+                    lblError.Visible = false;
+            }
+            etPrecio.Select(etPrecio.Text.Length, 0);
+             */
+        }
+
 
         public void CreateDB()
         {
@@ -121,11 +147,11 @@ namespace AppDrinkUWP
                     // await storeFile.CopyAsync(destinationFolder, "drinkPhoto.jpg", NameCollisionOption.ReplaceExisting);
                     //await storeFile.DeleteAsync();
 
-                //VER CON QUE PATH  ABRIR LOS ARCHIVOS
-                    //string prueba=storeFile.Path;
-                    
+                    //VER CON QUE PATH  ABRIR LOS ARCHIVOS
+                    //drinkPhotoPath=storeFile.Path;
+
                 }
-            
+
             }
 
 
@@ -142,7 +168,26 @@ namespace AppDrinkUWP
             }
             else
             {
-                /*
+                if (!esAlta)
+                {
+                    //Es un edit, no creo un nuevo participante
+
+                    trago = (Drink)DataContext;
+                    trago.nombre = etNombre.Text;
+                    trago.ingredientes = etIngredientes.Text;
+                    trago.precio = etPrecio.Text;
+                    trago.categoria = comboBoxCategoria.SelectedItem.ToString();
+
+                    //VER LO DE LA IMAGE
+                    //drinkPhotoPath puede ser modificado si se toma una foto
+                    //trago.imagePath=drinkPhotoPath;
+
+                    db.updateTableDrink(trago);
+
+                }
+                else
+                {
+                    /*
                 try
                 {
                     FileSavePicker fs = new FileSavePicker();
@@ -173,19 +218,19 @@ namespace AppDrinkUWP
                     await messageDialog.ShowAsync();
                 }*/
 
-                Drink newDrink = new Drink()
-                {
-                    nombre = etNombre.Text,
-                    categoria = comboBoxCategoria.SelectedItem.ToString(),
-                    ingredientes = etIngredientes.Text,
-                    precio = etPrecio.Text,
-                    imagePath = drinkPhotoPath  //modificar esa variable cuando el path de la foto en disco
-                };
-                db.insertIntoTableDrink(newDrink);
-                
+                    Drink newDrink = new Drink()
+                    {
+                        nombre = etNombre.Text,
+                        categoria = comboBoxCategoria.SelectedItem.ToString(),
+                        ingredientes = etIngredientes.Text,
+                        precio = etPrecio.Text,
+                        imagePath = drinkPhotoPath  //modificar esa variable si se toma una foto(guardar el path del jpg en disco)
+                    };
+                    db.insertIntoTableDrink(newDrink);
+                }
+                               
             }
             this.Frame.Navigate(typeof(MainPage));
-
 
         }
 
@@ -194,6 +239,55 @@ namespace AppDrinkUWP
             this.Frame.Navigate(typeof(MainPage));
         }
 
-       
+        //Then on the destination page you need to override OnNavigatedTo and get the parameter.
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null)  //es un edit
+            {
+
+                hubTitle.Header = "Modificar trago";
+
+                //Como es un edit/modificacion, lleno los text box con la información ya almacenada
+                //del participante que se selecciono
+
+                DataContext = (Drink)e.Parameter;
+                trago = (Drink)DataContext;
+
+                esAlta = false;
+
+                LoadImageDrinkOnImageView(trago.imagePath);
+                //CON DataContext y Binding me ahorro de hacer todo esto de aca abajo
+                /*
+                p = (SharedProject2.Participante)e.Parameter;
+                etNombre.Text = p.nombre;
+                etApellido.Text = p.apellido;
+                etMail.Text = p.email;
+                */
+
+            }
+            else
+            {
+                hubTitle.Header = "Agregar trago";
+                esAlta = true;
+            }
+
+        }
+
+        private void LoadImageDrinkOnImageView(string imageDrinkPath)
+        {
+            if (imageDrinkPath != "default")
+            {
+                //Buscar imagen en el disco y cargarla al image "drinkImageCapture"
+            }
+            else
+            {
+
+                //Si no existe imagen para ese trago, cargar imagen por defecto
+                BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
+                drinkImageCapture.Source = drinkImageDefault;
+            }
+        }
+
+
     }
 }

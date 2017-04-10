@@ -157,7 +157,7 @@ namespace AppDrinkAndroid
            
             Object obj = lvDrinks.GetItemAtPosition(info.Position);
             var propertyInfo = obj.GetType().GetProperty("Instance");
-            AppDrinkProyectoCompartido.Drink trago = propertyInfo.GetValue(obj, null) as AppDrinkProyectoCompartido.Drink;
+            Drink trago = propertyInfo.GetValue(obj, null) as Drink;
 
             if (trago != null)
             {

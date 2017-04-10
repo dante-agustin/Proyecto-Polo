@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="DarkGreen">
+    <Grid Background="LightGray">
 
         <Button x:Name="btnNuevoTrago" Click="btnNuevoTrago_Click" Height="80" Width="80" Padding="0" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Image Source="../Assets/agregarTrago.png"  Stretch="UniformToFill" />
@@ -29,15 +29,18 @@
 
         <StackPanel  Margin="10,10,10,156" >
 
-            <ListView x:Name="lvTragos" Margin="10,180,10,10">
+            <ListView x:Name="lvTragos" Margin="10,180,10,10" IsItemClickEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
+
                         <RelativePanel  >
                             <!-- <Image Source="../Assets/icon.png"  Height="50" Width="50"/> -->
                             <TextBlock x:Name="nombreTrago" Text="{Binding nombre}" Margin="10,0,0,0"/>
                             <TextBlock x:Name="ingrTrago" Text="{Binding ingredientes}" RelativePanel.Below="nombreTrago"/>
                             <TextBlock Text="{Binding precio}" RelativePanel.RightOf="ingrTrago"/>
                         </RelativePanel>
+
+
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

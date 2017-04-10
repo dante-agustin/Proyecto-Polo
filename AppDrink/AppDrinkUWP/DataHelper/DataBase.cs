@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AppDrinkProyectoCompartido;
 using SQLite.Net;
-using Windows.Foundation.Diagnostics;
+using System.Diagnostics;
 
 namespace AppDrinkUWP.DataHelper
 {
@@ -25,8 +23,7 @@ namespace AppDrinkUWP.DataHelper
                 }
                 catch (SQLiteException ex)
                 {
-                
-
+                    Debug.WriteLine("SQLiteEx ", ex.Message);
                     return false;
                 }
             
@@ -44,7 +41,7 @@ namespace AppDrinkUWP.DataHelper
             }
             catch (SQLiteException ex)
             {
-                //Log.Info("SQLiteEx ", ex.Message);
+                Debug.WriteLine("SQLiteEx ", ex.Message);
                 return false;
             }
         }
@@ -61,7 +58,7 @@ namespace AppDrinkUWP.DataHelper
             }
             catch (SQLiteException ex)
             {
-                //Log.Info("SQLiteEx", ex.Message);
+                Debug.WriteLine("SQLiteEx ", ex.Message);
                 return null;
             }
         }
@@ -78,7 +75,7 @@ namespace AppDrinkUWP.DataHelper
             }
             catch (SQLiteException ex)
             {
-                //Log.Info("SQLiteEx ", ex.Message);
+                Debug.WriteLine("SQLiteEx ", ex.Message);
                 return false;
             }
         }
@@ -95,7 +92,7 @@ namespace AppDrinkUWP.DataHelper
             }
             catch (SQLiteException ex)
             {
-                //Log.Info("SQLiteEx ", ex.Message);
+                Debug.WriteLine("SQLiteEx ", ex.Message);
                 return false;
             }
         }
@@ -112,7 +109,7 @@ namespace AppDrinkUWP.DataHelper
             }
             catch (SQLiteException ex)
             {
-                //Log.Info("SQLiteEx ", ex.Message);
+                Debug.WriteLine("SQLiteEx ", ex.Message);
                 return false;
             }
         }

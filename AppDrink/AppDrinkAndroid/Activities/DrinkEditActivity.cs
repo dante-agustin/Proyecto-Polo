@@ -83,7 +83,7 @@ namespace AppDrinkAndroid
                 spinnerCategoria.SetSelection(spinnerPosition);
 
                 drinkPhotoPath = drinkAModificar.imagePath;
-                LoadImageDrinkOnListView(imgViewDrinkCapture, drinkAModificar.imagePath);
+                LoadImageDrinkOnImageView(imgViewDrinkCapture, drinkAModificar.imagePath);
 
             }
             else
@@ -92,7 +92,7 @@ namespace AppDrinkAndroid
             }
         }
 
-        private static void LoadImageDrinkOnListView(ImageView imgViewDrinkImage ,string imageDrinkPath)
+        private static void LoadImageDrinkOnImageView(ImageView imgViewDrinkImage ,string imageDrinkPath)
         {
             if (imageDrinkPath != "default")
             {

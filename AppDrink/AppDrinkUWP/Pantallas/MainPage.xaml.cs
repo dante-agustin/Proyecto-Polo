@@ -51,6 +51,7 @@ namespace AppDrinkUWP
 
                 btnTuerca.Visibility = Visibility.Visible;
                 btnNuevoTrago.Visibility = Visibility.Visible;
+                lvTragos.RightTapped += LvTragos_RightTapped;
             }
             else
             {
@@ -73,7 +74,60 @@ namespace AppDrinkUWP
 
             //cuando apenas carga te muestra todo, y cuando elegis una categoria va al metodo cbCategorias_Seleccion
             LoadAndRefreshListView();
-        }       
+            
+        }
+
+        private void LvTragos_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {            
+            Object obj = e.OriginalSource;
+            var s = (FrameworkElement)e.OriginalSource;
+            Drink tragoSeleccionado = (Drink)s.DataContext;
+            MenuFlyout myFlyout = new MenuFlyout();
+            MenuFlyoutItem itemModificar = new MenuFlyoutItem { Text = "Modificar" };
+            MenuFlyoutItem itemEliminar = new MenuFlyoutItem { Text = "Eliminar" };
+            itemModificar.Tag = tragoSeleccionado;
+            itemEliminar.Tag = tragoSeleccionado;
+            myFlyout.Items.Add(itemModificar);
+            myFlyout.Items.Add(itemEliminar);
+            myFlyout.ShowAt(lvTragos, e.GetPosition(lvTragos));
+
+            itemModificar.Click += ItemModificar_Click;
+            itemEliminar.Click += ItemEliminar_Click;
+            
+        }
+
+        private async void ItemEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            var trago = ((MenuFlyoutItem)sender).Tag;
+            Drink tragoAEliminar = (Drink)trago;
+            if (tragoAEliminar != null)
+            {
+                MessageDialog showDialog = new MessageDialog("¿Realmente deseas eliminar ese trago de la lista?");
+                showDialog.Commands.Add(new UICommand("Sí") { Id = 0 });
+                showDialog.Commands.Add(new UICommand("No") { Id = 1 });
+                showDialog.DefaultCommandIndex = 0;
+                showDialog.CancelCommandIndex = 1;
+                
+                var result = await showDialog.ShowAsync();
+
+                if ((int)result.Id == 0)
+                {
+                    //ListDrinkHelper.eliminarDrink(tragoAEliminar);
+                    db.deleteTableDrink(tragoAEliminar);
+                    LoadAndRefreshListView();
+                    Util.notificacionesAlUsuario("App participantes - Confirmacion", "Trago eliminado existosamente.");
+
+                }
+            }
+        }
+
+        private void ItemModificar_Click(object sender, RoutedEventArgs e)
+        {
+            var trago = ((MenuFlyoutItem)sender).Tag;
+            Drink tragoAModificar = (Drink)trago;
+            this.Frame.Navigate(typeof(DrinkEdit), tragoAModificar);
+        }
+
 
         public void CreateDB()
         {
@@ -122,36 +176,13 @@ namespace AppDrinkUWP
             this.Frame.Navigate(typeof(Configuracion));
         }
 
-        private void refresh()
+        private void Refresh()
         {
             //this.Frame.Navigate(typeof(MainPage));
             lvTragos.ItemsSource = null;
             lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
         }
 
-        //Se ejecuta al hacer click derecho sobre el item del list view
-        private async void LvTragos_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            MessageDialog showDialog = new MessageDialog("¿Realmente desea borrar el trago?");
-            showDialog.Commands.Add(new UICommand("Sí") { Id = 0 });
-            showDialog.Commands.Add(new UICommand("No") { Id = 1 });
-            showDialog.DefaultCommandIndex = 0;
-            showDialog.CancelCommandIndex = 1;
-            var result = await showDialog.ShowAsync();
 
-            if ((int)result.Id == 0)
-            {
-                /**
-                ListView lv = (ListView)sender;
-                ////////////////VER
-                SharedProject2.Participante p = (SharedProject2.Participante)lv.SelectedValue;
-                SharedProject2.Class1.eliminarParticipante(p);
-                lvParticipantes.ItemsSource = SharedProject2.Class1.getParticipantes();**/
-            }
-            else
-            {
-                //skip your task 
-            }
-        }
     }
 }
