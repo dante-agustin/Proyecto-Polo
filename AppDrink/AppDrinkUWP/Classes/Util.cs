@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Notifications;
 
-namespace AppDrinkUWP
+namespace AppDrinkUWP.Classes
 {
     class Util
     {

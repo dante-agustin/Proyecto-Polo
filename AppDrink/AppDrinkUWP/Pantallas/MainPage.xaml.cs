@@ -30,6 +30,8 @@ namespace AppDrinkUWP
     public sealed partial class MainPage : Page
     {
         DataBase db;
+        string categoria = "Todas";
+        List<Drink> lstSource;
         UserConfig uc;
 
         public MainPage()
@@ -37,12 +39,7 @@ namespace AppDrinkUWP
             this.InitializeComponent();
             uc = UserConfig.Instance();
             //crea la base de datos
-            CreateDB();
-
-            //cuando apenas carga te muestra todo, y cuando elegis una categoria va al metodo cbCategorias_Seleccion
-            lvTragos.ItemsSource = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinks();
-
-            
+            CreateDB();        
 
             if (uc.isAdmin)
             {
@@ -69,13 +66,14 @@ namespace AppDrinkUWP
 
             Categories cat = new Categories();
             List<string> cl = new List<string>();
-            cl.Add("Todos");
+            cl.Add("Todas");
             cl.AddRange(cat.categoryList);
             cbCategorias.ItemsSource = cl;
             cbCategorias.SelectedIndex = 0;
-        }
 
-       
+            //cuando apenas carga te muestra todo, y cuando elegis una categoria va al metodo cbCategorias_Seleccion
+            LoadAndRefreshListView();
+        }       
 
         public void CreateDB()
         {
@@ -85,16 +83,25 @@ namespace AppDrinkUWP
             
         }
 
+        private void LoadAndRefreshListView()
+        {
+            lstSource = db.selectTableDrink();
+            ListDrinkHelper.SetList(lstSource);
+            lvTragos.ItemsSource = null;
+            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);          
+        }
+
         private void cbCategorias_Seleccion(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cmb = sender as ComboBox;
-            string catSeleccionada = cmb.SelectedValue.ToString();
-            lvTragos.ItemsSource = AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(catSeleccionada);
+            categoria = cmb.SelectedValue.ToString();
+            lvTragos.ItemsSource = null;
+            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
         }
 
         private void btnNuevoTrago_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(DrinkEdit));
+            this.Frame.Navigate(typeof(DrinkEdit),null);
         }
 
         private void btnCandado_Click(object sender, RoutedEventArgs e)
@@ -117,7 +124,9 @@ namespace AppDrinkUWP
 
         private void refresh()
         {
-            this.Frame.Navigate(typeof(MainPage));
+            //this.Frame.Navigate(typeof(MainPage));
+            lvTragos.ItemsSource = null;
+            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
         }
 
         //Se ejecuta al hacer click derecho sobre el item del list view

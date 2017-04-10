@@ -21,6 +21,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using AppDrinkProyectoCompartido;
+using AppDrinkUWP.Classes;
+using AppDrinkUWP.DataHelper;
 
 // Package.appxmanifest -> View Designer -> Capabilities -> WebCam y Pictures Library
 /*
@@ -45,12 +47,13 @@ namespace AppDrinkUWP
     {
         private StorageFile storeFile;
         private IRandomAccessStream stream;
-        Drink trago;
+        string drinkPhotoPath="default";
+        DataBase db;
 
         public DrinkEdit()
         {
             this.InitializeComponent();
-            
+            CreateDB();
             Categories cat = new Categories();
             comboBoxCategoria.ItemsSource = cat.categoryList;
             
@@ -62,96 +65,88 @@ namespace AppDrinkUWP
             drinkImageCapture.Source = drinkImageDefault;
         }
 
+        public void CreateDB()
+        {
+            //Create DataBase
+            db = new DataBase();
+            db.CreateDatabase();
+            
+        }
+
         //Abre la cam para tomar foto y la muestra en un Image
         private async void captureBtn_Click(object sender, RoutedEventArgs e)
         {
-            //CameraCaptureUI class to capture photos or videos using the camera UI built into Windows. 
-            CameraCaptureUI capture = new CameraCaptureUI();
-            /* To capture a photo, create a new CameraCaptureUI object. 
-             * Using the object's PhotoSettings property you can specify properties 
-             * for the returned photo such as the image format of the photo. 
-             * By default, the camera capture UI allows the user to crop (recortar)
-             *  the photo before it is returned, although this can be disabled with the AllowCropping
-             *  property. 
-             * This example sets the CroppedSizeInPixels to request that the returned image be 200 x 200 in pixels.
-            */
-            capture.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
-            capture.PhotoSettings.CroppedAspectRatio = new Size(3, 5);
-            //capture.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
-            capture.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
-
-            /*
-             Call CaptureFileAsync and specify CameraCaptureUIMode.Photo to specify that a photo should be 
-             captured. The method returns a StorageFile instance containing the image if the capture 
-             is successful. If the user cancels the capture, the returned object is null.
-             */
-            storeFile = await capture.CaptureFileAsync(CameraCaptureUIMode.Photo);
-
-            if (storeFile != null)
+            string nombreTrago = etNombre.Text;
+            if ( string.IsNullOrEmpty(nombreTrago))
             {
-                BitmapImage bimage = new BitmapImage();
-                stream = await storeFile.OpenAsync(FileAccessMode.Read); ;
-                bimage.SetSource(stream);
-                drinkImageCapture.Source = bimage;
-
-                //VER SI HACERLO ASI O COMO ESTA ARRIBA QUE ES MAS SENCILLO CREO
-                /*
-                 Call OpenAsync to get a stream from the image file. Call BitmapDecoder.CreateAsync 
-                 to get a bitmap decoder for the stream. 
-                 Then call GetSoftwareBitmap to get a SoftwareBitmap representation of the image.
-                 The Image control requires that the image source be in BGRA8 format with
-                 premultiplied alpha or no alpha, so call the static method SoftwareBitmap.Convert
-                 to create a new software bitmap with the desired format. 
-                 Next, create a new SoftwareBitmapSource object and call SetBitmapAsync 
-                 to assign the software bitmap to the source. Finally, set the Image control's 
-                 Source property to display the captured photo in the UI.
-                 */
-                /*
-               IRandomAccessStream stream = await storeFile.OpenAsync(FileAccessMode.Read);
-               BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-               SoftwareBitmap softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-               SoftwareBitmap softwareBitmapBGR8 = SoftwareBitmap.Convert(softwareBitmap,
-               BitmapPixelFormat.Bgra8, 
-               BitmapAlphaMode.Premultiplied);
-
-                SoftwareBitmapSource bitmapSource = new SoftwareBitmapSource();
-                await bitmapSource.SetBitmapAsync(softwareBitmapBGR8);
-
-                imageControl.Source = bitmapSource;
-               */
-
-                //VER SI HACE FALTA GUARDAR LA FOTO EN DISCO 
-                /*
-                El StorageFile que contiene la foto capturada recibe un nombre generado dinámicamente y 
-                se guarda en la carpeta local de la aplicación. Para organizar mejor las fotos capturadas,
-                puede que desee mover el archivo a otra carpeta.
+                Util.notificacionesAlUsuario("AppDrink", "No es posible completar la operación. Debe completar el campo nombre antes de poder tomar una foto del trago.");
+            }
+            else
+            {
+                //CameraCaptureUI class to capture photos or videos using the camera UI built into Windows. 
+                CameraCaptureUI capture = new CameraCaptureUI();
+                /* To capture a photo, create a new CameraCaptureUI object. 
+                 * Using the object's PhotoSettings property you can specify properties 
+                 * for the returned photo such as the image format of the photo. 
+                 * By default, the camera capture UI allows the user to crop (recortar)
+                 *  the photo before it is returned, although this can be disabled with the AllowCropping
+                 *  property. 
+                 * This example sets the CroppedSizeInPixels to request that the returned image be 200 x 200 in pixels.
                 */
-                //Guarda la foto en C:\Users\Dante\AppData\Local\Packages\884cbc0c-e00e-4cf6-994c-9e419a580f86_tn3w70na242fe\LocalState\DrinkPhotoFolder
-                StorageFolder destinationFolder =
-                await ApplicationData.Current.LocalFolder.CreateFolderAsync("DrinkPhotoFolder",
-                CreationCollisionOption.OpenIfExists);
+                capture.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+                capture.PhotoSettings.CroppedAspectRatio = new Size(3, 5);
+                //capture.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
+                capture.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
 
-                await storeFile.CopyAsync(destinationFolder, "drinkPhoto.jpg", NameCollisionOption.ReplaceExisting);
-                await storeFile.DeleteAsync();
+                /*
+                 Call CaptureFileAsync and specify CameraCaptureUIMode.Photo to specify that a photo should be 
+                 captured. The method returns a StorageFile instance containing the image if the capture 
+                 is successful. If the user cancels the capture, the returned object is null.
+                 */
+                storeFile = await capture.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+                if (storeFile != null)
+                {
+                    BitmapImage bimage = new BitmapImage();
+                    stream = await storeFile.OpenAsync(FileAccessMode.Read); ;
+                    bimage.SetSource(stream);
+                    drinkImageCapture.Source = bimage;
+
+                    
+                    StorageFolder destinationFolder =
+                await ApplicationData.Current.LocalFolder.CreateFolderAsync("DrinkPhotoFolder",
+                    CreationCollisionOption.OpenIfExists);
+                    
+                    await storeFile.CopyAsync(destinationFolder, nombreTrago + ".jpg", NameCollisionOption.GenerateUniqueName);
+                    // await storeFile.CopyAsync(destinationFolder, "drinkPhoto.jpg", NameCollisionOption.ReplaceExisting);
+                    //await storeFile.DeleteAsync();
+
+                //VER CON QUE PATH  ABRIR LOS ARCHIVOS
+                    //string prueba=storeFile.Path;
+                    
+                }
+            
             }
 
 
         }
 
         //Next goto savebutton clickevent and writethe followingcode to save the captured image.
-        private async void saveBtn_Click(object sender, RoutedEventArgs e)
+        private  void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(etNombre.Text) || string.IsNullOrEmpty(etIngredientes.Text) ||
-                string.IsNullOrEmpty(comboBoxCategoria.SelectedItem.ToString()) )
+                string.IsNullOrEmpty(comboBoxCategoria.SelectedItem.ToString()) || string.IsNullOrEmpty(etPrecio.Text))
             {
 
                 Util.notificacionesAlUsuario("AppDrink", "No es posible completar la operación. Por favor, complete todos los campos. No pueden quedar campos vacíos.");
             }
             else
             {
+                /*
                 try
                 {
                     FileSavePicker fs = new FileSavePicker();
+                    
                     fs.FileTypeChoices.Add("Image", new List<string>() { ".jpeg" });
 
                     fs.DefaultFileExtension = ".jpeg";
@@ -169,15 +164,27 @@ namespace AppDrinkUWP
                             dataReader.ReadBytes(buffer);
                             await FileIO.WriteBytesAsync(s, buffer);
                         }
-                    }
+                    }                  
+                   
                 }
                 catch (Exception ex)
                 {
                     var messageDialog = new MessageDialog("Unable to save now. " + ex.Message);
                     await messageDialog.ShowAsync();
-                }
-            }
+                }*/
 
+                Drink newDrink = new Drink()
+                {
+                    nombre = etNombre.Text,
+                    categoria = comboBoxCategoria.SelectedItem.ToString(),
+                    ingredientes = etIngredientes.Text,
+                    precio = etPrecio.Text,
+                    imagePath = drinkPhotoPath  //modificar esa variable cuando el path de la foto en disco
+                };
+                db.insertIntoTableDrink(newDrink);
+                
+            }
+            this.Frame.Navigate(typeof(MainPage));
 
 
         }

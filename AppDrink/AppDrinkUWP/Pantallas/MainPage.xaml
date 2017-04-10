@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="Black">
+    <Grid Background="DarkGreen">
 
         <Button x:Name="btnNuevoTrago" Click="btnNuevoTrago_Click" Height="80" Width="80" Padding="0" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Image Source="../Assets/agregarTrago.png"  Stretch="UniformToFill" />

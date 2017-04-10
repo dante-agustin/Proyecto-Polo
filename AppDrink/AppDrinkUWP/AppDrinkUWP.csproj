@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\UserConfig.cs" />
+    <Compile Include="Classes\Util.cs" />
     <Compile Include="DataHelper\DataBase.cs" />
     <Compile Include="Pantallas\Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>
@@ -113,7 +114,6 @@
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -125,6 +125,7 @@
     <Content Include="Assets\agregarTrago.png" />
     <Content Include="Assets\candado.png" />
     <Content Include="Assets\candadoAbierto.png" />
+    <Content Include="Assets\drinkDefault.jpg" />
     <Content Include="Assets\icon.png" />
     <Content Include="Assets\tuerca.png" />
     <Content Include="Properties\Default.rd.xml" />

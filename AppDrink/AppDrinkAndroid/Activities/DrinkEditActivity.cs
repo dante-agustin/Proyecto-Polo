@@ -161,13 +161,7 @@ namespace AppDrinkAndroid
 
                 if (posicion > -1)   //es un edit, no debe crearse un nuevo objeto participante
                 {
-                    /*                
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].nombre = etNombre.Text;
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].ingredientes = etIngredientes.Text;
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].precio = etPrecio.Text;
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].categoria= spinnerCategoria.SelectedItem.ToString();
-                    AppDrinkProyectoCompartido.ListDrinkHelper.getDrinksByCategory(categoria)[posicion].imagePath = drinkPhotoPath;*/
-
+                    
                     Drink drinkAEditar=ListDrinkHelper.getDrinksByCategory(categoria)[posicion];
                     drinkAEditar.nombre = etNombre.Text;
                     drinkAEditar.ingredientes = etIngredientes.Text;

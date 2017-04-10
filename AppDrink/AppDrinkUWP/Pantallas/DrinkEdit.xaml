@@ -18,18 +18,23 @@
 
     </Page.BottomAppBar>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="139*"/>
+            <ColumnDefinition Width="41*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="61*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Hub x:Name="hubTitle" Background="Black" />
+        <Hub x:Name="hubTitle" Background="Black" Grid.ColumnSpan="2" />
 
-        <TextBox x:Name="etNombre" PlaceholderText="Ingrese el nombre" HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340" Text="{Binding nombre}"/>
-        <ComboBox x:Name="comboBoxCategoria" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="340" PlaceholderText="Seleccionar categoría"/>
-        <TextBox x:Name="etIngredientes" PlaceholderText="Ingrese los ingredientes" HorizontalAlignment="Left" Margin="10,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="340"  Height="101" AcceptsReturn="True"
-        ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding ingredientes}" Background="#66D4D4D4"/>
-        <Image x:Name="drinkImageCapture" HorizontalAlignment="Left" Height="305" VerticalAlignment="Top" Width="340" Margin="10,240,0,0" />
+        <TextBox x:Name="etNombre" PlaceholderText="Ingrese el nombre" HorizontalAlignment="Stretch" Margin="10,58,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding nombre}" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="comboBoxCategoria" HorizontalAlignment="Stretch" Margin="10,97,0,0" VerticalAlignment="Top" PlaceholderText="Seleccionar categoría" Grid.ColumnSpan="2" />
+        <TextBox x:Name="etIngredientes" HorizontalAlignment="Stretch" PlaceholderText="Ingrese los ingredientes"  Margin="10,134,0,10" TextWrapping="Wrap" VerticalAlignment="Top"  Height="100" AcceptsReturn="True"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding ingredientes}" Background="#66D4D4D4" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="etPrecio" PlaceholderText="Ingrese el precio" HorizontalAlignment="Stretch" Margin="10,250,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding precio}" Grid.ColumnSpan="2"/>
+        <Image x:Name="drinkImageCapture" HorizontalAlignment="Stretch" Height="280" VerticalAlignment="Top" Margin="10,287,0,10" Grid.ColumnSpan="2" />
 
     </Grid>
 </Page>
