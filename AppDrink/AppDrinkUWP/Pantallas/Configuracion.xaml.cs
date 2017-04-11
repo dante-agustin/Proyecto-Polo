@@ -32,7 +32,7 @@ namespace AppDrinkUWP.Pantallas
             uc = UserConfig.Instance();
 
             cbIngr.IsChecked = uc.showIngredientes;
-            cbPrecio.IsChecked = uc.showIngredientes;
+            cbPrecio.IsChecked = uc.showPrecio;
 
         }
 
