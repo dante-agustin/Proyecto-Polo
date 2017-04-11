@@ -45,14 +45,22 @@ namespace AppDrinkUWP.Pantallas
 
         private async void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            //Create variables for file
-            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await storageFolder.CreateFileAsync("Password.txt", CreationCollisionOption.ReplaceExisting);
+            if ( string.IsNullOrEmpty(txtContrasena.Text ))
+            {
+                lblError.Text = "Por favor, ingrese una contraseña";
+            }
+            else
+            {
+                //Create variables for file
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                StorageFile file = await storageFolder.CreateFileAsync("Password.txt", CreationCollisionOption.ReplaceExisting);
 
-            await FileIO.WriteTextAsync(file, txtContrasena.Text); //Store written password
+                await FileIO.WriteTextAsync(file, txtContrasena.Text); //Store written password
 
-            var frame = (Frame)Window.Current.Content;
-            frame.Navigate(typeof(MainPage));
+                var frame = (Frame)Window.Current.Content;
+                frame.Navigate(typeof(MainPage));
+            }
+
         }
 
 

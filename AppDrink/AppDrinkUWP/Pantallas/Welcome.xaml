@@ -20,7 +20,9 @@
 
              <TextBox x:Name="txtContrasena"  Height="40" Width="300" Text="Contraseña" RelativePanel.Below="txtbWelcome2"
                      FontSize="23" Background="Gray" HorizontalAlignment="Stretch" Margin="10,0,10,0" GotFocus="TextBox_GotFocus" />
-
+            
+            <TextBlock x:Name="lblError" HorizontalAlignment="Center" TextWrapping="Wrap"  RelativePanel.Below="txtContrasena" Height="24" Width="289" Foreground="#FF9C9C9C"  />
+            
             <Button x:Name="btnAceptar" Click="btnAceptar_Click" Width="300" HorizontalAlignment="Center" Height="40" Content="ACEPTAR" RelativePanel.Below="txtContrasena" Margin="10,50,10,10" Background="#FF838383"/>
 
         </RelativePanel>

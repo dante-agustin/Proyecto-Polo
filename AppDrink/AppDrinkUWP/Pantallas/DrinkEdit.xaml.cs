@@ -160,77 +160,87 @@ namespace AppDrinkUWP
         //Next goto savebutton clickevent and writethe followingcode to save the captured image.
         private  void saveBtn_Click(object sender, RoutedEventArgs e)
         {
+           
+
             if (string.IsNullOrEmpty(etNombre.Text) || string.IsNullOrEmpty(etIngredientes.Text) ||
                 string.IsNullOrEmpty(comboBoxCategoria.SelectedItem.ToString()) || string.IsNullOrEmpty(etPrecio.Text))
             {
-
                 Util.notificacionesAlUsuario("AppDrink", "No es posible completar la operación. Por favor, complete todos los campos. No pueden quedar campos vacíos.");
             }
             else
             {
-                if (!esAlta)
+                int n;
+                if (!int.TryParse(etPrecio.Text, out n))
                 {
-                    //Es un edit, no creo un nuevo participante
-
-                    trago = (Drink)DataContext;
-                    trago.nombre = etNombre.Text;
-                    trago.ingredientes = etIngredientes.Text;
-                    trago.precio = etPrecio.Text;
-                    trago.categoria = comboBoxCategoria.SelectedItem.ToString();
-
-                    //VER LO DE LA IMAGE
-                    //drinkPhotoPath puede ser modificado si se toma una foto
-                    //trago.imagePath=drinkPhotoPath;
-
-                    db.updateTableDrink(trago);
-
+                    Util.notificacionesAlUsuario("AppDrink", "El Precio debe ser un valor numérico");
                 }
                 else
                 {
-                    /*
-                try
-                {
-                    FileSavePicker fs = new FileSavePicker();
-                    
-                    fs.FileTypeChoices.Add("Image", new List<string>() { ".jpeg" });
-
-                    fs.DefaultFileExtension = ".jpeg";
-                    fs.SuggestedFileName = "Image" + DateTime.Today.ToString();
-                    fs.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-                    fs.SuggestedSaveFile = storeFile;
-                    // Saving the file 
-                    var s = await fs.PickSaveFileAsync();
-                    if (s != null)
+                    if (!esAlta)
                     {
-                        using (var dataReader = new DataReader(stream.GetInputStreamAt(0)))
+                        //Es un edit, no creo un nuevo participante
+
+                        trago = (Drink)DataContext;
+                        trago.nombre = etNombre.Text;
+                        trago.ingredientes = etIngredientes.Text;
+                        trago.precio = etPrecio.Text;
+                        trago.categoria = comboBoxCategoria.SelectedItem.ToString();
+
+                        //VER LO DE LA IMAGE
+                        //drinkPhotoPath puede ser modificado si se toma una foto
+                        //trago.imagePath=drinkPhotoPath;
+
+                        db.updateTableDrink(trago);
+
+                    }
+                    else
+                    {
+                        /*
+                    try
+                    {
+                        FileSavePicker fs = new FileSavePicker();
+
+                        fs.FileTypeChoices.Add("Image", new List<string>() { ".jpeg" });
+
+                        fs.DefaultFileExtension = ".jpeg";
+                        fs.SuggestedFileName = "Image" + DateTime.Today.ToString();
+                        fs.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+                        fs.SuggestedSaveFile = storeFile;
+                        // Saving the file 
+                        var s = await fs.PickSaveFileAsync();
+                        if (s != null)
                         {
-                            await dataReader.LoadAsync((uint)stream.Size);
-                            byte[] buffer = new byte[(int)stream.Size];
-                            dataReader.ReadBytes(buffer);
-                            await FileIO.WriteBytesAsync(s, buffer);
-                        }
-                    }                  
-                   
-                }
-                catch (Exception ex)
-                {
-                    var messageDialog = new MessageDialog("Unable to save now. " + ex.Message);
-                    await messageDialog.ShowAsync();
-                }*/
+                            using (var dataReader = new DataReader(stream.GetInputStreamAt(0)))
+                            {
+                                await dataReader.LoadAsync((uint)stream.Size);
+                                byte[] buffer = new byte[(int)stream.Size];
+                                dataReader.ReadBytes(buffer);
+                                await FileIO.WriteBytesAsync(s, buffer);
+                            }
+                        }                  
 
-                    Drink newDrink = new Drink()
+                    }
+                    catch (Exception ex)
                     {
-                        nombre = etNombre.Text,
-                        categoria = comboBoxCategoria.SelectedItem.ToString(),
-                        ingredientes = etIngredientes.Text,
-                        precio = etPrecio.Text,
-                        imagePath = drinkPhotoPath  //modificar esa variable si se toma una foto(guardar el path del jpg en disco)
-                    };
-                    db.insertIntoTableDrink(newDrink);
+                        var messageDialog = new MessageDialog("Unable to save now. " + ex.Message);
+                        await messageDialog.ShowAsync();
+                    }*/
+
+                        Drink newDrink = new Drink()
+                        {
+                            nombre = etNombre.Text,
+                            categoria = comboBoxCategoria.SelectedItem.ToString(),
+                            ingredientes = etIngredientes.Text,
+                            precio = etPrecio.Text,
+                            imagePath = drinkPhotoPath  //modificar esa variable si se toma una foto(guardar el path del jpg en disco)
+                        };
+                        db.insertIntoTableDrink(newDrink);
+                    }
+                    this.Frame.Navigate(typeof(MainPage));
                 }
-                               
+                
             }
-            this.Frame.Navigate(typeof(MainPage));
+            
 
         }
 

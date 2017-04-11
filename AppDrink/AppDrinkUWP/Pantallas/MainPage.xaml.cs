@@ -64,6 +64,14 @@ namespace AppDrinkUWP
                 btnNuevoTrago.Visibility = Visibility.Collapsed;
             }
 
+            if(! uc.showIngredientes)
+            {
+                
+            }
+            if (! uc.showPrecio)
+            {
+
+            }
 
             Categories cat = new Categories();
             List<string> cl = new List<string>();
@@ -76,6 +84,7 @@ namespace AppDrinkUWP
             LoadAndRefreshListView();
             
         }
+
 
         private void LvTragos_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {            
@@ -90,7 +99,7 @@ namespace AppDrinkUWP
             myFlyout.Items.Add(itemModificar);
             myFlyout.Items.Add(itemEliminar);
             myFlyout.ShowAt(lvTragos, e.GetPosition(lvTragos));
-
+            
             itemModificar.Click += ItemModificar_Click;
             itemEliminar.Click += ItemEliminar_Click;
             

@@ -9,7 +9,7 @@
 
 
     <Grid Background="LightGray">
-
+        
         <Button x:Name="btnNuevoTrago" Click="btnNuevoTrago_Click" Height="80" Width="80" Padding="0" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Image Source="../Assets/agregarTrago.png"  Stretch="UniformToFill" />
         </Button>
@@ -29,18 +29,19 @@
 
         <StackPanel  Margin="10,10,10,156" >
 
-            <ListView x:Name="lvTragos" Margin="10,180,10,10" IsItemClickEnabled="True">
+            <ListView x:Name="lvTragos" RightTapped="LvTragos_RightTapped" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
+               
                 <ListView.ItemTemplate>
+                    
                     <DataTemplate>
-
-                        <RelativePanel  >
-                            <!-- <Image Source="../Assets/icon.png"  Height="50" Width="50"/> -->
-                            <TextBlock x:Name="nombreTrago" Text="{Binding nombre}" Margin="10,0,0,0"/>
-                            <TextBlock x:Name="ingrTrago" Text="{Binding ingredientes}" RelativePanel.Below="nombreTrago"/>
-                            <TextBlock Text="{Binding precio}" RelativePanel.RightOf="ingrTrago"/>
+                        
+                        <RelativePanel>
+                            <Image x:Name="fotoTrago" Source="../Assets/drinkDefault.jpg"  Height="50" Width="50" Stretch="UniformToFill"/>
+                            <TextBlock x:Name="tbnombreTrago" Text="{Binding nombre}" RelativePanel.RightOf="fotoTrago" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock x:Name="tbingrTrago" Text="{Binding ingredientes}" RelativePanel.RightOf="fotoTrago" RelativePanel.Below="tbnombreTrago"/>
+                            <TextBlock x:Name="tbsignoPesos" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="tbprecio" Text="{Binding precio}" RelativePanel.RightOf="tbsignoPesos"/>
                         </RelativePanel>
-
-
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
