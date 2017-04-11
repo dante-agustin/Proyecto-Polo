@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="AppDrinkUWP.Pantallas.ViewDrink"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AppDrinkUWP.Pantallas"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="LightGray">
+        <RelativePanel Margin="10,40,0,10">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nombre: " VerticalAlignment="Top" FontWeight="Bold" />
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ingredientes: " VerticalAlignment="Top" RelativePanel.Below="textBlock" FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Precio:  $" VerticalAlignment="Top" RelativePanel.Below="textBlock2" FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Categoría: " VerticalAlignment="Top" RelativePanel.Below="textBlock3" FontWeight="Bold"/>
+
+            <TextBlock x:Name="txtNombre" HorizontalAlignment="Left" Text="{Binding nombre}" RelativePanel.LeftOf="textBlock" Margin="110,0,0,0"/>
+            <TextBlock x:Name="txtIngr" HorizontalAlignment="Left"   Text="{Binding precio}"  RelativePanel.Below="textBlock" RelativePanel.LeftOf="textBlock2" Margin="110,0,0,0"/>
+            <TextBlock x:Name="txtPrecio" HorizontalAlignment="Left" Text="{Binding precio}" RelativePanel.Below="textBlock2" RelativePanel.LeftOf="textBlock3" Margin="110,0,0,0"/>
+            <TextBlock x:Name="txtCat" HorizontalAlignment="Left"   Text="{Binding precio}" RelativePanel.Below="textBlock3"  RelativePanel.LeftOf="textBlock4" Margin="110,0,0,0"/>
+        </RelativePanel>
+
+        <Image Source="../Assets/drinkDefault.jpg" VerticalAlignment="Center" Height="300" Width="300" Stretch="Fill" HorizontalAlignment="Center" />
+
+        <Button x:Name="btnVolver" Click="btnVolver_Click" Content="VOLVER" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,40"  Width="150" Background="#FF4F4F4F" />
+
+    </Grid>
+</Page>

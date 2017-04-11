@@ -29,14 +29,11 @@
 
         <StackPanel  Margin="10,10,10,156" >
 
-            <ListView x:Name="lvTragos" RightTapped="LvTragos_RightTapped" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
-               
+            <ListView x:Name="lvTragos" IsItemClickEnabled="True" ItemClick="LvTragos_ItemClick" RightTapped="LvTragos_RightTapped" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
-                    
                     <DataTemplate>
-                        
                         <RelativePanel>
-                            <Image x:Name="fotoTrago" Source="../Assets/drinkDefault.jpg"  Height="50" Width="50" Stretch="UniformToFill"/>
+                            <Image x:Name="fotoTrago" Source="../Assets/drinkDefault.jpg"  Height="50" Width="50" Stretch="Fill"/>
                             <TextBlock x:Name="tbnombreTrago" Text="{Binding nombre}" RelativePanel.RightOf="fotoTrago" FontWeight="Bold" FontSize="18"/>
                             <TextBlock x:Name="tbingrTrago" Text="{Binding ingredientes}" RelativePanel.RightOf="fotoTrago" RelativePanel.Below="tbnombreTrago"/>
                             <TextBlock x:Name="tbsignoPesos" HorizontalAlignment="Center"/>

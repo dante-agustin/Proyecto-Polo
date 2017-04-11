@@ -85,6 +85,10 @@ namespace AppDrinkUWP
             
         }
 
+        private void LvTragos_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(ViewDrink), e.ClickedItem);
+        }
 
         private void LvTragos_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {            

@@ -60,7 +60,6 @@ namespace AppDrinkUWP
             CreateDB();
             Categories cat = new Categories();
             comboBoxCategoria.ItemsSource = cat.categoryList;
-            etPrecio.TextChanged += EtPrecio_TextChanged;
             if (esAlta){
                 //Si no existe imagen para ese trago, cargar imagen por defecto
                 BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
@@ -68,28 +67,6 @@ namespace AppDrinkUWP
             }
             
         }
-
-        //Verificar que sea un numero sino mostrar en el laber un error, y no
-        //permitir guardar
-        
-        private void EtPrecio_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            /*
-            char[] originalText = etPrecio.Text.ToCharArray();
-            foreach (char c in originalText)
-            {
-                if (!(Char.IsNumber(c)))
-                {
-                    etPrecio.Text = etPrecio.Text.Remove(etPrecio.Text.IndexOf(c));
-                    lblError.Visible = true;
-                }
-                else
-                    lblError.Visible = false;
-            }
-            etPrecio.Select(etPrecio.Text.Length, 0);
-             */
-        }
-
 
         public void CreateDB()
         {

@@ -110,6 +110,9 @@
     <Compile Include="Pantallas\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\ViewDrink.xaml.cs">
+      <DependentUpon>ViewDrink.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
     <Page Include="Pantallas\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pantallas\ViewDrink.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pantallas\Welcome.xaml">
       <SubType>Designer</SubType>
