@@ -33,11 +33,23 @@ namespace AppDrinkUWP
         string categoria = "Todas";
         List<Drink> lstSource;
         UserConfig uc;
+        public Visibility showPrecio { get; set; }
+        public Visibility showIngredientes { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
             uc = UserConfig.Instance();
+
+            if (uc.showPrecio)
+                showPrecio = Visibility.Visible;
+            else
+                showPrecio = Visibility.Collapsed;
+            if (uc.showIngredientes)
+                showIngredientes = Visibility.Visible;
+            else
+                showIngredientes = Visibility.Collapsed;
+
             //crea la base de datos
             CreateDB();        
 
@@ -62,15 +74,6 @@ namespace AppDrinkUWP
                 };
                 btnTuerca.Visibility = Visibility.Collapsed;
                 btnNuevoTrago.Visibility = Visibility.Collapsed;
-            }
-
-            if(! uc.showIngredientes)
-            {
-                
-            }
-            if (! uc.showPrecio)
-            {
-
             }
 
             Categories cat = new Categories();
