@@ -29,13 +29,16 @@ namespace AppDrinkUWP.Pantallas
         public Configuracion()
         {
             this.InitializeComponent();
+            uc = UserConfig.Instance();
+
+            cbIngr.IsChecked = uc.showIngredientes;
+            cbPrecio.IsChecked = uc.showIngredientes;
 
         }
 
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            uc = UserConfig.Instance();
 
             if (cbIngr.IsChecked == true)
                 uc.showIngredientes = true;
