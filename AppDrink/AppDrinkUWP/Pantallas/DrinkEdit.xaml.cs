@@ -178,7 +178,7 @@ namespace AppDrinkUWP
                 {
                     if (!esAlta)
                     {
-                        //Es un edit, no creo un nuevo participante
+                        //Es un edit, no creo un nuevo trago
 
                         trago = (Drink)DataContext;
                         trago.nombre = etNombre.Text;
