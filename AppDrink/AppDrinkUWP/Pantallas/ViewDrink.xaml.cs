@@ -34,12 +34,15 @@ namespace AppDrinkUWP.Pantallas
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            trago = (Drink)e.Parameter;
+            //trago = (Drink)e.Parameter;
 
+            DataContext = (Drink)e.Parameter;
+            trago = (Drink)DataContext;
+            /*
             txtNombre.Text = trago.nombre;
             txtIngr.Text = trago.ingredientes;
             txtPrecio.Text = trago.precio;
-            txtCat.Text = trago.categoria;
+            txtCat.Text = trago.categoria;*/
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
