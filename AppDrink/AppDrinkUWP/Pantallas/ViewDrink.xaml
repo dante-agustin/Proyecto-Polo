@@ -10,20 +10,20 @@
     <Grid Background="LightGray">
         <RelativePanel Margin="10,40,0,10">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Nombre: " VerticalAlignment="Top" FontWeight="Bold" />
-            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ingredientes: " VerticalAlignment="Top" RelativePanel.Below="textBlock" FontWeight="Bold"/>
-            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Precio: " VerticalAlignment="Top" RelativePanel.Below="textBlock2" FontWeight="Bold"/>
-            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Categoría: " VerticalAlignment="Top" RelativePanel.Below="textBlock3" FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ingredientes: " VerticalAlignment="Top" RelativePanel.Below="txtNombre" FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Precio: " VerticalAlignment="Top" RelativePanel.Below="txtIngr" FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Categoría: " VerticalAlignment="Top" RelativePanel.Below="txtPrecio" FontWeight="Bold"/>
 
-            <TextBlock x:Name="txtNombre" HorizontalAlignment="Left"  Text="{Binding nombre}" RelativePanel.RightOf="textBlock2" Margin="30,0,0,0"/>
-            <TextBlock x:Name="txtIngr" HorizontalAlignment="Left"   Text="{Binding ingredientes}" RelativePanel.Below="textBlock" RelativePanel.RightOf="textBlock2" Margin="30,0,0,0"/>
-            <TextBlock x:Name="txtPrecio2" HorizontalAlignment="Left" Text="$" TextWrapping="Wrap"  RelativePanel.Below="textBlock2" RelativePanel.RightOf="textBlock2"  Margin="30,0,0,0"/>
-            <TextBlock x:Name="txtPrecio" HorizontalAlignment="Left" Text="{Binding precio}" TextWrapping="Wrap"  RelativePanel.Below="textBlock2" RelativePanel.RightOf="textBlock2" Margin="45,0,0,0"/>
-            <TextBlock x:Name="txtCat" HorizontalAlignment="Left"   Text="{Binding categoria}" TextWrapping="Wrap"  RelativePanel.Below="textBlock3"  RelativePanel.RightOf="textBlock2" Margin="30,0,0,0"/>
+            <TextBlock x:Name="txtNombre" HorizontalAlignment="Left"  Text="{Binding nombre}" RelativePanel.RightOf="textBlock" Margin="30,0,0,0"/>
+            <TextBlock x:Name="txtIngr" HorizontalAlignment="Left"   Text="{Binding ingredientes}" RelativePanel.Below="txtNombre" RelativePanel.RightOf="textBlock2" Margin="30,0,0,0"/>
+            <TextBlock x:Name="txtPrecio2" HorizontalAlignment="Left" Text="$" TextWrapping="Wrap"  RelativePanel.Below="txtIngr" RelativePanel.RightOf="textBlock3"  Margin="30,0,0,0"/>
+            <TextBlock x:Name="txtPrecio" HorizontalAlignment="Left" Text="{Binding precio}" TextWrapping="Wrap"  RelativePanel.Below="txtIngr" RelativePanel.RightOf="textBlock3" Margin="45,0,0,0"/>
+            <TextBlock x:Name="txtCat" HorizontalAlignment="Left"   Text="{Binding categoria}" TextWrapping="Wrap"  RelativePanel.Below="txtPrecio"  RelativePanel.RightOf="textBlock4" Margin="30,0,0,0"/>
         </RelativePanel>
 
         <Image Source="../Assets/drinkDefault.jpg" VerticalAlignment="Center" Height="300" Width="300" Stretch="Fill" HorizontalAlignment="Center" />
 
-        <Button x:Name="btnVolver" Click="btnVolver_Click" Content="VOLVER" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,40"  Width="150" Background="#FF4F4F4F" />
+        <Button x:Name="btnVolver" Click="btnVolver_Click" Content="Volver" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,40"  Width="150" Background="#FF4F4F4F" />
 
     </Grid>
 </Page>

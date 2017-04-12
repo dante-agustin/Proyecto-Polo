@@ -28,15 +28,16 @@
 
         <StackPanel  Margin="10,10,10,156" >
 
-            <ListView x:Name="lvTragos" IsItemClickEnabled="True" ItemClick="LvTragos_ItemClick" RightTapped="LvTragos_RightTapped" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="lvTragos" IsItemClickEnabled="True" ItemClick="LvTragos_ItemClick" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <RelativePanel>
-                            <Image x:Name="fotoTrago" Source="../Assets/drinkDefault.jpg"  Height="50" Width="50" Stretch="Fill"/>
-                            <TextBlock x:Name="tbnombreTrago" Text="{Binding nombre}" RelativePanel.RightOf="fotoTrago" FontWeight="Bold" FontSize="18"/>
-                            <TextBlock x:Name="tbingrTrago" Text="{Binding ingredientes}" RelativePanel.RightOf="fotoTrago" RelativePanel.Below="tbnombreTrago" Visibility="{Binding Path=showIngredientes}"/>
-                            <TextBlock x:Name="tbsignoPesos" HorizontalAlignment="Center"/>
-                            <TextBlock x:Name="tbprecio" Text="{Binding precio}" RelativePanel.RightOf="tbsignoPesos" Visibility="{Binding Path=showPrecio}"/>
+                            <Image x:Name="imgViewFotoTrago" Source="../Assets/drinkDefault.jpg"  Height="50" Width="50" Stretch="Fill"/>
+                            <TextBlock x:Name="tbNombre" Text="{Binding nombre}" RelativePanel.RightOf="imgViewFotoTrago" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock x:Name="tbCategoria" Text="{Binding categoria}" RelativePanel.RightOf="imgViewFotoTrago" RelativePanel.Below="tbNombre" />
+                            <TextBlock x:Name="tbIngredientes" Text="{Binding ingredientes}" RelativePanel.RightOf="imgViewFotoTrago" RelativePanel.Below="tbCategoria" Visibility="{Binding Path=showIngredientes}"/>
+                            <TextBlock x:Name="tbSignoPesos" Text="$" Padding="300,0,0,0"/>
+                            <TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="300,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding Path=showPrecio}"/>
                         </RelativePanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
