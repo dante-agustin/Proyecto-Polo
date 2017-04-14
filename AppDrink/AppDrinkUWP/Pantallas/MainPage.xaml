@@ -7,6 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <local:ImageConverter x:Key="ImageConverter" />
+    </Page.Resources>
+
     <Grid Background="LightGray">
         
         <Button x:Name="btnNuevoTrago" Click="btnNuevoTrago_Click" Height="80" Width="80" Padding="0" BorderThickness="0" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -27,7 +31,7 @@
         <ComboBox x:Name="cbCategorias" SelectionChanged="cbCategorias_Seleccion" HorizontalAlignment="Stretch" Margin="10,149,10,10" VerticalAlignment="Top" />
 
         <StackPanel  Margin="10,10,10,156" >
-
+            
             <!--
             <ListView x:Name="lvTragos" ItemsSource="{x:Bind ImgList}" IsItemClickEnabled="True" ItemClick="LvTragos_ItemClick" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
@@ -56,7 +60,8 @@
                             <Image x:Name="drinkImageCapture" 
                                     Width="50"
                                     Height="50"
-                                   Source="../Assets/drinkDefault.jpg"
+                                    Source="{Binding imagePath,
+                                    Converter={StaticResource ImageConverter}}"
                                     Stretch="Fill"/>
                             <TextBlock x:Name="tbNombre" Text="{Binding nombre}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" FontWeight="Bold" FontSize="18"/>
                             <TextBlock x:Name="tbCategoria" Text="{Binding categoria}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbNombre" />

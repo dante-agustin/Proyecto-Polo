@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -169,6 +171,8 @@ namespace AppDrinkUWP
            // ShowImages();
         }
 
+        
+
         /*
         public void ShowImages()
         {
@@ -245,4 +249,46 @@ namespace AppDrinkUWP
 
 
     }
+
+
+    class ImageConverter : IValueConverter
+    {
+        StorageFile file;
+        IRandomAccessStream stream;
+        BitmapImage bimage;
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            
+            string imageDrinkPath = value as string;
+
+            if(imageDrinkPath != "default")
+            {
+                bimage = new BitmapImage();
+                GetFile(imageDrinkPath);
+            }
+            else
+            {
+                bimage = new BitmapImage(new Uri("ms-appx://AppDrinkUWP/Assets/drinkDefault.jpg"));
+            }
+            
+            return bimage;
+        }
+
+        private async void GetFile(string path)
+        {
+            file = await StorageFile.GetFileFromPathAsync(path);
+            // stream = await file.OpenReadAsync();
+            stream = await file.OpenAsync(FileAccessMode.Read);
+
+            bimage.SetSource(stream);
+      
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }
