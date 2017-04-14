@@ -21,7 +21,7 @@
             <TextBlock x:Name="txtCat" HorizontalAlignment="Left"   Text="{Binding categoria}" TextWrapping="Wrap"  RelativePanel.Below="txtPrecio"  RelativePanel.RightOf="textBlock4" Margin="30,0,0,0"/>
         </RelativePanel>
 
-        <Image Source="../Assets/drinkDefault.jpg" VerticalAlignment="Center" Height="300" Width="300" Stretch="Fill" HorizontalAlignment="Center" />
+        <Image x:Name="drinkImageCapture" VerticalAlignment="Center" Height="300" Width="300" Stretch="Fill" HorizontalAlignment="Center" />
 
         <Button x:Name="btnVolver" Click="btnVolver_Click" Content="Volver" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,40"  Width="150" Background="#FF4F4F4F" />
 

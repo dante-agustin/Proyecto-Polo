@@ -47,11 +47,11 @@ namespace AppDrinkUWP
     /// </summary>
     public sealed partial class DrinkEdit : Page
     {
-        private StorageFile storeFile;
-        private IRandomAccessStream stream;
+        StorageFile storeFile;
+        IRandomAccessStream stream;
         string drinkPhotoPath="default";
         DataBase db;
-        private bool esAlta;
+        private bool esAlta, tomoFoto=false;
         private Drink trago;
 
         public DrinkEdit()
@@ -60,11 +60,13 @@ namespace AppDrinkUWP
             CreateDB();
             Categories cat = new Categories();
             comboBoxCategoria.ItemsSource = cat.categoryList;
+            /*
             if (esAlta){
                 //Si no existe imagen para ese trago, cargar imagen por defecto
                 BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
                 drinkImageCapture.Source = drinkImageDefault;
-            }
+                
+            }*/
             
         }
 
@@ -79,7 +81,8 @@ namespace AppDrinkUWP
         //Abre la cam para tomar foto y la muestra en un Image
         private async void captureBtn_Click(object sender, RoutedEventArgs e)
         {
-            string nombreTrago = etNombre.Text;
+            
+        string nombreTrago = etNombre.Text;
             if ( string.IsNullOrEmpty(nombreTrago))
             {
                 Util.notificacionesAlUsuario("AppDrink", "No es posible completar la operación. Debe completar el campo nombre antes de poder tomar una foto del trago.");
@@ -111,18 +114,23 @@ namespace AppDrinkUWP
                 if (storeFile != null)
                 {
                     BitmapImage bimage = new BitmapImage();
-                    stream = await storeFile.OpenAsync(FileAccessMode.Read); ;
+                    stream = await storeFile.OpenAsync(FileAccessMode.Read); 
                     bimage.SetSource(stream);
                     drinkImageCapture.Source = bimage;
+                    tomoFoto = true;
+
 
                     
+                    /*
                     StorageFolder destinationFolder =
                 await ApplicationData.Current.LocalFolder.CreateFolderAsync("DrinkPhotoFolder",
                     CreationCollisionOption.OpenIfExists);
                     
                     await storeFile.CopyAsync(destinationFolder, nombreTrago + ".jpg", NameCollisionOption.GenerateUniqueName);
-                    // await storeFile.CopyAsync(destinationFolder, "drinkPhoto.jpg", NameCollisionOption.ReplaceExisting);
+                    //await storeFile.CopyAsync(destinationFolder, "drinkPhoto.jpg", NameCollisionOption.ReplaceExisting);
                     //await storeFile.DeleteAsync();
+
+                */
 
                     //VER CON QUE PATH  ABRIR LOS ARCHIVOS
                     //drinkPhotoPath=storeFile.Path;
@@ -135,9 +143,9 @@ namespace AppDrinkUWP
         }
 
         //Next goto savebutton clickevent and writethe followingcode to save the captured image.
-        private  void saveBtn_Click(object sender, RoutedEventArgs e)
+        private async void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-           
+
 
             if (string.IsNullOrEmpty(etNombre.Text) || string.IsNullOrEmpty(etIngredientes.Text) ||
                 string.IsNullOrEmpty(comboBoxCategoria.SelectedItem.ToString()) || string.IsNullOrEmpty(etPrecio.Text))
@@ -153,6 +161,21 @@ namespace AppDrinkUWP
                 }
                 else
                 {
+                    
+                    if (tomoFoto)
+                    {
+                        StorageFolder destinationFolder =
+                await ApplicationData.Current.LocalFolder.CreateFolderAsync("DrinkPhotoFolder",
+                    CreationCollisionOption.OpenIfExists);
+                        string nameFile= etNombre.Text;
+                        await storeFile.CopyAsync(destinationFolder, nameFile + ".jpg", NameCollisionOption.ReplaceExisting);                        
+                        await storeFile.DeleteAsync();
+
+                        drinkPhotoPath = destinationFolder.Path + "\\" + nameFile + ".jpg";
+                        //drinkPhotoPath = storeFile.Path;
+                        
+                    }
+
                     if (!esAlta)
                     {
                         //Es un edit, no creo un nuevo trago
@@ -163,9 +186,9 @@ namespace AppDrinkUWP
                         trago.precio = etPrecio.Text;
                         trago.categoria = comboBoxCategoria.SelectedItem.ToString();
 
-                        //VER LO DE LA IMAGE
+                        
                         //drinkPhotoPath puede ser modificado si se toma una foto
-                        //trago.imagePath=drinkPhotoPath;
+                        trago.imagePath=drinkPhotoPath;
 
                         db.updateTableDrink(trago);
 
@@ -178,7 +201,7 @@ namespace AppDrinkUWP
                         FileSavePicker fs = new FileSavePicker();
 
                         fs.FileTypeChoices.Add("Image", new List<string>() { ".jpeg" });
-
+                            
                         fs.DefaultFileExtension = ".jpeg";
                         fs.SuggestedFileName = "Image" + DateTime.Today.ToString();
                         fs.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
@@ -201,8 +224,8 @@ namespace AppDrinkUWP
                     {
                         var messageDialog = new MessageDialog("Unable to save now. " + ex.Message);
                         await messageDialog.ShowAsync();
-                    }*/
-
+                    }
+                    */
                         Drink newDrink = new Drink()
                         {
                             nombre = etNombre.Text,
@@ -215,9 +238,9 @@ namespace AppDrinkUWP
                     }
                     this.Frame.Navigate(typeof(MainPage));
                 }
-                
+
             }
-            
+
 
         }
 
@@ -256,15 +279,24 @@ namespace AppDrinkUWP
             {
                 hubTitle.Header = "Agregar trago";
                 esAlta = true;
+                BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
+                drinkImageCapture.Source = drinkImageDefault;
             }
 
         }
 
-        private void LoadImageDrinkOnImageView(string imageDrinkPath)
+        private async void LoadImageDrinkOnImageView(string imageDrinkPath)
         {
             if (imageDrinkPath != "default")
             {
                 //Buscar imagen en el disco y cargarla al image "drinkImageCapture"
+                
+                BitmapImage bimage = new BitmapImage();
+                StorageFile file = await StorageFile.GetFileFromPathAsync(imageDrinkPath);
+                IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                bimage.SetSource(stream);
+                drinkImageCapture.Source = bimage;
+                
             }
             else
             {

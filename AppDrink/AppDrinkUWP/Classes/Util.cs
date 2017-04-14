@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 using Windows.UI.Notifications;
+
 
 namespace AppDrinkUWP.Classes
 {
     class Util
     {
+        public string BaseUri { get; private set; }
+
         public static void notificacionesAlUsuario(string title, string message)
         {
             ToastNotifier toastNotifier = ToastNotificationManager.CreateToastNotifier();
@@ -23,6 +23,8 @@ namespace AppDrinkUWP.Classes
             toast.ExpirationTime = DateTime.Now.AddSeconds(5);
             toastNotifier.Show(toast);
         }
+
+        
 
 
     }

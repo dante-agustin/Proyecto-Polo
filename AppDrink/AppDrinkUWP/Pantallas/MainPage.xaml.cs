@@ -5,11 +5,14 @@ using AppDrinkUWP.DataHelper;
 using AppDrinkUWP.Pantallas;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,6 +38,9 @@ namespace AppDrinkUWP
         UserConfig uc;
         public Visibility showPrecio { get; set; }
         public Visibility showIngredientes { get; set; }
+        public ImageSource CoverImage { get; set; }
+        //public ObservableCollection<BitmapImage> ImgList = new ObservableCollection<BitmapImage>();
+        
 
         public MainPage()
         {
@@ -158,8 +164,46 @@ namespace AppDrinkUWP
             lstSource = db.selectTableDrink();
             ListDrinkHelper.SetList(lstSource);
             lvTragos.ItemsSource = null;
-            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);          
+            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
+
+           // ShowImages();
         }
+
+        /*
+        public void ShowImages()
+        {
+            var query = db.selectTableDrink();
+
+            foreach (var trago in query)
+            {
+                string fileName = trago.imagePath;
+                LoadImageDrinkOnImageView(fileName);
+
+            }
+        }
+
+        private async void LoadImageDrinkOnImageView(string imageDrinkPath)
+        {
+            if (imageDrinkPath != "default")
+            {
+                //Buscar imagen en el disco y cargarla al image "drinkImageCapture"
+              
+                StorageFile file = await StorageFile.GetFileFromPathAsync(imageDrinkPath);
+                IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                //var stream = await file.OpenReadAsync();
+                var bitmapImage = new BitmapImage();
+                bitmapImage.SetSource(stream);
+                ImgList.Add(bitmapImage);
+
+            }
+            else
+            {
+                //Si no existe imagen para ese trago, cargar imagen por defecto
+                BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
+                ImgList.Add(drinkImageDefault);
+            }
+        }
+        */
 
         private void cbCategorias_Seleccion(object sender, SelectionChangedEventArgs e)
         {
