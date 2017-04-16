@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,8 +41,8 @@ namespace AppDrinkUWP
         string categoria = "Todas";
         List<Drink> lstSource;
         UserConfig uc;
-        public Visibility showPrecio { get; set; }
-        public Visibility showIngredientes { get; set; }
+        //public Visibility showPrecio { get; set; }
+        //public Visibility showIngredientes { get; set; }
         public ImageSource CoverImage { get; set; }    
 
         public MainPage()
@@ -49,6 +50,7 @@ namespace AppDrinkUWP
             this.InitializeComponent();
             uc = UserConfig.Instance();
 
+            /* //No funcaba esto
             if (uc.showPrecio)
                 showPrecio = Visibility.Visible;
             else
@@ -57,7 +59,7 @@ namespace AppDrinkUWP
                 showIngredientes = Visibility.Visible;
             else
                 showIngredientes = Visibility.Collapsed;
-
+                */
            
             //crea la base de datos
             CreateDB();        
@@ -100,6 +102,7 @@ namespace AppDrinkUWP
         }
 
         
+
 
         private void LvTragos_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -257,6 +260,56 @@ namespace AppDrinkUWP
             throw new NotImplementedException();
         }
     }
+
+
+    class VisibilityConverter : IValueConverter
+    {
+        UserConfig uc;
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            string valor = value as string;
+            uc = UserConfig.Instance();
+
+            int n;
+            if (!int.TryParse(valor, out n))    //ingredientes
+            {
+                if(valor.Length == 1) //Para el textblock con el $, no funco
+                {
+                    if (uc.showPrecio)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    if (uc.showIngredientes)
+                        return true;
+                    else
+                        return false;
+                }                
+                
+            }
+            else //precio
+            {
+                if (uc.showPrecio)
+                    return true;
+                else
+                    return false;
+            }                                  
+
+        }
+
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+
+
 
 
 }

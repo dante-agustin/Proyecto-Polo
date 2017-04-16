@@ -9,6 +9,7 @@
 
     <Page.Resources>
         <local:ImageConverter x:Key="ImageConverter" />
+        <local:VisibilityConverter x:Key="VisibilityConverter" />
     </Page.Resources>
 
     <Grid Background="LightGray">
@@ -34,7 +35,7 @@
             
             <ListView x:Name="lvTragos"  IsItemClickEnabled="True" ItemClick="LvTragos_ItemClick" Margin="10,180,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate >
-                    <DataTemplate >
+                    <DataTemplate x:Name="prueba">
                         <RelativePanel>
                             <Image x:Name="drinkImageCapture" 
                                     Width="50"
@@ -44,9 +45,10 @@
                                     Stretch="Fill"/>
                             <TextBlock x:Name="tbNombre" Text="{Binding nombre}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" FontWeight="Bold" FontSize="18"/>
                             <TextBlock x:Name="tbCategoria" Text="{Binding categoria}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbNombre" />
-                            <TextBlock x:Name="tbIngredientes" Text="{Binding ingredientes}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbCategoria" Visibility="{Binding Path=showIngredientes}"/>
-                            <TextBlock x:Name="tbSignoPesos" Text="$" Padding="1000,0,0,0"/>
-                            <TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="10,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding Path=showPrecio}"/>
+                            <TextBlock x:Name="tbIngredientes" Text="{Binding ingredientes}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbCategoria" Visibility="{Binding ingredientes,Converter={StaticResource VisibilityConverter}}"/>
+                            <TextBlock x:Name="tbSignoPesos" Text="$" Padding="1000,0,0,0" Visibility="{Binding '$',Converter={StaticResource VisibilityConverter}}"/>
+                            <!--<TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="10,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding Path=showPrecio}"/>-->
+                            <TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="10,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding precio,Converter={StaticResource VisibilityConverter}}"/>
                         </RelativePanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
