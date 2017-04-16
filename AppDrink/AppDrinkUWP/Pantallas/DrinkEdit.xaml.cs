@@ -171,8 +171,9 @@ namespace AppDrinkUWP
                         await storeFile.CopyAsync(destinationFolder, nameFile + ".jpg", NameCollisionOption.ReplaceExisting);                        
                         await storeFile.DeleteAsync();
 
-                        drinkPhotoPath = destinationFolder.Path + "\\" + nameFile + ".jpg";
-                        //drinkPhotoPath = storeFile.Path;
+                        drinkPhotoPath = Path.Combine(destinationFolder.Path, Path.GetFileName(nameFile + ".jpg"));
+                       // drinkPhotoPath = destinationFolder.Path + "\\" + nameFile + ".jpg";
+                        
                         
                     }
 

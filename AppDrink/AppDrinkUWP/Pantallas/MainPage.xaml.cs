@@ -6,6 +6,7 @@ using AppDrinkUWP.Pantallas;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -40,9 +42,7 @@ namespace AppDrinkUWP
         UserConfig uc;
         public Visibility showPrecio { get; set; }
         public Visibility showIngredientes { get; set; }
-        public ImageSource CoverImage { get; set; }
-        //public ObservableCollection<BitmapImage> ImgList = new ObservableCollection<BitmapImage>();
-        
+        public ImageSource CoverImage { get; set; }    
 
         public MainPage()
         {
@@ -58,6 +58,7 @@ namespace AppDrinkUWP
             else
                 showIngredientes = Visibility.Collapsed;
 
+           
             //crea la base de datos
             CreateDB();        
 
@@ -84,6 +85,8 @@ namespace AppDrinkUWP
                 btnNuevoTrago.Visibility = Visibility.Collapsed;
             }
 
+            
+
             Categories cat = new Categories();
             List<string> cl = new List<string>();
             cl.Add("Todas");
@@ -95,6 +98,8 @@ namespace AppDrinkUWP
             LoadAndRefreshListView();
             
         }
+
+        
 
         private void LvTragos_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -168,46 +173,9 @@ namespace AppDrinkUWP
             lvTragos.ItemsSource = null;
             lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
 
-           // ShowImages();
         }
 
-        
-
-        /*
-        public void ShowImages()
-        {
-            var query = db.selectTableDrink();
-
-            foreach (var trago in query)
-            {
-                string fileName = trago.imagePath;
-                LoadImageDrinkOnImageView(fileName);
-
-            }
-        }
-
-        private async void LoadImageDrinkOnImageView(string imageDrinkPath)
-        {
-            if (imageDrinkPath != "default")
-            {
-                //Buscar imagen en el disco y cargarla al image "drinkImageCapture"
-              
-                StorageFile file = await StorageFile.GetFileFromPathAsync(imageDrinkPath);
-                IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                //var stream = await file.OpenReadAsync();
-                var bitmapImage = new BitmapImage();
-                bitmapImage.SetSource(stream);
-                ImgList.Add(bitmapImage);
-
-            }
-            else
-            {
-                //Si no existe imagen para ese trago, cargar imagen por defecto
-                BitmapImage drinkImageDefault = new BitmapImage(new Uri(this.BaseUri, "/Assets/drinkDefault.jpg"));
-                ImgList.Add(drinkImageDefault);
-            }
-        }
-        */
+      
 
         private void cbCategorias_Seleccion(object sender, SelectionChangedEventArgs e)
         {
@@ -240,49 +208,49 @@ namespace AppDrinkUWP
             this.Frame.Navigate(typeof(Configuracion));
         }
 
-        private void Refresh()
-        {
-            //this.Frame.Navigate(typeof(MainPage));
-            lvTragos.ItemsSource = null;
-            lvTragos.ItemsSource = ListDrinkHelper.getDrinksByCategory(categoria);
-        }
-
 
     }
 
 
     class ImageConverter : IValueConverter
     {
-        StorageFile file;
-        IRandomAccessStream stream;
-        BitmapImage bimage;
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            
-            string imageDrinkPath = value as string;
 
-            if(imageDrinkPath != "default")
+            BitmapImage bitmapImage;
+
+            if (value is string)
             {
-                bimage = new BitmapImage();
-                GetFile(imageDrinkPath);
+                string imageDrinkPath = value as string;
+
+                if (imageDrinkPath != "default")
+                {
+                    var file = StorageFile.GetFileFromPathAsync(imageDrinkPath).AsTask().Result;
+                    // var file = Windows.Storage.KnownFolders.PicturesLibrary.GetFileAsync(FileName).AsTask().Result;
+                    var stream = file.OpenReadAsync().AsTask().Result;
+                    bitmapImage = new BitmapImage();
+                    bitmapImage.SetSource(stream);
+                    
+
+                }
+                else
+                {                   
+                    bitmapImage = new BitmapImage(new Uri("ms-appx://AppDrinkUWP/Assets/drinkDefault.jpg"));                  
+                }
+
+                return bitmapImage;
+
             }
             else
             {
-                bimage = new BitmapImage(new Uri("ms-appx://AppDrinkUWP/Assets/drinkDefault.jpg"));
+                return null;
             }
             
-            return bimage;
+
         }
 
-        private async void GetFile(string path)
-        {
-            file = await StorageFile.GetFileFromPathAsync(path);
-            // stream = await file.OpenReadAsync();
-            stream = await file.OpenAsync(FileAccessMode.Read);
-
-            bimage.SetSource(stream);
-      
-        }
+        
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
