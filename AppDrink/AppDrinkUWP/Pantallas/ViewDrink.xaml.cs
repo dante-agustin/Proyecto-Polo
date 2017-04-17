@@ -32,23 +32,14 @@ namespace AppDrinkUWP.Pantallas
         public ViewDrink()
         {
             this.InitializeComponent();
-
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             DataContext = (Drink)e.Parameter;
             trago = (Drink)DataContext;
 
             LoadImageDrinkOnImageView(trago.imagePath);
-
-            /*
-            txtNombre.Text = trago.nombre;
-            txtIngr.Text = trago.ingredientes;
-            txtPrecio.Text = trago.precio;
-            txtCat.Text = trago.categoria;*/
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)

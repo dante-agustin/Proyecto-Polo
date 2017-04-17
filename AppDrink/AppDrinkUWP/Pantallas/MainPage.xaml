@@ -46,7 +46,7 @@
                             <TextBlock x:Name="tbNombre" Text="{Binding nombre}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" FontWeight="Bold" FontSize="18"/>
                             <TextBlock x:Name="tbCategoria" Text="{Binding categoria}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbNombre" />
                             <TextBlock x:Name="tbIngredientes" Text="{Binding ingredientes}" Padding="20,0,0,0" RelativePanel.RightOf="drinkImageCapture" RelativePanel.Below="tbCategoria" Visibility="{Binding ingredientes,Converter={StaticResource VisibilityConverter}}"/>
-                            <TextBlock x:Name="tbSignoPesos" Text="$" Padding="1000,0,0,0" Visibility="{Binding '$',Converter={StaticResource VisibilityConverter}}"/>
+                            <TextBlock x:Name="tbSignoPesos" Text="$" Padding="300,0,0,0" Visibility="{Binding precio,Converter={StaticResource VisibilityConverter}}"/>
                             <!--<TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="10,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding Path=showPrecio}"/>-->
                             <TextBlock x:Name="tbPrecio" Text="{Binding precio}" Padding="10,0,0,0" RelativePanel.RightOf="tbSignoPesos" Visibility="{Binding precio,Converter={StaticResource VisibilityConverter}}"/>
                         </RelativePanel>

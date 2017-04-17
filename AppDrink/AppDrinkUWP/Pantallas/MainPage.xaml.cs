@@ -49,17 +49,6 @@ namespace AppDrinkUWP
         {
             this.InitializeComponent();
             uc = UserConfig.Instance();
-
-            /* //No funcaba esto
-            if (uc.showPrecio)
-                showPrecio = Visibility.Visible;
-            else
-                showPrecio = Visibility.Collapsed;
-            if (uc.showIngredientes)
-                showIngredientes = Visibility.Visible;
-            else
-                showIngredientes = Visibility.Collapsed;
-                */
            
             //crea la base de datos
             CreateDB();        
