@@ -33,8 +33,6 @@ namespace AppDrinkUWP.Pantallas
             
         }
 
-        // Esto se para hacer un Hiden Text que diga contraseña, igual acá como siempre arranca
-        // Seleccionando el TextBox no funciona 
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;

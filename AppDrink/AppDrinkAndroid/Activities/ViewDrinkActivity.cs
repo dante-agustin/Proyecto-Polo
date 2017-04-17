@@ -24,7 +24,6 @@ namespace AppDrinkAndroid.Activities
         string drinkPhotoPath = "default";
         int posicion;
         string category;
-        //static CustomAdapter dataAdapter;
         ImageView imgViewDrinkCapture;
 
         protected override void OnCreate(Bundle savedInstanceState)

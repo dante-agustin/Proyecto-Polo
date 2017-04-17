@@ -258,23 +258,12 @@ namespace AppDrinkUWP
 
                 hubTitle.Header = "Modificar trago";
 
-                //Como es un edit/modificacion, lleno los text box con la información ya almacenada
-                //del participante que se selecciono
-
                 DataContext = (Drink)e.Parameter;
                 trago = (Drink)DataContext;
 
                 esAlta = false;
 
                 LoadImageDrinkOnImageView(trago.imagePath);
-                //CON DataContext y Binding me ahorro de hacer todo esto de aca abajo
-                /*
-                p = (SharedProject2.Participante)e.Parameter;
-                etNombre.Text = p.nombre;
-                etApellido.Text = p.apellido;
-                etMail.Text = p.email;
-                */
-
             }
             else
             {

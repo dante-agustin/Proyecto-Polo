@@ -46,13 +46,6 @@ namespace AppDrinkAndroid
             {
                 if (txtPass.Text.ToString().Equals(content)) 
                 {
-                    /*
-                    UserConfig uc = UserConfig.Instance();
-                    uc.isAdmin = true;
-                    StartActivity(typeof(MainActivity));
-                    Finish();
-                    */
-
                     SetResult(Result.Ok);
                     Finish();
                 }
